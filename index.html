@@ -4,218 +4,208 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Курс «Блядо» PRO</title>
+<meta name="description" content="Обучающий курс по криптовалютам с пошаговыми инструкциями и поддержкой. Получите скидку 70% по промокоду Courses!">
 <style>
-* {box-sizing:border-box; margin:0; padding:0;}
 body {
-  font-family: Arial, sans-serif;
-  background: #111; color: #fff;
-  transition: background .5s, color .5s;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  transition: 0.3s;
 }
 .container {
-  max-width:900px; margin:auto; padding:20px; text-align:center;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
 }
-h1 {font-size:2em; margin:10px 0;}
-p {font-size:1em; margin:10px 0; line-height:1.5;}
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
 .btn {
-  display:inline-block; background:#00f0ff; color:#000; padding:10px 20px;
-  border-radius:5px; text-decoration:none; margin-top:10px; font-weight:bold;
+  display: inline-block;
+  background: #00f0ff;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 10px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: #00d9e5;
 }
 .telegram {
-  position:fixed; left:20px; bottom:20px;
-  background:#0088cc; padding:10px; border-radius:50%;
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  background: #0088cc;
+  padding: 10px;
+  border-radius: 50%;
 }
-.telegram img {width:30px; height:30px;}
-.theme-btn {
-  position:fixed; right:20px; bottom:20px;
-  background:#555; color:#fff; padding:8px; border-radius:5px; cursor:pointer;
-  font-size:.9em;
+.telegram img {
+  width: 30px;
+  height: 30px;
 }
 .profile-btn {
-  position:fixed; right:20px; top:20px;
-  background:#00f0ff; color:#000; padding:5px 8px; border-radius:5px; cursor:pointer;
-  font-size:.9em;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: #00f0ff;
+  color: #000;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .modal {
-  position:fixed; top:0; right:-100%; width:300px; height:100%;
-  background:#222; color:#fff; padding:20px; transition:.4s;
-  display:flex; flex-direction:column; align-items:center;
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #1b1b1b;
+  color: #fff;
+  padding: 20px;
+  transition: .4s;
+  overflow-y: auto;
 }
-.modal.open {right:0;}
-.modal .avatar {
-  width:80px; height:80px; border-radius:50%; overflow:hidden;
-  background:#444 url('https://cdn-icons-png.flaticon.com/512/149/149071.png') center/cover no-repeat;
-  margin:20px 0; cursor:pointer;
+.modal.open {
+  right: 0;
 }
-.modal img {width:100%; height:100%; object-fit:cover;}
 .modal input, .modal button {
-  width:90%; margin:5px 0; padding:7px; border-radius:5px; border:none;
+  width: 90%;
+  margin: 5px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
 }
 .modal button {
-  background:#00f0ff; color:#000; cursor:pointer;
+  background: #00f0ff;
+  color: #000;
+  cursor: pointer;
 }
-#promoMsg {color:#0f0; margin-top:10px;}
+#promoMsg {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.review {
+  background: rgba(255,255,255,0.1);
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+}
 </style>
 </head>
 <body>
 
 <div class="container">
   <h1>🔥 Курс «Блядо» PRO по криптовалютам</h1>
-  <p>Овладей торговлей криптовалютой с нуля и начни зарабатывать уже сегодня!</p>
-  <p>Наш курс поможет тебе:</p>
-  <p>✅ Понять основы и продвинутые стратегии  
-  ✅ Управлять рисками и капиталом  
-  ✅ Избегать ошибок новичков  
-  ✅ Получать стабильную прибыль</p>
-  <p>Мы даём пошаговые инструкции, живые примеры сделок и личную поддержку на всех этапах обучения.  
-  Уже более 300+ человек прошли наш курс и окупили его менее чем за месяц!</p>
-  <p>Стоимость курса: <b id="price">550 грн</b></p>
-  <a href="https://t.me/FredArbitration" class="btn" target="_blank">Приобрести курс</a>
+  <p>Пошаговый курс, который научит вас торговать криптовалютой и зарабатывать на этом уже с первых дней.</p>
+  <p>✅ Понимание стратегий  
+  ✅ Личная поддержка  
+  ✅ Минимальные риски  
+  ✅ Максимальная эффективность</p>
+  <p><b>Стоимость курса: <span id="price">550 грн</span></b></p>
+  <a href="https://t.me/FredArbitration" class="btn">Приобрести курс</a>
+  <div>
+    <h3>Отзывы:</h3>
+    <div class="review">💬 «Очень полезный курс, быстро окупился!» — Алина</div>
+    <div class="review">💬 «Теперь понимаю, как зарабатывать стабильно.» — Максим</div>
+  </div>
+  <div>
+    <h3>Калькулятор прибыли:</h3>
+    <input type="number" id="deposit" placeholder="Ваш депозит, грн">
+    <button onclick="calc()">Рассчитать</button>
+    <div id="calcResult"></div>
+  </div>
 </div>
 
 <a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank">
   <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
 </a>
-<div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
-<div class="profile-btn" onclick="toggleProfile()">👤</div>
+<div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
 
 <div class="modal" id="profileModal">
-  <div class="avatar" onclick="uploadAvatar()">
-    <img id="avatarImg" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-  </div>
-  <div id="profileContent">
-    <input type="text" id="regName" placeholder="Введите ник">
-    <input type="password" id="regPass" placeholder="Введите пароль">
-    <input type="password" id="regPass2" placeholder="Подтвердите пароль">
-    <button onclick="register()">Зарегистрироваться</button>
-    <input type="text" id="loginName" placeholder="Ник для входа">
-    <input type="password" id="loginPass" placeholder="Пароль">
-    <button onclick="login()">Войти</button>
-  </div>
-  <div id="promoSection">
-    <input type="text" id="promoCode" placeholder="Промокод">
-    <button onclick="applyPromo()">Активировать промокод</button>
-    <div id="promoMsg"></div>
-  </div>
-  <div style="margin-top:auto; width:100%;">
-    <hr style="border-color:#444; margin:10px 0;">
-    <button onclick="showSettings()">Настройки</button>
-    <button onclick="toggleProfile()">⬅️ Назад</button>
-  </div>
+  <h3>Профиль</h3>
+  <input type="text" id="nickname" placeholder="Введите ник">
+  <input type="password" id="password" placeholder="Введите пароль">
+  <input type="password" id="confirm" placeholder="Подтвердите пароль">
+  <button onclick="register()">Зарегистрироваться</button>
+  <input type="text" id="loginNick" placeholder="Ник для входа">
+  <input type="password" id="loginPass" placeholder="Пароль">
+  <button onclick="login()">Войти</button>
+  <input type="text" id="promo" placeholder="Промокод">
+  <button onclick="promo()">Активировать промокод</button>
+  <div id="promoMsg"></div>
+  <button style="margin-top:20px;" onclick="toggleProfile()">⬅️ Назад</button>
 </div>
 
 <script>
-let user = JSON.parse(localStorage.getItem('user')) || null;
-
-function toggleTheme() {
-  if (document.body.style.background === 'white') {
-    document.body.style.background = '#111';
-    document.body.style.color = '#fff';
-  } else {
-    document.body.style.background = 'white';
-    document.body.style.color = '#000';
-  }
-}
+let modal = document.getElementById('profileModal');
+let user = null;
 
 function toggleProfile() {
-  document.getElementById('profileModal').classList.toggle('open');
-  renderProfile();
-}
-
-function renderProfile() {
-  const name = user?.name || '';
-  const avatar = user?.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-  document.getElementById('avatarImg').src = avatar;
-  if (user) {
-    document.getElementById('profileContent').innerHTML = `
-      <p><b>${name}</b></p>
-      <button onclick="editProfile()">Редактировать профиль</button>
-      <button onclick="logout()">Выйти</button>
-    `;
-  } else {
-    document.getElementById('profileContent').innerHTML = `
-      <input type="text" id="regName" placeholder="Введите ник">
-      <input type="password" id="regPass" placeholder="Введите пароль">
-      <input type="password" id="regPass2" placeholder="Подтвердите пароль">
-      <button onclick="register()">Зарегистрироваться</button>
-      <input type="text" id="loginName" placeholder="Ник для входа">
-      <input type="password" id="loginPass" placeholder="Пароль">
-      <button onclick="login()">Войти</button>
-    `;
-  }
+  modal.classList.toggle('open');
 }
 
 function register() {
-  const name = document.getElementById('regName').value.trim();
-  const pass = document.getElementById('regPass').value;
-  const pass2 = document.getElementById('regPass2').value;
-  if (!name || !pass || !pass2) return alert('Заполните все поля');
-  if (pass !== pass2) return alert('Пароли не совпадают');
-  user = {name, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png'};
-  localStorage.setItem('user', JSON.stringify(user));
-  alert('Вы успешно зарегистрированы');
-  renderProfile();
+  const nick = document.getElementById('nickname').value;
+  const pass = document.getElementById('password').value;
+  const conf = document.getElementById('confirm').value;
+  if (!nick || !pass || !conf) return alert('Заполните все поля');
+  if (pass !== conf) return alert('Пароли не совпадают');
+  user = {nick, pass};
+  alert('Регистрация успешна');
 }
 
 function login() {
-  const name = document.getElementById('loginName').value.trim();
+  const nick = document.getElementById('loginNick').value;
   const pass = document.getElementById('loginPass').value;
-  if (!user || name !== user.name || pass !== user.pass) {
-    alert('Пользователь не найден');
-  } else {
-    alert('Вы успешно вошли');
-    renderProfile();
-  }
+  if (!user || user.nick !== nick || user.pass !== pass) return alert('Пользователь не найден');
+  alert('Вход выполнен');
 }
 
-function logout() {
-  if (confirm('Выйти из аккаунта?')) {
-    localStorage.removeItem('user');
-    user = null;
-    renderProfile();
-  }
-}
-
-function editProfile() {
-  const newName = prompt('Новый ник:', user.name);
-  if (newName) {
-    user.name = newName;
-    localStorage.setItem('user', JSON.stringify(user));
-    renderProfile();
-  }
-}
-
-function uploadAvatar() {
-  if (!user) return alert('Сначала зарегистрируйтесь');
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/*';
-  input.onchange = () => {
-    const file = input.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      user.avatar = reader.result;
-      localStorage.setItem('user', JSON.stringify(user));
-      renderProfile();
-    }
-    reader.readAsDataURL(file);
-  };
-  input.click();
-}
-
-function applyPromo() {
-  const code = document.getElementById('promoCode').value.trim().toLowerCase();
+function promo() {
+  const code = document.getElementById('promo').value.toLowerCase();
+  const price = document.getElementById('price');
   if (code === 'courses') {
-    document.getElementById('price').innerText = '165 грн';
-    document.getElementById('promoMsg').innerText = '✅ Промокод активирован, скидка 70%!';
+    price.innerText = '165 грн';
+    document.getElementById('promoMsg').innerText = '✅ Скидка 70% активирована!';
+    confetti();
   } else {
     document.getElementById('promoMsg').innerText = '❌ Неверный промокод';
   }
 }
 
-function showSettings() {
-  alert('⚙️ Настройки:\n- Смена темы\n- Сброс аккаунта\n- Информация о сайте');
+function calc() {
+  const dep = +document.getElementById('deposit').value;
+  if (!dep) return;
+  document.getElementById('calcResult').innerText = `Примерная прибыль через месяц: ~${(dep*1.5).toFixed(0)} грн`;
 }
-renderProfile();
+
+function confetti() {
+  for (let i = 0; i < 100; i++) {
+    const div = document.createElement('div');
+    div.style.width = div.style.height = '5px';
+    div.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    div.style.position = 'fixed';
+    div.style.left = `${Math.random()*100}%`;
+    div.style.top = `${Math.random()*100}%`;
+    div.style.opacity = 1;
+    document.body.appendChild(div);
+    setTimeout(()=>div.remove(),2000);
+  }
+}
 </script>
+
+<!-- Чат поддержки -->
+<script async src="https://embed.tawk.to/64cfdc7f94cf5d49dc69b329/1h6dknu6j"></script>
+
 </body>
 </html>
