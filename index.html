@@ -1,241 +1,263 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Курс «Блядо» PRO</title>
-<meta name="description" content="Обучающий курс по криптовалютам с пошаговыми инструкциями и поддержкой. Получите скидку 70% по промокоду Courses!">
-<style>
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #fff;
-  transition: 0.3s;
-}
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-}
-h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-p {
-  font-size: 1.1em;
-  margin: 10px 0;
-}
-.btn {
-  display: inline-block;
-  background: #00f0ff;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  margin: 10px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-.btn:hover {
-  background: #00d9e5;
-}
-.telegram {
-  position: fixed;
-  left: 20px;
-  bottom: 20px;
-  background: #0088cc;
-  padding: 10px;
-  border-radius: 50%;
-  z-index: 10;
-}
-.telegram img {
-  width: 30px;
-  height: 30px;
-}
-.profile-btn {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  background: #00f0ff;
-  color: #000;
-  padding: 8px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 10;
-}
-.modal {
-  position: fixed;
-  right: -400px;
-  top: 0;
-  width: 300px;
-  height: 100%;
-  background: #1b1b1b;
-  color: #fff;
-  padding: 20px;
-  transition: .4s;
-  overflow-y: auto;
-  z-index: 20;
-}
-.modal.open {
-  right: 0;
-}
-.modal input, .modal button {
-  width: 90%;
-  margin: 5px 0;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-}
-.modal button {
-  background: #00f0ff;
-  color: #000;
-  cursor: pointer;
-}
-#promoMsg {
-  margin-top: 10px;
-  font-weight: bold;
-}
-.review {
-  background: rgba(255,255,255,0.1);
-  margin: 10px auto;
-  padding: 10px;
-  border-radius: 5px;
-}
-footer {
-  font-size: 0.8em;
-  color: #ccc;
-  text-align: center;
-  margin-top: 30px;
-  padding-bottom: 20px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курс «Блядо» PRO</title>
+  <meta name="description" content="Пошаговый курс по криптовалютам – стратегии, поддержка, быстрый результат. Скидка 70% по промокоду Courses!">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      transition: .3s;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width:900px; margin:60px auto 20px; padding:0 20px; text-align:center;
+    }
+    h1 { font-size:2.4em; margin-bottom:.2em; }
+    p { font-size:1.05em; line-height:1.5; margin:.5em 0; }
+    .btn {
+      display:inline-block; background:#00f0ff; color:#000;
+      padding:.7em 1.5em; border-radius:5px; text-decoration:none;
+      font-weight:bold; margin:.5em; transition:.2s;
+    }
+    .btn:hover { background:#00d9e5; }
+    .telegram, .profile-btn, .theme-btn {
+      position:fixed; z-index:10;
+    }
+    .telegram {
+      left:20px; bottom:20px; background:#0088cc; padding:10px; border-radius:50%;
+    }
+    .telegram img { width:30px; height:30px; }
+    .theme-btn {
+      right:20px; bottom:20px; background:#555; color:#fff;
+      padding:.5em 1em; border-radius:5px; cursor:pointer; font-size:.9em;
+    }
+    .profile-btn {
+      right:20px; top:20px; background:#00f0ff; color:#000;
+      padding:.5em 1em; border-radius:5px; cursor:pointer; font-size:.9em;
+    }
+    .modal {
+      position:fixed; top:0; right:-100%; width:320px; height:100%;
+      background:#1b1b1b; padding:20px; overflow-y:auto;
+      transition:.4s; z-index:20;
+    }
+    .modal.open { right:0; }
+    .modal h3 { margin-bottom:.5em; }
+    .modal .avatar {
+      width:80px; height:80px; margin:0 auto .5em;
+      border-radius:50%; background:#444 center/cover no-repeat;
+      cursor:pointer;
+    }
+    .modal input, .modal button {
+      width:100%; margin:.4em 0; padding:.6em; border:none; border-radius:5px;
+    }
+    .modal button { background:#00f0ff; color:#000; cursor:pointer; }
+    .modal .small { font-size:.9em; color:#ccc; margin-top:1em; }
+    .review {
+      background:rgba(255,255,255,0.1); margin:1em auto; padding:.8em; border-radius:5px;
+    }
+    footer {
+      font-size:.8em; color:#ccc; text-align:center; margin:2em 0 1em;
+      padding:0 20px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>🔥 Курс «Блядо» PRO по криптовалютам</h1>
-  <p>Пошаговый курс, который научит вас торговать криптовалютой и зарабатывать на этом уже с первых дней.</p>
-  <p>✅ Понимание стратегий  
-  ✅ Личная поддержка  
-  ✅ Минимальные риски  
-  ✅ Максимальная эффективность</p>
-  <p><b>Стоимость курса: <span id="price">550 грн</span></b></p>
-  <a href="https://t.me/FredArbitration" class="btn">Приобрести курс</a>
-  <div>
-    <h3>Отзывы:</h3>
-    <div class="review">💬 «Очень полезный курс, быстро окупился!» — Алина</div>
-    <div class="review">💬 «Теперь понимаю, как зарабатывать стабильно.» — Максим</div>
+  <div class="container">
+    <h1>🔥 Курс «Блядо» PRO по криптовалютам</h1>
+    <p>Полный пошаговый курс: от основ до продвинутых стратегий. Личная поддержка и разбор ваших сделок.</p>
+    <p>Вы научитесь:</p>
+    <p>✅ Построению стратегий<br>✅ Управлению рисками<br>✅ Анализу рынка<br>✅ Стабильной прибыли</p>
+    <p><strong>Цена курса: <span id="price">550 грн</span></strong></p>
+    <a href="https://t.me/FredArbitration" class="btn" target="_blank">Приобрести курс</a>
+
+    <div>
+      <h3>Отзывы выпускников</h3>
+      <div class="review">💬 «Курс окупился за неделю!» — Иван</div>
+      <div class="review">💬 «Понятные уроки, личная поддержка.» — Ольга</div>
+    </div>
+
+    <div>
+      <h3>Калькулятор прибыли</h3>
+      <input type="number" id="deposit" placeholder="Ваш депозит, грн">
+      <button class="btn" onclick="calc()">Рассчитать</button>
+      <div id="calcResult" style="margin-top:.5em;"></div>
+    </div>
   </div>
-  <div>
-    <h3>Калькулятор прибыли:</h3>
-    <input type="number" id="deposit" placeholder="Ваш депозит, грн">
-    <button onclick="calc()">Рассчитать</button>
-    <div id="calcResult"></div>
+
+  <footer>
+    © 2025 FredLegends. Все права защищены. Информация не является инвестиционной рекомендацией.  
+  </footer>
+
+  <a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+  </a>
+  <div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
+  <div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
+
+  <div class="modal" id="profileModal">
+    <h3>Профиль</h3>
+    <div id="profileView">
+      <!-- здесь будет либо регистрация/вход, либо информация -->
+    </div>
+    <div id="promoSection" style="margin-top:1em;">
+      <input type="text" id="promoCode" placeholder="Промокод">
+      <button onclick="applyPromo()">Активировать промокод</button>
+      <div id="promoMsg" style="margin-top:.5em;"></div>
+    </div>
+    <button style="margin-top:1.5em;" onclick="toggleProfile()">⬅️ Назад</button>
   </div>
-</div>
 
-<footer>
-  © 2025 FredLegends. Все права защищены. Информация на сайте не является инвестиционной рекомендацией. Пользуясь сайтом, вы соглашаетесь с условиями и политикой конфиденциальности.
-</footer>
+  <script>
+    // --- данные пользователя ---
+    let user = JSON.parse(localStorage.getItem('user')) || null;
 
-<a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
-</a>
-<div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
+    // --- переключение темы ---
+    function toggleTheme() {
+      if (document.body.style.filter) {
+        document.body.style.filter = '';
+      } else {
+        document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+      }
+    }
 
-<div class="modal" id="profileModal">
-  <h3>Профиль</h3>
-  <div id="profileContent">
-    <input type="text" id="nickname" placeholder="Введите ник">
-    <input type="password" id="password" placeholder="Введите пароль">
-    <input type="password" id="confirm" placeholder="Подтвердите пароль">
-    <button onclick="register()">Зарегистрироваться</button>
-    <input type="text" id="loginNick" placeholder="Ник для входа">
-    <input type="password" id="loginPass" placeholder="Пароль">
-    <button onclick="login()">Войти</button>
-  </div>
-  <input type="text" id="promo" placeholder="Промокод">
-  <button onclick="promo()">Активировать промокод</button>
-  <div id="promoMsg"></div>
-  <button style="margin-top:20px;" onclick="toggleProfile()">⬅️ Назад</button>
-</div>
+    // --- открытие/закрытие профиля ---
+    function toggleProfile() {
+      document.getElementById('profileModal').classList.toggle('open');
+      renderProfile();
+    }
 
-<script>
-let modal = document.getElementById('profileModal');
-let user = JSON.parse(localStorage.getItem('user')) || null;
+    // --- отрисовка содержимого профиля ---
+    function renderProfile() {
+      const view = document.getElementById('profileView');
+      if (user) {
+        view.innerHTML = `
+          <div class="avatar" id="avatar" onclick="changeAvatar()" style="background-image:url(${user.avatar});"></div>
+          <p>Вы вошли как <strong>${user.nick}</strong></p>
+          <button onclick="editNick()">Изменить ник</button>
+          <button style="margin-top:.5em;" onclick="logout()">Выйти</button>
+        `;
+      } else {
+        view.innerHTML = `
+          <input type="text" id="regNick" placeholder="Ник">
+          <input type="password" id="regPass" placeholder="Пароль">
+          <input type="password" id="regPass2" placeholder="Подтвердите пароль">
+          <button onclick="register()">Зарегистрироваться</button>
+          <hr style="border-color:#444; margin:.8em 0;">
+          <input type="text" id="loginNick" placeholder="Ник">
+          <input type="password" id="loginPass" placeholder="Пароль">
+          <button onclick="login()">Войти</button>
+        `;
+      }
+    }
 
-function toggleProfile() {
-  modal.classList.toggle('open');
-  updateProfileView();
-}
+    // --- регистрация ---
+    function register() {
+      const nick = document.getElementById('regNick').value.trim();
+      const pass = document.getElementById('regPass').value;
+      const pass2 = document.getElementById('regPass2').value;
+      if (!nick || !pass || !pass2) return alert('Заполните все поля');
+      if (pass !== pass2) return alert('Пароли не совпадают');
+      user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
+      localStorage.setItem('user', JSON.stringify(user));
+      alert('Вы успешно зарегистрированы');
+      renderProfile();
+    }
 
-function register() {
-  const nick = document.getElementById('nickname').value;
-  const pass = document.getElementById('password').value;
-  const conf = document.getElementById('confirm').value;
-  if (!nick || !pass || !conf) return alert('Заполните все поля');
-  if (pass !== conf) return alert('Пароли не совпадают');
-  user = {nick, pass};
-  localStorage.setItem('user', JSON.stringify(user));
-  alert('Регистрация успешна');
-  updateProfileView();
-}
+    // --- вход ---
+    function login() {
+      const nick = document.getElementById('loginNick').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      if (!user || user.nick !== nick || user.pass !== pass) {
+        return alert('Неверный ник или пароль');
+      }
+      alert('Вы успешно вошли');
+      renderProfile();
+    }
 
-function login() {
-  const nick = document.getElementById('loginNick').value;
-  const pass = document.getElementById('loginPass').value;
-  if (!user || user.nick !== nick || user.pass !== pass) return alert('Пользователь не найден');
-  alert('Вход выполнен');
-  updateProfileView();
-}
+    // --- выход ---
+    function logout() {
+      if (confirm('Выйти из аккаунта?')) {
+        user = null;
+        localStorage.removeItem('user');
+        renderProfile();
+      }
+    }
 
-function updateProfileView() {
-  const content = document.getElementById('profileContent');
-  if (user) {
-    content.innerHTML = `
-      <p>👤 <b>${user.nick}</b></p>
-      <p>Вы вошли в аккаунт.</p>
-    `;
-  }
-}
+    // --- смена ника ---
+    function editNick() {
+      const nn = prompt('Новый ник:', user.nick);
+      if (nn) {
+        user.nick = nn.trim();
+        localStorage.setItem('user', JSON.stringify(user));
+        renderProfile();
+      }
+    }
 
-function promo() {
-  const code = document.getElementById('promo').value.toLowerCase();
-  const price = document.getElementById('price');
-  if (code === 'courses') {
-    price.innerText = '165 грн';
-    document.getElementById('promoMsg').innerText = '✅ Скидка 70% активирована!';
-    confetti();
-  } else {
-    document.getElementById('promoMsg').innerText = '❌ Неверный промокод';
-  }
-}
+    // --- смена аватарки ---
+    function changeAvatar() {
+      const inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = 'image/*';
+      inp.onchange = ()=> {
+        const file = inp.files[0], reader = new FileReader();
+        reader.onload = ()=> {
+          user.avatar = reader.result;
+          localStorage.setItem('user', JSON.stringify(user));
+          renderProfile();
+        };
+        reader.readAsDataURL(file);
+      };
+      inp.click();
+    }
 
-function calc() {
-  const dep = +document.getElementById('deposit').value;
-  if (!dep) return;
-  document.getElementById('calcResult').innerText = `Примерная прибыль через месяц: ~${(dep*1.5).toFixed(0)} грн`;
-}
+    // --- промокод ---
+    function applyPromo() {
+      const code = document.getElementById('promoCode').value.trim().toLowerCase();
+      if (code === 'courses') {
+        document.getElementById('price').innerText = '165 грн';
+        document.getElementById('promoMsg').innerText = '✅ Скидка 70% активирована!';
+        confetti();
+      } else {
+        document.getElementById('promoMsg').innerText = '❌ Неверный промокод';
+      }
+    }
 
-function confetti() {
-  for (let i = 0; i < 100; i++) {
-    const div = document.createElement('div');
-    div.style.width = div.style.height = '5px';
-    div.style.background = `hsl(${Math.random()*360},100%,50%)`;
-    div.style.position = 'fixed';
-    div.style.left = `${Math.random()*100}%`;
-    div.style.top = `${Math.random()*100}%`;
-    div.style.opacity = 1;
-    document.body.appendChild(div);
-    setTimeout(()=>div.remove(),2000);
-  }
-}
-</script>
+    // --- калькулятор прибыли ---
+    function calc() {
+      const v = +document.getElementById('deposit').value;
+      if (!v) return;
+      document.getElementById('calcResult').innerText =
+        `Примерная прибыль через месяц: ~${Math.round(v*1.5)} грн`;
+    }
 
-<!-- Чат поддержки -->
-<script async src="https://embed.tawk.to/64cfdc7f94cf5d49dc69b329/1h6dknu6j"></script>
+    // --- конфетти ---
+    function confetti() {
+      for (let i=0; i<80; i++){
+        const d = document.createElement('div');
+        d.style.cssText = `
+          width:6px;height:6px;
+          background:hsl(${Math.random()*360},100%,50%);
+          position:fixed;
+          left:${Math.random()*100}% ;
+          top:${Math.random()*100}% ;
+          opacity:1;pointer-events:none;
+        `;
+        document.body.appendChild(d);
+        setTimeout(()=>d.remove(),2000);
+      }
+    }
+
+    // initial
+    renderProfile();
+  </script>
+
+  <!-- чат поддержки -->
+  <script async src="https://embed.tawk.to/64cfdc7f94cf5d49dc69b329/1h6dknu6j"></script>
 
 </body>
 </html>
