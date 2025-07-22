@@ -1,205 +1,400 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Курс «Блядо» PRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:Arial, sans-serif; color:#fff;
-  background:#111; transition:.3s;
-}
-.container {
-  max-width:800px; margin:80px auto 30px; padding:0 20px; text-align:center;
-}
-h1 { font-size:2.5em; margin-bottom:.5em; }
-p { font-size:1.1em; line-height:1.5; margin:.5em 0; }
-.btn {
-  display:inline-block; background:#00f0ff; color:#000;
-  padding:.7em 1.5em; border-radius:5px; text-decoration:none;
-  margin:.5em; transition:.2s;
-  font-weight:bold;
-}
-.btn:hover { background:#00d0dd; }
-.telegram, .profile-btn, .theme-btn {
-  position:fixed; z-index:10;
-}
-.telegram {
-  left:20px; bottom:40px;
-  background:#0088cc; padding:10px; border-radius:50%;
-}
-.telegram img { width:28px; height:28px; }
-.theme-btn {
-  left:20px; bottom:10px; background:#555; color:#fff;
-  padding:.4em .8em; border-radius:4px; cursor:pointer; font-size:.85em;
-}
-.profile-btn {
-  right:20px; top:20px; background:#00f0ff; color:#000;
-  padding:.4em .8em; border-radius:4px; cursor:pointer; font-size:.85em;
-}
-.modal {
-  position:fixed; top:0; right:-100%; width:300px; height:100%;
-  background:#1b1b1b; padding:20px; overflow-y:auto;
-  transition:.4s; z-index:20;
-}
-.modal.open { right:0; }
-.modal .avatar {
-  width:70px; height:70px; margin:0 auto .5em;
-  border-radius:50%; background:#444 center/cover no-repeat;
-  cursor:pointer;
-}
-.modal input, .modal button {
-  width:100%; margin:.4em 0; padding:.6em; border:none; border-radius:4px;
-}
-.modal button { background:#00f0ff; color:#000; cursor:pointer; }
-footer {
-  font-size:.75em; color:#888; text-align:center; margin:2em 0 .5em;
-}
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    color: #fff;
+    background: #111;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 80px 20px 30px;
+  }
+  .container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.8s ease forwards;
+  }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 0.5em 0;
+  }
+  .btn {
+    display: inline-block;
+    background: #00f0ff;
+    color: #000;
+    padding: 0.75em 1.8em;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 0.6em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  .btn:hover, .btn:focus {
+    background: #00d0dd;
+    outline: none;
+  }
+  footer {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin: 2em 0 0.5em;
+  }
+  .telegram, .profile-btn, .theme-btn {
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+  }
+  .telegram {
+    left: 20px;
+    bottom: 40px;
+    background: #0088cc;
+    padding: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0088ccaa;
+    transition: box-shadow 0.3s ease;
+  }
+  .telegram:hover {
+    box-shadow: 0 0 16px #00aaffcc;
+  }
+  .telegram img {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+  .theme-btn {
+    left: 20px;
+    bottom: 10px;
+    background: #555;
+    color: #fff;
+    padding: 0.45em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+  .theme-btn:hover {
+    background: #777;
+  }
+  .profile-btn {
+    right: 20px;
+    top: 20px;
+    background: #00f0ff;
+    color: #000;
+    padding: 0.45em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  .profile-btn:hover {
+    background: #00d0dd;
+  }
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 320px;
+    height: 100vh;
+    background: #1b1b1b;
+    padding: 20px;
+    overflow-y: auto;
+    transition: right 0.4s ease;
+    box-shadow: -4px 0 8px #0008;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal.open {
+    right: 0;
+  }
+  .modal h3 {
+    margin-bottom: 1em;
+    font-weight: 700;
+    text-align: center;
+  }
+  .modal .avatar {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 0.6em;
+    border-radius: 50%;
+    background: #444 center/cover no-repeat;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+  .modal .avatar:hover {
+    box-shadow: 0 0 10px #00f0ffaa;
+  }
+  .modal input, .modal button {
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.7em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  .modal input {
+    background: #333;
+    color: #eee;
+  }
+  .modal button {
+    background: #00f0ff;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .modal button:hover, .modal button:focus {
+    background: #00d0dd;
+    outline: none;
+  }
+  .modal hr {
+    border-color: #444;
+    margin: 1em 0;
+  }
+  #promoMsg {
+    margin-top: 0.5em;
+    min-height: 1.2em;
+    font-weight: 700;
+  }
+  /* Animations */
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>🔥 Курс «Блядо» PRO</h1>
-  <p>🚀 Освой криптовалюту с нуля и научись зарабатывать стабильно.  
-  Поддержка, проверенные стратегии, помощь на каждом шаге.</p>
+  <h1>🔥 Курс «Блядо» v1.6</h1>
+  <p>🚀 Освой криптовалюту с нуля и научись зарабатывать стабильно.<br>
+    Поддержка, проверенные стратегии, помощь на каждом шаге.</p>
   <p><strong>Цена курса: <span id="price">550 грн</span></strong></p>
   <a href="https://t.me/FredArbitration" class="btn" target="_blank" id="buyBtn">Приобрести курс</a>
-  <p style="margin-top:1em; font-size:.95em; color:#aaa;">Для поддержки: напишите в <a href="https://t.me/ArbitrationCriptobt" style="color:#00f0ff;">Telegram</a></p>
+  <p style="margin-top:1em; font-size:.95em; color:#aaa;">
+    Для поддержки: напишите в <a href="t.me/FredArbitration" style="color:#00f0ff;">Telegram</a>
+  </p>
 </div>
 
 <footer>
-© 2025 FredLegends. Все права защищены. Данный сайт — бета-версия.
+  © 2025 FredLegends. Все права защищены. Данный сайт — бета-версия.
 </footer>
 
-<a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
+<a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank" aria-label="Telegram">
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"/>
 </a>
-<div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
-<div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
+<div class="theme-btn" onclick="toggleTheme()" role="button" tabindex="0" aria-label="Toggle theme">🌙/☀️</div>
+<div class="profile-btn" onclick="toggleProfile()" role="button" tabindex="0" aria-label="Toggle profile">👤 Профиль</div>
 
-<div class="modal" id="profileModal">
-  <h3>Профиль</h3>
+<div class="modal" id="profileModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+  <h3 id="profileTitle">Профиль</h3>
   <div id="profileView"></div>
   <div style="margin-top:1em;">
-    <input type="text" id="promoCode" placeholder="Промокод">
-    <button onclick="applyPromo()">Активировать промокод</button>
-    <div id="promoMsg" style="margin-top:.5em;"></div>
+    <input type="text" id="promoCode" placeholder="Промокод" aria-label="Промокод" />
+    <button onclick="applyPromo()" aria-label="Активировать промокод">Активировать промокод</button>
+    <div id="promoMsg" role="alert" aria-live="polite"></div>
   </div>
-  <button style="margin-top:1.5em;" onclick="toggleProfile()">⬅️ Назад</button>
+  <button style="margin-top:1.5em;" onclick="toggleProfile()" aria-label="Закрыть профиль">⬅️ Назад</button>
 </div>
 
 <script>
-let user = JSON.parse(localStorage.getItem('user')) || null;
+  // Local storage user
+  let user = JSON.parse(localStorage.getItem('user')) || null;
 
-function toggleTheme() {
-  document.body.style.background = 
-    document.body.style.background === 'white' ? '#111' : 'white';
-  document.body.style.color = 
-    document.body.style.color === '#000' ? '#fff' : '#000';
-}
-
-function toggleProfile() {
-  document.getElementById('profileModal').classList.toggle('open');
-  renderProfile();
-}
-
-function renderProfile() {
-  const view = document.getElementById('profileView');
-  if (user) {
-    view.innerHTML = `
-      <div class="avatar" id="avatar" onclick="changeAvatar()" style="background-image:url(${user.avatar});"></div>
-      <p>Вы вошли как <strong>${user.nick}</strong></p>
-      <button onclick="editNick()">Изменить ник</button>
-      <button style="margin-top:.5em;" onclick="logout()">Выйти</button>
-    `;
-  } else {
-    view.innerHTML = `
-      <input type="text" id="regNick" placeholder="Ник">
-      <input type="password" id="regPass" placeholder="Пароль">
-      <input type="password" id="regPass2" placeholder="Подтвердите пароль">
-      <button onclick="register()">Зарегистрироваться</button>
-      <hr style="border-color:#444; margin:.8em 0;">
-      <input type="text" id="loginNick" placeholder="Ник">
-      <input type="password" id="loginPass" placeholder="Пароль">
-      <button onclick="login()">Войти</button>
-    `;
+  function toggleTheme() {
+    if(document.body.style.backgroundColor === 'white') {
+      document.body.style.backgroundColor = '#111';
+      document.body.style.color = '#fff';
+    } else {
+      document.body.style.backgroundColor = 'white';
+      document.body.style.color = '#000';
+    }
   }
-}
 
-function register() {
-  const nick = regNick.value.trim();
-  const pass = regPass.value;
-  const pass2 = regPass2.value;
-  if (!nick || !pass || !pass2) return alert('Заполните все поля');
-  if (pass !== pass2) return alert('Пароли не совпадают');
-  user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
-  localStorage.setItem('user', JSON.stringify(user));
-  alert('Вы успешно зарегистрированы');
-  renderProfile();
-}
-
-function login() {
-  const nick = loginNick.value.trim();
-  const pass = loginPass.value;
-  if (!user || user.nick !== nick || user.pass !== pass) {
-    return alert('Неверный ник или пароль');
-  }
-  alert('Вы успешно вошли');
-  renderProfile();
-}
-
-function logout() {
-  if (confirm('Выйти из аккаунта?')) {
-    user = null;
-    localStorage.removeItem('user');
+  function toggleProfile() {
+    const modal = document.getElementById('profileModal');
+    const isOpen = modal.classList.contains('open');
+    if (isOpen) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    } else {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
     renderProfile();
   }
-}
 
-function editNick() {
-  const nn = prompt('Новый ник:', user.nick);
-  if (nn) {
-    user.nick = nn.trim();
+  function renderProfile() {
+    const view = document.getElementById('profileView');
+    if (user) {
+      view.innerHTML = `
+        <div class="avatar" id="avatar" style="background-image:url(${user.avatar});" title="Нажми, чтобы изменить аватар"></div>
+        <p>Вы вошли как <strong>${user.nick}</strong></p>
+        <input type="text" id="editNick" value="${user.nick}" aria-label="Изменить ник" />
+        <button onclick="saveNick()">Сохранить ник</button>
+        <button style="margin-top:.5em;" onclick="logout()">Выйти</button>
+      `;
+      document.getElementById('avatar').onclick = changeAvatar;
+    } else {
+      view.innerHTML = `
+        <input type="text" id="regNick" placeholder="Ник" aria-label="Ник" />
+        <input type="password" id="regPass" placeholder="Пароль" aria-label="Пароль" />
+        <input type="password" id="regPass2" placeholder="Подтвердите пароль" aria-label="Подтвердите пароль" />
+        <button onclick="register()">Зарегистрироваться</button>
+        <hr />
+        <input type="text" id="loginNick" placeholder="Ник" aria-label="Ник для входа" />
+        <input type="password" id="loginPass" placeholder="Пароль" aria-label="Пароль для входа" />
+        <button onclick="login()">Войти</button>
+      `;
+    }
+  }
+
+  function register() {
+    const nick = document.getElementById('regNick').value.trim();
+    const pass = document.getElementById('regPass').value;
+    const pass2 = document.getElementById('regPass2').value;
+    if (!nick || !pass || !pass2) return alert('Заполните все поля');
+    if (pass !== pass2) return alert('Пароли не совпадают');
+    user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
     localStorage.setItem('user', JSON.stringify(user));
+    alert('Вы успешно зарегистрированы');
     renderProfile();
   }
-}
 
-function changeAvatar() {
-  const inp = document.createElement('input');
-  inp.type = 'file'; inp.accept = 'image/*';
-  inp.onchange = ()=> {
-    const file = inp.files[0], reader = new FileReader();
-    reader.onload = ()=> {
-      user.avatar = reader.result;
-      localStorage.setItem('user', JSON.stringify(user));
-      renderProfile();
-    };
-    reader.readAsDataURL(file);
-  };
-  inp.click();
-}
-
-function applyPromo() {
-  const code = promoCode.value.trim().toLowerCase();
-  if (code === 'courses') {
-    price.textContent = '165 грн';
-    promoMsg.innerHTML = '<span style="color:#0f0;">✅ Скидка 70% активирована!</span>';
-    animatePromo();
-  } else {
-    promoMsg.innerHTML = '<span style="color:#f00;">❌ Неверный промокод</span>';
+  function login() {
+    const nick = document.getElementById('loginNick').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!user || user.nick !== nick || user.pass !== pass) {
+      return alert('Неверный ник или пароль');
+    }
+    alert('Вы успешно вошли');
+    renderProfile();
   }
-}
 
-function animatePromo() {
-  const btn = document.getElementById('buyBtn');
-  btn.style.background = '#0f0';
-  setTimeout(() => btn.style.background = '#00f0ff', 1500);
-}
+  function logout() {
+    if (confirm('Выйти из аккаунта?')) {
+      user = null;
+      localStorage.removeItem('user');
+      renderProfile();
+    }
+  }
 
-renderProfile();
+  function saveNick() {
+    const newNick = document.getElementById('editNick').value.trim();
+    if (!newNick) return alert('Ник не может быть пустым');
+    user.nick = newNick;
+    localStorage.setItem('user', JSON.stringify(user));
+    alert('Ник обновлён');
+    renderProfile();
+  }
+
+  function changeAvatar() {
+    const inp = document.createElement('input');
+    inp.type = 'file';
+    inp.accept = 'image/*';
+    inp.onchange = () => {
+      const file = inp.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        user.avatar = reader.result;
+        localStorage.setItem('user', JSON.stringify(user));
+        renderProfile();
+      };
+      reader.readAsDataURL(file);
+    };
+    inp.click();
+  }
+
+  // Promo code logic with confetti effect
+  const priceElem = document.getElementById('price');
+  const promoCodeInput = document.getElementById('promoCode');
+  const promoMsg = document.getElementById('promoMsg');
+  const buyBtn = document.getElementById('buyBtn');
+
+  function applyPromo() {
+    const code = promoCodeInput.value.trim().toLowerCase();
+    if (code === 'courses') {
+      priceElem.textContent = '165 грн';
+      promoMsg.innerHTML = '<span style="color:#0f0;">✅ Скидка 70% активирована!</span>';
+      confettiEffect();
+    } else {
+      promoMsg.innerHTML = '<span style="color:#f00;">❌ Неверный промокод</span>';
+    }
+  }
+
+  // Minimal confetti effect using canvas
+  function confettiEffect() {
+    const duration = 1500;
+    const animationEnd = Date.now() + duration;
+    const colors = ['#0f0', '#0ff', '#00f', '#ff0', '#f0f'];
+
+    (function frame() {
+      const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) return;
+
+      const count = 30;
+
+      for (let i = 0; i < count; i++) {
+        createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+      }
+      requestAnimationFrame(frame);
+    })();
+
+    function createConfettiPiece(color) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '6px';
+      confetti.style.height = '10px';
+      confetti.style.backgroundColor = color;
+      confetti.style.left = (Math.random() * window.innerWidth) + 'px';
+      confetti.style.top = '0px';
+      confetti.style.opacity = '1';
+      confetti.style.borderRadius = '2px';
+      confetti.style.pointerEvents = 'none';
+      confetti.style.zIndex = '9999';
+      document.body.appendChild(confetti);
+
+      let fallDuration = 1000 + Math.random() * 1000;
+      let fallDistance = window.innerHeight + 20;
+
+      confetti.animate([
+        { transform: 'translateY(0px)', opacity: 1 },
+        { transform: `translateY(${fallDistance}px) rotate(${Math.random()*360}deg)`, opacity: 0 }
+      ], {
+        duration: fallDuration,
+        easing: 'ease-out'
+      });
+
+      setTimeout(() => {
+        confetti.remove();
+      }, fallDuration);
+    }
+  }
+
+  // Initial render profile on page load
+  renderProfile();
 </script>
 
 </body>
