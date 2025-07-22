@@ -1,149 +1,162 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Курс "Блядо" PRO</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: #fff;
-    text-align: center;
-    overflow-x: hidden;
-    transition: background 1s ease;
-  }
-  h1 {
-    margin: 30px 10px 10px;
-    font-size: 2.8em;
-  }
-  p {
-    font-size: 1.2em;
-    margin: 10px auto;
-    max-width: 700px;
-  }
-  .profile-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    background: #00f0ff;
-    padding: 8px 15px;
-    border-radius: 5px;
-    color: #000;
-  }
-  .settings {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-    background: #555;
-    padding: 8px 15px;
-    border-radius: 5px;
-  }
-  .modal {
-    position: fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.8);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:1000;
-  }
-  .modal-content {
-    background:#222;
-    padding:20px;
-    border-radius:10px;
-    width:300px;
-    text-align:left;
-  }
-  .modal input {
-    width:100%;
-    padding:8px;
-    margin:5px 0;
-    border:none;
-    border-radius:5px;
-  }
-  .modal button {
-    width:100%;
-    margin-top:10px;
-    padding:8px;
-    background:#00f0ff;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-  }
-  .promo-firework {
-    font-size:2em;
-    color:#0f0;
-    animation: fireworks 1s ease;
-  }
-  @keyframes fireworks {
-    0% {transform:scale(0);}
-    50% {transform:scale(1.5);}
-    100% {transform:scale(1);}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курс "Блядо" PRO</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      overflow-x: hidden;
+      transition: background 1s ease;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 { font-size: 2.2em; margin-bottom: 10px; }
+    p { font-size: 1.1em; line-height: 1.4; margin-bottom: 20px; }
+
+    .btn {
+      display: inline-block;
+      background: #00f0ff;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .btn:hover { transform: scale(1.05); }
+    .profile-btn, .settings-btn {
+      position: fixed; top: 20px; padding: 8px 12px; border-radius: 5px;
+      background: #00f0ff; color: #000; cursor: pointer;
+      z-index: 100;
+    }
+    .profile-btn:hover, .settings-btn:hover { background: #33ffff; }
+    .profile-btn { right: 20px; }
+    .settings-btn { left: 20px; background: #555; color: #fff; }
+
+    .telegram {
+      position: fixed; left: 20px; bottom: 20px;
+      background: #0088cc; padding: 10px; border-radius: 50%;
+      z-index: 50;
+    }
+    .telegram img { width: 30px; height: 30px; }
+
+    .modal {
+      position: fixed; top: 0; right: -100%; width: 300px; height: 100%;
+      background: #222; padding: 20px; display: flex; flex-direction: column;
+      transition: right .5s ease;
+      z-index: 200;
+    }
+    .modal.open { right: 0; }
+    .modal h3 { margin-bottom: 15px; font-size:1.4em; }
+    .modal label { font-size: .9em; margin-top: 10px; }
+    .modal input {
+      width: 100%; padding: 8px; margin-top: 5px;
+      border: none; border-radius: 5px;
+    }
+    .modal button {
+      margin-top: 15px; padding: 10px;
+      border: none; border-radius: 5px;
+      background: #00f0ff; color: #000;
+      cursor: pointer;
+    }
+
+    @keyframes wave {
+      0% { clip-path: circle(0% at 50% 50%); }
+      100% { clip-path: circle(150% at 50% 50%); }
+    }
+    .theme-wave {
+      position: fixed; top:0;left:0;width:100%;height:100%;
+      background: white; pointer-events: none;
+      animation: wave .8s ease;
+      z-index: 150;
+    }
+
+    .firework {
+      font-size: 2em; color: #0f0;
+      animation: fireworks .8s ease;
+      margin-top: 10px;
+    }
+    @keyframes fireworks {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="settings-btn" onclick="toggleTheme()">🌙/☀️</div>
+    <div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
 
-<div class="settings" onclick="toggleTheme()">🌙/☀️</div>
-<div class="profile-btn" onclick="showProfile()">👤 Профиль</div>
-
-<h1>🔥 Курс "Блядо" PRO по крипте</h1>
-<p>Стань мастером торговли криптой и зарабатывай на своих знаниях.  
-Пройди курс «Блядо PRO» всего за <b id="price">550 грн</b>  
-🎯 Пройди регистрацию, чтобы активировать промокод!</p>
-
-<p>Этот курс уже помог <span id="visits">1</span> людям начать зарабатывать.</p>
-
-<div id="firework"></div>
-
-<div class="modal" id="profileModal">
-  <div class="modal-content">
-    <h3>Профиль</h3>
-    <input type="text" id="name" placeholder="Имя">
-    <input type="text" id="email" placeholder="E-mail (необязательно)">
-    <input type="text" id="promo" placeholder="Промокод">
-    <button onclick="saveProfile()">Сохранить</button>
+    <h1>🔥 Курс "Блядо" PRO по крипте</h1>
+    <p>Стань мастером торговли криптой и начни зарабатывать.  
+    Наш авторский курс «Блядо PRO» за <b id="price">550 грн</b> поможет тебе достичь новых вершин.</p>
+    <p>Уже более <b id="visits">1</b> человек прошли обучение и успешно зарабатывают.</p>
+    <a href="https://t.me/FredArbitration" target="_blank" class="btn" id="purchase">Приобрести курс</a>
+    <div id="promoSuccess"></div>
   </div>
-</div>
 
-<script>
-let price = 550;
-let visits = Math.floor(Math.random() * 1000) + 1;
-document.getElementById("visits").innerText = visits;
+  <a href="https://t.me/ArbitrationCriptobt" target="_blank" class="telegram">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+  </a>
 
-function toggleTheme() {
-  let body = document.body;
-  if (body.style.background === "white") {
-    body.style.background = "#111";
-    body.style.color = "#fff";
-  } else {
-    body.style.background = "white";
-    body.style.color = "#000";
-  }
-}
+  <div class="modal" id="profileModal">
+    <h3>Профиль</h3>
+    <label>Имя пользователя</label>
+    <input type="text" id="nameInput" placeholder="Введите имя">
+    <label>E-mail</label>
+    <input type="email" id="emailInput" placeholder="Введите e-mail">
+    <label>Промокод</label>
+    <input type="text" id="promoInput" placeholder="courses bluado">
+    <button onclick="saveProfile()">Сохранить профиль</button>
 
-function showProfile() {
-  document.getElementById("profileModal").style.display = "flex";
-}
+    <hr style="margin:20px 0; border-color:#555;">
+    <button onclick="openSettings()">Настройки</button>
+  </div>
 
-function saveProfile() {
-  let name = document.getElementById("name").value.trim();
-  let promo = document.getElementById("promo").value.trim();
-  if (name) {
-    alert(`Добро пожаловать, ${name}!`);
-  }
-  if (promo.toLowerCase() === "courses bluado") {
-    let newPrice = Math.floor(price * 0.3);
-    document.getElementById("price").innerText = `${newPrice} грн`;
-    document.getElementById("firework").innerHTML = `<div class="promo-firework">🎆 Промокод активирован! 🎆</div>`;
-  }
-  document.getElementById("profileModal").style.display = "none";
-}
-</script>
+  <script>
+    let visits = Math.floor(Math.random()*900) + 100;
+    document.getElementById('visits').innerText = visits;
 
+    function toggleTheme() {
+      let wave = document.createElement('div');
+      wave.className = 'theme-wave';
+      document.body.append(wave);
+      wave.addEventListener('animationend', ()=>{
+        document.body.style.background = document.body.style.background === 'white' ? '#111' : 'white';
+        document.body.style.color = document.body.style.color === 'black' ? '#fff' : '#000';
+        wave.remove();
+      });
+    }
+
+    function toggleProfile() {
+      document.getElementById('profileModal').classList.toggle('open');
+    }
+
+    function saveProfile() {
+      let promo = document.getElementById('promoInput').value.trim().toLowerCase();
+      if (promo === 'courses bluado') {
+        let basePrice = 550;
+        let newPrice = Math.round(basePrice * 0.3);
+        document.getElementById('price').innerText = newPrice + ' грн';
+        document.getElementById('promoSuccess').innerHTML = '<div class="firework">🎆 Промокод активирован! 🎆</div>';
+      }
+      toggleProfile();
+    }
+
+    function openSettings() {
+      alert('Здесь будут настройки профиля (добавим позже)!');
+    }
+  </script>
 </body>
 </html>
