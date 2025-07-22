@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Курс "Блядо" PRO</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+    transition: background 1s ease;
+  }
+  h1 {
+    margin: 30px 10px 10px;
+    font-size: 2.8em;
+  }
+  p {
+    font-size: 1.2em;
+    margin: 10px auto;
+    max-width: 700px;
+  }
+  .profile-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: #00f0ff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #000;
+  }
+  .settings {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    background: #555;
+    padding: 8px 15px;
+    border-radius: 5px;
+  }
+  .modal {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+  }
+  .modal-content {
+    background:#222;
+    padding:20px;
+    border-radius:10px;
+    width:300px;
+    text-align:left;
+  }
+  .modal input {
+    width:100%;
+    padding:8px;
+    margin:5px 0;
+    border:none;
+    border-radius:5px;
+  }
+  .modal button {
+    width:100%;
+    margin-top:10px;
+    padding:8px;
+    background:#00f0ff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  .promo-firework {
+    font-size:2em;
+    color:#0f0;
+    animation: fireworks 1s ease;
+  }
+  @keyframes fireworks {
+    0% {transform:scale(0);}
+    50% {transform:scale(1.5);}
+    100% {transform:scale(1);}
+  }
+</style>
+</head>
+<body>
+
+<div class="settings" onclick="toggleTheme()">🌙/☀️</div>
+<div class="profile-btn" onclick="showProfile()">👤 Профиль</div>
+
+<h1>🔥 Курс "Блядо" PRO по крипте</h1>
+<p>Стань мастером торговли криптой и зарабатывай на своих знаниях.  
+Пройди курс «Блядо PRO» всего за <b id="price">550 грн</b>  
+🎯 Пройди регистрацию, чтобы активировать промокод!</p>
+
+<p>Этот курс уже помог <span id="visits">1</span> людям начать зарабатывать.</p>
+
+<div id="firework"></div>
+
+<div class="modal" id="profileModal">
+  <div class="modal-content">
+    <h3>Профиль</h3>
+    <input type="text" id="name" placeholder="Имя">
+    <input type="text" id="email" placeholder="E-mail (необязательно)">
+    <input type="text" id="promo" placeholder="Промокод">
+    <button onclick="saveProfile()">Сохранить</button>
+  </div>
+</div>
+
+<script>
+let price = 550;
+let visits = Math.floor(Math.random() * 1000) + 1;
+document.getElementById("visits").innerText = visits;
+
+function toggleTheme() {
+  let body = document.body;
+  if (body.style.background === "white") {
+    body.style.background = "#111";
+    body.style.color = "#fff";
+  } else {
+    body.style.background = "white";
+    body.style.color = "#000";
+  }
+}
+
+function showProfile() {
+  document.getElementById("profileModal").style.display = "flex";
+}
+
+function saveProfile() {
+  let name = document.getElementById("name").value.trim();
+  let promo = document.getElementById("promo").value.trim();
+  if (name) {
+    alert(`Добро пожаловать, ${name}!`);
+  }
+  if (promo.toLowerCase() === "courses bluado") {
+    let newPrice = Math.floor(price * 0.3);
+    document.getElementById("price").innerText = `${newPrice} грн`;
+    document.getElementById("firework").innerHTML = `<div class="promo-firework">🎆 Промокод активирован! 🎆</div>`;
+  }
+  document.getElementById("profileModal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
