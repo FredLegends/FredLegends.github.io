@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Курс «Блядо» v1.7</title>
+<title>Курс «Блядо» v1.8</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   * {
@@ -83,7 +83,7 @@
   }
   .theme-btn {
     right: 20px;
-    bottom: 40px;
+    bottom: 10px;
     background: #555;
     color: #fff;
     padding: 0.45em 1em;
@@ -113,7 +113,7 @@
   .modal {
     position: fixed;
     top: 0; right: -100%;
-    width: 320px;
+    width: 350px;
     height: 100vh;
     background: #1b1b1b;
     padding: 20px;
@@ -175,6 +175,76 @@
     min-height: 1.2em;
     font-weight: 700;
   }
+  #balance {
+    font-weight: 700;
+    margin-bottom: 1em;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  #rouletteContainer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #rouletteWheel {
+    width: 180px;
+    height: 180px;
+    border: 5px solid #00f0ff;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px #00f0ffaa;
+  }
+  #pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 20px solid #00f0ff;
+    z-index: 5;
+  }
+  .segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
+    border: 2px solid #222;
+  }
+  .segment:nth-child(odd) {
+    background: #004050;
+  }
+  .segment:nth-child(even) {
+    background: #006080;
+  }
+  #spinBtn {
+    margin-top: 15px;
+    padding: 0.7em 1.6em;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: #00f0ff;
+    color: #000;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  #spinBtn:hover:not(:disabled) {
+    background: #00d0dd;
+  }
+  #resultMsg {
+    margin-top: 12px;
+    font-weight: 700;
+    min-height: 1.3em;
+  }
   @keyframes fadeIn {
     from {opacity: 0; transform: translateY(20px);}
     to {opacity: 1; transform: translateY(0);}
@@ -207,6 +277,31 @@
 <div class="modal" id="profileModal">
   <h3>Профиль</h3>
   <div id="profileView"></div>
+  <div id="balance">Баланс: 1000 🪙</div>
+
+  <button id="toggleRouletteBtn" class="btn">🎰 Открыть казино</button>
+
+  <div id="rouletteContainer" style="display:none;">
+    <div id="rouletteWheel">
+      <div id="pointer"></div>
+      <!-- 12 сегментов по 30 градусов -->
+      <div class="segment" style="transform: rotate(0deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(30deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(60deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(90deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(120deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(150deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(180deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(210deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(240deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(270deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(300deg) skewY(-60deg);"></div>
+      <div class="segment" style="transform: rotate(330deg) skewY(-60deg);"></div>
+    </div>
+    <button id="spinBtn">Крутить (500 🪙)</button>
+    <div id="resultMsg"></div>
+  </div>
+
   <div style="margin-top:1em;">
     <input type="text" id="promoCode" placeholder="Промокод" />
     <button onclick="applyPromo()">Активировать промокод</button>
@@ -217,6 +312,10 @@
 
 <script>
 let user = JSON.parse(localStorage.getItem('user')) || null;
+if(!user) {
+  user = { nick: "Гость", pass: "", avatar: "https://cdn-icons-png.flaticon.com/512/149/149071.png", balance: 1000 };
+  localStorage.setItem('user', JSON.stringify(user));
+}
 
 function toggleTheme() {
   const themeBtn = document.querySelector('.theme-btn');
@@ -238,11 +337,18 @@ function toggleProfile() {
   const modal = document.getElementById('profileModal');
   modal.classList.toggle('open');
   renderProfile();
+  // Скрыть рулетку по умолчанию при открытии
+  document.getElementById('rouletteContainer').style.display = 'none';
+  document.getElementById('toggleRouletteBtn').style.display = 'inline-block';
+  document.getElementById('resultMsg').textContent = '';
 }
 
 function renderProfile() {
   const view = document.getElementById('profileView');
+  const balanceDiv = document.getElementById('balance');
   if (user) {
+    if (!user.balance && user.balance !== 0) user.balance = 1000; // дефолт 1000 если нет
+    balanceDiv.textContent = `Баланс: ${user.balance} 🪙`;
     view.innerHTML = `
       <div class="avatar" id="avatar" style="background-image:url(${user.avatar});"></div>
       <p>Вы вошли как <strong>${user.nick}</strong></p>
@@ -252,6 +358,7 @@ function renderProfile() {
     `;
     document.getElementById('avatar').onclick = changeAvatar;
   } else {
+    balanceDiv.textContent = '';
     view.innerHTML = `
       <input type="text" id="regNick" placeholder="Ник" />
       <input type="password" id="regPass" placeholder="Пароль" />
@@ -271,7 +378,7 @@ function register() {
   const pass2 = regPass2.value;
   if (!nick || !pass || !pass2) return alert('Заполните все поля');
   if (pass !== pass2) return alert('Пароли не совпадают');
-  user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
+  user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png', balance: 1000 };
   localStorage.setItem('user', JSON.stringify(user));
   alert('Вы успешно зарегистрированы');
   renderProfile();
@@ -351,28 +458,4 @@ function confettiEffect() {
     confetti.style.backgroundColor = color;
     confetti.style.left = (Math.random() * window.innerWidth) + 'px';
     confetti.style.top = '0px';
-    confetti.style.opacity = '1';
-    confetti.style.borderRadius = '2px';
-    confetti.style.pointerEvents = 'none';
-    confetti.style.zIndex = '9999';
-    document.body.appendChild(confetti);
-    let fallDuration = 1000 + Math.random() * 1000;
-    let fallDistance = window.innerHeight + 20;
-    confetti.animate([
-      { transform: 'translateY(0px)', opacity: 1 },
-      { transform: `translateY(${fallDistance}px) rotate(${Math.random()*360}deg)`, opacity: 0 }
-    ], {
-      duration: fallDuration,
-      easing: 'ease-out'
-    });
-    setTimeout(() => {
-      confetti.remove();
-    }, fallDuration);
-  }
-}
-
-renderProfile();
-</script>
-
-</body>
-</html>
+    confetti.style.opacity
