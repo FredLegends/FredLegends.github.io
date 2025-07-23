@@ -3,85 +3,206 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Курс «Блядо» PRO</title>
+<title>Курс «Блядо» v1.7</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
   body {
-    font-family:'Inter', Arial, sans-serif;
-    color:#fff;
-    background:#111;
-    transition:.3s;
-    min-height:100vh;
-    padding:80px 20px 60px;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #fff;
+    background: #111;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 80px 20px 60px;
   }
   .container {
-    max-width:800px;
-    margin:0 auto;
-    text-align:center;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.8s ease forwards;
   }
-  h1 { font-size:2.8rem; margin-bottom:0.5em; font-weight:700; }
-  p { font-size:1.15rem; line-height:1.5; margin:0.5em 0; }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 0.5em 0;
+  }
   .btn {
-    display:inline-block; background:#00f0ff; color:#000;
-    padding:0.75em 1.8em; border-radius:6px; text-decoration:none;
-    margin:0.6em; font-weight:700; cursor:pointer;
+    display: inline-block;
+    background: #00f0ff;
+    color: #000;
+    padding: 0.75em 1.8em;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 0.6em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
   }
-  .btn:hover { background:#00d0dd; }
-  .profile-btn {
-    float:right; margin-top:-50px; background:#00f0ff; color:#000;
-    padding:0.45em 1em; border-radius:5px; cursor:pointer; font-size:0.9rem; font-weight:700;
-  }
-  .telegram {
-    margin-top:30px; float:left; background:#0088cc;
-    padding:10px; border-radius:50%;
-  }
-  .telegram img { width:28px; height:28px; }
-  .theme-btn {
-    float:right; margin-top:30px; background:#555; color:#fff;
-    padding:0.45em 1em; border-radius:5px; cursor:pointer; font-size:0.9rem;
+  .btn:hover {
+    background: #00d0dd;
   }
   footer {
-    clear:both; text-align:center; color:#888; font-size:0.8rem; margin-top:100px;
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin-top: auto;
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+  }
+  .telegram, .profile-btn, .theme-btn {
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+  }
+  .telegram {
+    left: 20px;
+    bottom: 40px;
+    background: #0088cc;
+    padding: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0088ccaa;
+  }
+  .telegram img {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+  .theme-btn {
+    right: 20px;
+    bottom: 10px;
+    background: #555;
+    color: #fff;
+    padding: 0.45em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .theme-btn:hover {
+    background: #777;
+  }
+  .profile-btn {
+    right: 20px;
+    top: 20px;
+    background: #00f0ff;
+    color: #000;
+    padding: 0.45em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  .profile-btn:hover {
+    background: #00d0dd;
   }
   .modal {
-    position:fixed; top:0; right:-100%; width:300px; height:100%;
-    background:#1b1b1b; padding:20px; overflow-y:auto; transition:.4s; z-index:20;
+    position: fixed;
+    top: 0; right: -100%;
+    width: 320px;
+    height: 100vh;
+    background: #1b1b1b;
+    padding: 20px;
+    overflow-y: auto;
+    transition: right 0.4s ease;
+    box-shadow: -4px 0 8px #0008;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
   }
-  .modal.open { right:0; }
+  .modal.open {
+    right: 0;
+  }
+  .modal h3 {
+    margin-bottom: 1em;
+    font-weight: 700;
+    text-align: center;
+  }
   .modal .avatar {
-    width:70px; height:70px; margin:0 auto .6em;
-    border-radius:50%; background:#444 center/cover no-repeat; cursor:pointer;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 0.6em;
+    border-radius: 50%;
+    background: #444 center/cover no-repeat;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+  .modal .avatar:hover {
+    box-shadow: 0 0 10px #00f0ffaa;
   }
   .modal input, .modal button {
-    width:100%; margin:0.5em 0; padding:0.7em; border:none; border-radius:5px; font-size:1rem;
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.7em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
   }
-  .modal button { background:#00f0ff; color:#000; font-weight:700; }
+  .modal input {
+    background: #333;
+    color: #eee;
+  }
+  .modal button {
+    background: #00f0ff;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .modal button:hover {
+    background: #00d0dd;
+  }
+  .modal hr {
+    border-color: #444;
+    margin: 1em 0;
+  }
+  #promoMsg {
+    margin-top: 0.5em;
+    min-height: 1.2em;
+    font-weight: 700;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
-
   <h1>🔥 Курс «Блядо» PRO</h1>
-  <p>🚀 Открой для себя мир криптовалюты и начни зарабатывать стабильно уже сегодня.  
-  Получи проверенные стратегии, пошаговые инструкции и поддержку на каждом этапе.</p>
+  <p>🚀 Освой криптовалюту с нуля и научись зарабатывать стабильно.<br>
+    Поддержка, проверенные стратегии, помощь на каждом шаге.</p>
   <p><strong>Цена курса: <span id="price">550 грн</span></strong></p>
   <a href="https://t.me/FredArbitration" class="btn" target="_blank" id="buyBtn">Приобрести курс</a>
-
-  <div class="telegram">
-    <a href="https://t.me/ArbitrationCriptobt" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="TG">
-    </a>
-  </div>
-
-  <div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
-
-  <footer>
-    © 2025 FredLegends. Данный сайт — бета-версия.
-  </footer>
+  <p style="margin-top:1em; font-size:.95em; color:#aaa;">
+    Для поддержки: напишите в <a href="https://t.me/ArbitrationCriptobt" style="color:#00f0ff;">Telegram</a>
+  </p>
 </div>
+
+<footer>
+  © 2025 FredLegends. Данный сайт — в бета версии.
+</footer>
+
+<a href="https://t.me/ArbitrationCriptobt" class="telegram" target="_blank" aria-label="Telegram">
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"/>
+</a>
+<div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
+<div class="profile-btn" onclick="toggleProfile()">👤 Профиль</div>
 
 <div class="modal" id="profileModal">
   <h3>Профиль</h3>
@@ -94,13 +215,23 @@
   <button style="margin-top:1.5em;" onclick="toggleProfile()">⬅️ Назад</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
 let user = JSON.parse(localStorage.getItem('user')) || null;
 
 function toggleTheme() {
-  document.body.style.background = (document.body.style.background === 'white') ? '#111' : 'white';
-  document.body.style.color = (document.body.style.color === '#000') ? '#fff' : '#000';
+  const themeBtn = document.querySelector('.theme-btn');
+  const isDark = document.body.style.backgroundColor !== 'white';
+  if (isDark) {
+    document.body.style.backgroundColor = 'white';
+    document.body.style.color = '#000';
+    themeBtn.style.color = '#000';
+    themeBtn.style.backgroundColor = '#ddd';
+  } else {
+    document.body.style.backgroundColor = '#111';
+    document.body.style.color = '#fff';
+    themeBtn.style.color = '#fff';
+    themeBtn.style.backgroundColor = '#555';
+  }
 }
 
 function toggleProfile() {
@@ -117,7 +248,7 @@ function renderProfile() {
       <p>Вы вошли как <strong>${user.nick}</strong></p>
       <input type="text" id="editNick" value="${user.nick}" />
       <button onclick="saveNick()">Сохранить ник</button>
-      <button onclick="logout()">Выйти</button>
+      <button style="margin-top:.5em;" onclick="logout()">Выйти</button>
     `;
     document.getElementById('avatar').onclick = changeAvatar;
   } else {
@@ -142,20 +273,26 @@ function register() {
   if (pass !== pass2) return alert('Пароли не совпадают');
   user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
   localStorage.setItem('user', JSON.stringify(user));
+  alert('Вы успешно зарегистрированы');
   renderProfile();
 }
 
 function login() {
   const nick = loginNick.value.trim();
   const pass = loginPass.value;
-  if (!user || user.nick !== nick || user.pass !== pass) return alert('Неверный ник или пароль');
+  if (!user || user.nick !== nick || user.pass !== pass) {
+    return alert('Неверный ник или пароль');
+  }
+  alert('Вы успешно вошли');
   renderProfile();
 }
 
 function logout() {
-  user = null;
-  localStorage.removeItem('user');
-  renderProfile();
+  if (confirm('Выйти из аккаунта?')) {
+    user = null;
+    localStorage.removeItem('user');
+    renderProfile();
+  }
 }
 
 function saveNick() {
@@ -187,10 +324,50 @@ function applyPromo() {
   const code = promoCode.value.trim().toLowerCase();
   if (code === 'courses') {
     price.textContent = '165 грн';
-    promoMsg.innerHTML = '<span style="color:#0f0;">✅ Скидка активирована!</span>';
-    confetti();
+    promoMsg.innerHTML = '<span style="color:#0f0;">✅ Скидка 70% активирована!</span>';
+    confettiEffect();
   } else {
     promoMsg.innerHTML = '<span style="color:#f00;">❌ Неверный промокод</span>';
+  }
+}
+
+function confettiEffect() {
+  const duration = 1500;
+  const animationEnd = Date.now() + duration;
+  const colors = ['#0f0', '#0ff', '#00f', '#ff0', '#f0f'];
+  (function frame() {
+    const timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) return;
+    for (let i = 0; i < 30; i++) {
+      createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+    }
+    requestAnimationFrame(frame);
+  })();
+  function createConfettiPiece(color) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '6px';
+    confetti.style.height = '10px';
+    confetti.style.backgroundColor = color;
+    confetti.style.left = (Math.random() * window.innerWidth) + 'px';
+    confetti.style.top = '0px';
+    confetti.style.opacity = '1';
+    confetti.style.borderRadius = '2px';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.zIndex = '9999';
+    document.body.appendChild(confetti);
+    let fallDuration = 1000 + Math.random() * 1000;
+    let fallDistance = window.innerHeight + 20;
+    confetti.animate([
+      { transform: 'translateY(0px)', opacity: 1 },
+      { transform: `translateY(${fallDistance}px) rotate(${Math.random()*360}deg)`, opacity: 0 }
+    ], {
+      duration: fallDuration,
+      easing: 'ease-out'
+    });
+    setTimeout(() => {
+      confetti.remove();
+    }, fallDuration);
   }
 }
 
