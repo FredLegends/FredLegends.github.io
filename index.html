@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Курс «Блядо» PRO v2.0</title>
+  <title>Курс «Блядо» PRO v2.2</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <style>
@@ -19,6 +19,28 @@
       padding: 0;
       box-sizing: border-box;
     }
+    
+    .chart-section {
+  padding: 60px 20px;
+}
+
+.chart-box {
+  background: rgba(26, 26, 26, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 240, 255, 0.1);
+}
+
+.chart-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.tv-chart {
+  height: 450px;
+}
     
     body {
       font-family: 'Inter', Arial, sans-serif;
@@ -273,6 +295,49 @@
   </section>
 
   <!-- Benefits -->
+  <section class="chart-section">
+  <div class="container">
+
+    <h2 class="chart-title">
+      📈 Курс Bitcoin в реальном времени
+    </h2>
+
+    <div class="chart-box">
+      <div class="tv-chart">
+        <div class="tradingview-widget-container" style="height:100%;width:100%">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+            async>
+          {
+            "allow_symbol_change": false,
+            "calendar": false,
+            "details": false,
+            "hide_side_toolbar": true,
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "hide_volume": false,
+            "interval": "D",
+            "locale": "ru",
+            "save_image": false,
+            "style": "1",
+            "symbol": "BINANCE:BTCUSDT",
+            "theme": "dark",
+            "timezone": "Europe/Kiev",
+            "backgroundColor": "#1a1a1a",
+            "gridColor": "rgba(255,255,255,0.05)",
+            "autosize": true
+          }
+          </script>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
   <section class="section features">
     <div class="container">
       <h2 style="text-align:center; font-size:2.8rem; margin-bottom:3rem;">Что ты получишь</h2>
