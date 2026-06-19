@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Курс «Блядо» PRO v2.2</title>
+  <title>Курс «Блядо» PRO v2.5</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
   <style>
@@ -249,7 +249,175 @@
       0% { transform: translateY(100vh) rotate(0deg); }
       100% { transform: translateY(-100vh) rotate(720deg); }
     }
+    .ai-launcher {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2100;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 62px;
+      padding: 0 22px;
+      border: 1px solid rgba(0, 240, 255, 0.48);
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.95), rgba(255, 0, 170, 0.9));
+      color: #050505;
+      font: 800 1rem/1 'Inter', Arial, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 18px 42px rgba(0, 240, 255, 0.28), 0 0 28px rgba(255, 0, 170, 0.24);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ai-launcher:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 24px 54px rgba(0, 240, 255, 0.4), 0 0 38px rgba(255, 0, 170, 0.34);
+    }
+
+    .ai-launcher__icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.78);
+      color: var(--primary);
+      box-shadow: inset 0 0 18px rgba(0, 240, 255, 0.22);
+    }
+
+    .ai-launcher__text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .ai-launcher__text small {
+      color: rgba(0, 0, 0, 0.68);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .ai-launcher-note {
+      position: fixed;
+      right: 24px;
+      bottom: 96px;
+      z-index: 2100;
+      max-width: 280px;
+      padding: 12px 14px;
+      border: 1px solid rgba(0, 240, 255, 0.22);
+      border-radius: 16px;
+      background: rgba(10, 10, 10, 0.9);
+      color: #fff;
+      font-size: 0.9rem;
+      line-height: 1.35;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.34);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .ai-launcher-note.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ai-chat-panel {
+      position: fixed;
+      right: 24px;
+      bottom: 104px;
+      z-index: 2200;
+      width: min(390px, calc(100vw - 28px));
+      height: min(640px, calc(100vh - 132px));
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(10, 10, 10, 0.96);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.58), 0 0 42px rgba(0, 240, 255, 0.22);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px) scale(0.98);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .ai-chat-panel.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .ai-chat-panel__bar {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px 0 18px;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.14);
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.13), rgba(255, 0, 170, 0.12));
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .ai-chat-panel__close {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .ai-chat-panel iframe {
+      width: 100%;
+      height: calc(100% - 54px);
+      border: 0;
+      background: #fff;
+    }
+
+    @media (max-width: 640px) {
+      .ai-launcher {
+        right: 14px;
+        bottom: 14px;
+        min-height: 56px;
+        padding: 0 16px 0 12px;
+      }
+
+      .ai-launcher__text small {
+        display: none;
+      }
+
+      .ai-launcher-note {
+        right: 14px;
+        bottom: 82px;
+        max-width: calc(100vw - 28px);
+      }
+
+      .ai-chat-panel {
+        right: 14px;
+        bottom: 82px;
+        width: calc(100vw - 28px);
+        height: calc(100vh - 104px);
+        border-radius: 18px;
+      }
+    }
+
   </style>
+  <!-- Looma Widget Code -->
+  <script>
+  (function(d) {
+      var s = d.createElement('script');
+      s.defer = true;
+      s.src = 'https://widget.looma.chat/loader.js?token=92bf1bbb15cac08aff1513f5dc13a765';
+      if (d.head) d.head.appendChild(s);
+  })(document);
+  </script>
+  <!-- End Looma Widget Code -->
 </head>
 <body>
   <!-- Navigation -->
@@ -418,6 +586,28 @@
     © 2026 FredLegends • Все права пока что не защищены<br>
     <a href="https://t.me/ArbitrationCriptobt" style="color:var(--primary);">Поддержка</a>
   </footer>
+  <button class="ai-launcher" id="aiLauncher" type="button" aria-label="Открыть ИИ помощника">
+    <span class="ai-launcher__icon"><i class="fas fa-robot"></i></span>
+    <span class="ai-launcher__text">
+      <span>ИИ помощник</span>
+      <small>Задать вопрос</small>
+    </span>
+  </button>
+  <div class="ai-launcher-note" id="aiLauncherNote">Открываю ассистента...</div>
+
+  <div class="ai-chat-panel" id="aiChatPanel" aria-hidden="true">
+    <div class="ai-chat-panel__bar">
+      <span>ИИ помощник</span>
+      <button class="ai-chat-panel__close" id="aiChatClose" type="button" aria-label="Закрыть чат">×</button>
+    </div>
+    <iframe
+      title="Looma AI Assistant"
+      src="https://widget.looma.chat/chat.html?token=15af3244d1bfdf912fca27d675f554e5"
+      loading="lazy"
+      allow="clipboard-write; microphone">
+    </iframe>
+  </div>
+
 
   <!-- Profile Modal -->
   <div class="modal" id="profileModal">
@@ -601,5 +791,39 @@
       }, 45000);
     };
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var launcher = document.getElementById('aiLauncher');
+      var note = document.getElementById('aiLauncherNote');
+      var panel = document.getElementById('aiChatPanel');
+      var close = document.getElementById('aiChatClose');
+      if (!launcher || !note || !panel || !close) return;
+
+      launcher.addEventListener('click', function() {
+        note.textContent = 'Открываю ассистента...';
+        note.classList.add('show');
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+
+        clearTimeout(window.aiLauncherNoteTimer);
+        window.aiLauncherNoteTimer = setTimeout(function() {
+          note.classList.remove('show');
+        }, 2600);
+      });
+
+      close.addEventListener('click', function() {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          panel.classList.remove('open');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
