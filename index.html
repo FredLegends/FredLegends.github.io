@@ -1,426 +1,277 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Курс «Блядо» PRO v2.2</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-  <style>
-    :root {
-      --primary: #00f0ff;
-      --accent: #ff00aa;
-      --dark: #0a0a0a;
-      --gray: #1a1a1a;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    .chart-section {
-  padding: 60px 20px;
-}
-
-.chart-box {
-  background: rgba(26, 26, 26, 0.7);
-  border: 1px solid rgba(0, 240, 255, 0.15);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 240, 255, 0.1);
-}
-
-.chart-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-.tv-chart {
-  height: 450px;
-}
-    
-    body {
-      font-family: 'Inter', Arial, sans-serif;
-      color: #fff;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding: 120px 20px 80px;
-    }
-    
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    
-    .glow {
-      text-shadow: 0 0 30px var(--primary);
-    }
-    
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.05;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #fff, var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .subtitle {
-      font-size: 1.35rem;
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-    
-    .price {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 1.5rem 0;
-    }
-    
-    .old-price {
-      text-decoration: line-through;
-      color: #666;
-      font-size: 1.4rem;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: linear-gradient(90deg, var(--primary), #00aacc);
-      color: #000;
-      padding: 1.1em 2.4em;
-      border-radius: 9999px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.15rem;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: 0 20px 40px rgba(0, 240, 255, 0.5);
-    }
-    
-    .btn::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 40%;
-      height: 200%;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: skewX(-25deg);
-      animation: shine 4s infinite;
-    }
-    
-    @keyframes shine {
-      0% { transform: translateX(-150%) skewX(-25deg); }
-      20% { transform: translateX(300%) skewX(-25deg); }
-    }
-    
-    .section {
-      padding: 100px 20px;
-    }
-    
-    .features {
-      background: rgba(10, 10, 10, 0.8);
-      border-top: 1px solid rgba(0, 240, 255, 0.1);
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    
-    .card {
-      background: rgba(26, 26, 26, 0.7);
-      border-radius: 20px;
-      padding: 2rem;
-      border: 1px solid rgba(0, 240, 255, 0.15);
-      transition: all 0.4s ease;
-    }
-    
-    .card:hover {
-      transform: translateY(-15px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0, 240, 255, 0.15);
-    }
-    
-    .card i {
-      font-size: 2.8rem;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .testimonials {
-      background: linear-gradient(135deg, #1a0033, #0a0a0a);
-    }
-    
-    .testimonial {
-      background: rgba(255,255,255,0.05);
-      padding: 2rem;
-      border-radius: 20px;
-      border-left: 5px solid var(--primary);
-    }
-    
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,240,255,0.1);
-      padding: 1rem 0;
-    }
-    
-    .nav-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
-    
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    
-    .modal {
-      position: fixed;
-      top: 0; right: -420px;
-      width: 380px;
-      height: 100vh;
-      background: #111;
-      padding: 30px;
-      transition: right 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-      box-shadow: -10px 0 30px rgba(0,0,0,0.6);
-      z-index: 2000;
-      overflow-y: auto;
-    }
-    
-    .modal.open { right: 0; }
-    
-    .floating-elements {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    
-    .coin {
-      position: absolute;
-      font-size: 2.5rem;
-      opacity: 0.15;
-      animation: float 25s linear infinite;
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-100vh) rotate(720deg); }
-    }
-    .ai-launcher {
-      position: fixed;
-      right: 24px;
-      bottom: 24px;
-      z-index: 2100;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 62px;
-      padding: 0 22px;
-      border: 1px solid rgba(0, 240, 255, 0.48);
-      border-radius: 9999px;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.95), rgba(255, 0, 170, 0.9));
-      color: #050505;
-      font: 800 1rem/1 'Inter', Arial, sans-serif;
-      cursor: pointer;
-      box-shadow: 0 18px 42px rgba(0, 240, 255, 0.28), 0 0 28px rgba(255, 0, 170, 0.24);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .ai-launcher:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 24px 54px rgba(0, 240, 255, 0.4), 0 0 38px rgba(255, 0, 170, 0.34);
-    }
-
-    .ai-launcher__icon {
-      display: grid;
-      place-items: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.78);
-      color: var(--primary);
-      box-shadow: inset 0 0 18px rgba(0, 240, 255, 0.22);
-    }
-
-    .ai-launcher__text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .ai-launcher__text small {
-      color: rgba(0, 0, 0, 0.68);
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .ai-launcher-note {
-      position: fixed;
-      right: 24px;
-      bottom: 96px;
-      z-index: 2100;
-      max-width: 280px;
-      padding: 12px 14px;
-      border: 1px solid rgba(0, 240, 255, 0.22);
-      border-radius: 16px;
-      background: rgba(10, 10, 10, 0.9);
-      color: #fff;
-      font-size: 0.9rem;
-      line-height: 1.35;
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.34);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .ai-launcher-note.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .ai-chat-panel {
-      position: fixed;
-      right: 24px;
-      bottom: 104px;
-      z-index: 2200;
-      width: min(390px, calc(100vw - 28px));
-      height: min(640px, calc(100vh - 132px));
-      border: 1px solid rgba(0, 240, 255, 0.28);
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(10, 10, 10, 0.96);
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.58), 0 0 42px rgba(0, 240, 255, 0.22);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(16px) scale(0.98);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .ai-chat-panel.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-
-    .ai-chat-panel__bar {
-      height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px 0 18px;
-      border-bottom: 1px solid rgba(0, 240, 255, 0.14);
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.13), rgba(255, 0, 170, 0.12));
-      color: #fff;
-      font-weight: 800;
-    }
-
-    .ai-chat-panel__close {
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .ai-chat-panel iframe {
-      width: 100%;
-      height: calc(100% - 54px);
-      border: 0;
-      background: #fff;
-    }
-
-    @media (max-width: 640px) {
-      .ai-launcher {
-        right: 14px;
-        bottom: 14px;
-        min-height: 56px;
-        padding: 0 16px 0 12px;
-      }
-
-      .ai-launcher__text small {
-        display: none;
-      }
-
-      .ai-launcher-note {
-        right: 14px;
-        bottom: 82px;
-        max-width: calc(100vw - 28px);
-      }
-
-      .ai-chat-panel {
-        right: 14px;
-        bottom: 82px;
-        width: calc(100vw - 28px);
-        height: calc(100vh - 104px);
-        border-radius: 18px;
-      }
-    }
-
-  </style>
-  <!-- Looma Widget Code -->
-  <script>
-  (function(d) {
-      var s = d.createElement('script');
-      s.defer = true;
-      s.src = 'https://widget.looma.chat/loader.js?token=15af3244d1bfdf912fca27d675f554e5';
-      if (d.head) d.head.appendChild(s);
-  })(document);
-  </script>
-  <!-- End Looma Widget Code -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Курс «Блядо» PRO v2.5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<style>
+:root{--primary:#00f0ff;--accent:#ff00aa;--dark:#0a0a0a;--gray:#1a1a1a}
+*{margin:0;padding:0;box-sizing:border-box}
+.chart-section{padding:60px 20px}
+.chart-box{background:rgba(26,26,26,.7);border:1px solid rgba(0,240,255,.15);border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,240,255,.1)}
+.chart-title{text-align:center;font-size:2rem;margin-bottom:30px}
+.tv-chart{height:450px}
+body{font-family:'Inter',Arial,sans-serif;color:#fff;background:linear-gradient(135deg,#0a0a0a 0%,#1a0033 100%);min-height:100vh;overflow-x:hidden}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 20px 80px}
+.container{max-width:1100px;margin:0 auto;width:100%}
+.glow{text-shadow:0 0 30px var(--primary)}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,8vw,5.5rem);font-weight:700;line-height:1.05;margin-bottom:1rem;background:linear-gradient(90deg,#fff,var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:1.35rem;max-width:600px;margin:0 auto 2rem;opacity:.9;line-height:1.4}
+.price{font-size:2.2rem;font-weight:700;color:var(--primary);margin:1.5rem 0}
+.old-price{text-decoration:line-through;color:#666;font-size:1.4rem}
+.btn{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(90deg,var(--primary),#00aacc);color:#000;padding:1.1em 2.4em;border-radius:9999px;text-decoration:none;font-weight:700;font-size:1.15rem;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 10px 30px rgba(0,240,255,.3);position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 20px 40px rgba(0,240,255,.5)}
+.btn::after{content:'';position:absolute;top:-50%;left:-50%;width:40%;height:200%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-25deg);animation:shine 4s infinite}
+@keyframes shine{0%{transform:translateX(-150%) skewX(-25deg)}20%{transform:translateX(300%) skewX(-25deg)}}
+.btn-casino{background:linear-gradient(90deg,#ff00aa,#00f0ff);box-shadow:0 10px 30px rgba(255,0,170,.35)}
+.section{padding:100px 20px}
+.features{background:rgba(10,10,10,.8);border-top:1px solid rgba(0,240,255,.1)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+.card{background:rgba(26,26,26,.7);border-radius:20px;padding:2rem;border:1px solid rgba(0,240,255,.15);transition:all .4s ease}
+.card:hover{transform:translateY(-15px);border-color:var(--primary);box-shadow:0 20px 40px rgba(0,240,255,.15)}
+.card i{font-size:2.8rem;margin-bottom:1.5rem;background:linear-gradient(45deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.testimonials{background:linear-gradient(135deg,#1a0033,#0a0a0a)}
+.testimonial{background:rgba(255,255,255,.05);padding:2rem;border-radius:20px;border-left:5px solid var(--primary)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,240,255,.1);padding:1rem 0}
+.nav-content{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--primary)}
+.modal{position:fixed;top:0;right:-420px;width:380px;max-width:100vw;height:100vh;background:#111;padding:30px;transition:right .5s cubic-bezier(.32,.72,0,1);box-shadow:-10px 0 30px rgba(0,0,0,.6);z-index:2000;overflow-y:auto}
+.modal.open{right:0}
+.floating-elements{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
+.coin{position:absolute;font-size:2.5rem;opacity:.15;animation:float 25s linear infinite}
+@keyframes float{0%{transform:translateY(100vh) rotate(0)}100%{transform:translateY(-100vh) rotate(720deg)}}
+.ai-launcher{position:fixed;right:24px;bottom:24px;z-index:2100;display:inline-flex;align-items:center;gap:12px;min-height:62px;padding:0 22px;border:1px solid rgba(0,240,255,.48);border-radius:9999px;background:linear-gradient(135deg,rgba(0,240,255,.95),rgba(255,0,170,.9));color:#050505;font:800 1rem/1 'Inter',Arial,sans-serif;cursor:pointer;box-shadow:0 18px 42px rgba(0,240,255,.28),0 0 28px rgba(255,0,170,.24);transition:transform .25s ease,box-shadow .25s ease}
+.ai-launcher:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 24px 54px rgba(0,240,255,.4),0 0 38px rgba(255,0,170,.34)}
+.ai-launcher__icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.78);color:var(--primary);box-shadow:inset 0 0 18px rgba(0,240,255,.22)}
+.ai-launcher__text{display:flex;flex-direction:column;gap:3px;text-align:left;white-space:nowrap}
+.ai-launcher__text small{color:rgba(0,0,0,.68);font-size:.72rem;font-weight:700}
+.ai-launcher-note{position:fixed;right:24px;bottom:96px;z-index:2100;max-width:280px;padding:12px 14px;border:1px solid rgba(0,240,255,.22);border-radius:16px;background:rgba(10,10,10,.9);color:#fff;font-size:.9rem;line-height:1.35;box-shadow:0 16px 32px rgba(0,0,0,.34);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease}
+.ai-launcher-note.show{opacity:1;transform:translateY(0)}
+.ai-chat-panel{position:fixed;right:24px;bottom:104px;z-index:2200;width:min(390px,calc(100vw - 28px));height:min(640px,calc(100vh - 132px));border:1px solid rgba(0,240,255,.28);border-radius:24px;overflow:hidden;background:rgba(10,10,10,.96);box-shadow:0 28px 70px rgba(0,0,0,.58),0 0 42px rgba(0,240,255,.22);opacity:0;pointer-events:none;transform:translateY(16px) scale(.98);transition:opacity .25s ease,transform .25s ease}
+.ai-chat-panel.open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.ai-chat-panel__bar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;border-bottom:1px solid rgba(0,240,255,.14);background:linear-gradient(90deg,rgba(0,240,255,.13),rgba(255,0,170,.12));color:#fff;font-weight:800}
+.ai-chat-panel__close{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:1.2rem}
+.ai-chat-panel iframe{width:100%;height:calc(100% - 54px);border:0;background:#fff}
+@media(max-width:640px){
+.ai-launcher{right:14px;bottom:14px;min-height:56px;padding:0 16px 0 12px}
+.ai-launcher__text small{display:none}
+.ai-launcher-note{right:14px;bottom:82px;max-width:calc(100vw - 28px)}
+.ai-chat-panel{right:14px;bottom:82px;width:calc(100vw - 28px);height:calc(100vh - 104px);border-radius:18px}}
+</style>
+<!-- Looma Widget Code -->
+<script>
+(function(d){var s=d.createElement('script');s.defer=true;s.src='https://widget.looma.chat/loader.js?token=15af3244d1bfdf912fca27d675f554e5';if(d.head)d.head.appendChild(s)})(document);
+</script>
+<!-- End Looma Widget Code -->
 </head>
 <body>
-  <style>
+<nav class="nav">
+  <div class="nav-content">
+    <div class="logo">БЛЯДО PRO</div>
+    <div style="display:flex;gap:20px;align-items:center;">
+      <div onclick="toggleProfile()" class="btn" style="padding:.6em 1.4em;font-size:1rem;background:#222;color:#fff;">👤 Профиль</div>
+      <div onclick="toggleTheme()" style="cursor:pointer;font-size:1.6rem;">🌙</div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="floating-elements" id="floating"></div>
+  <div class="container" style="text-align:center;position:relative;z-index:2;">
+    <div style="margin-bottom:1rem;font-size:1.1rem;letter-spacing:3px;opacity:.8;">🔥 КРИПТО КУРС 2026</div>
+    <h1 class="glow">ОСВОЙ ТРЕЙДИНГ<br>И ЗАПУСТИ СВОЙ<br>КРИПТО-ПОТОК</h1>
+    <p class="subtitle">Реальные стратегии • Живая поддержка • Результаты учеников</p>
+    <div style="margin:2.5rem 0;">
+      <div class="price">
+        <span id="price" style="font-size:3rem;">550 грн</span>
+        <span class="old-price" style="margin-left:15px;">990 грн</span>
+      </div>
+      <a href="https://t.me/ArbitrationCriptobt" target="_blank" class="btn" id="buyBtn"><i class="fas fa-rocket"></i> Купить курс сейчас</a>
+      <div style="margin-top:1.2rem;"><a href="#casino" data-casino class="btn btn-casino" style="font-size:1rem;padding:.9em 2em;">🎰 Сыграть в казино ($500 бесплатно)</a></div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:3rem;font-size:1rem;">
+      <div><strong>300+</strong> учеников</div>
+      <div><strong>87%</strong> вышли в плюс</div>
+      <div><strong>24/7</strong> поддержка</div>
+    </div>
+  </div>
+</section>
+
+<section class="chart-section">
+  <div class="container">
+    <h2 class="chart-title">📈 Курс Bitcoin в реальном времени</h2>
+    <div class="chart-box">
+      <div class="tv-chart">
+        <div class="tradingview-widget-container" style="height:100%;width:100%">
+          <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+          {"allow_symbol_change":false,"calendar":false,"details":false,"hide_side_toolbar":true,"hide_top_toolbar":false,"hide_legend":false,"hide_volume":false,"interval":"D","locale":"ru","save_image":false,"style":"1","symbol":"BINANCE:BTCUSDT","theme":"dark","timezone":"Europe/Kiev","backgroundColor":"#1a1a1a","gridColor":"rgba(255,255,255,0.05)","autosize":true}
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section features">
+  <div class="container">
+    <h2 style="text-align:center;font-size:2.8rem;margin-bottom:3rem;">Что ты получишь</h2>
+    <div class="grid">
+      <div class="card"><i class="fas fa-chart-line"></i><h3>Практические стратегии</h3><p>Арбитраж, скальпинг, 1Win, долгосрочные откаты, DeFi, NFT, Хамстер комбат. Всё, что работает в 2026.</p></div>
+      <div class="card"><i class="fas fa-users"></i><h3>Закрытое сообщество</h3><p>Чат с учениками и ментором. Разборы демок в реальном времени.</p></div>
+      <div class="card"><i class="fas fa-shield-alt"></i><h3>Гарантия результата</h3><p>Если за 30 дней не освоишь основы — никакого полного возврата.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section testimonials">
+  <div class="container">
+    <h2 style="text-align:center;font-size:2.8rem;margin-bottom:3rem;">Отзывы учеников</h2>
+    <div class="grid">
+      <div class="testimonial"><p>"За 3 недели слил 2400$ на арбитраже. Лучшее вложение в себя за последний год."</p><strong>— @CryptoVova</strong></div>
+      <div class="testimonial"><p>"Простым языком объяснили, как сливать депозит. Вложила 5 тысяч долларов, вывела 15 тысяч гривен. Спасибо."</p><strong>— Анна К.</strong></div>
+      <div class="testimonial"><p>"Сообщество — это космос. Каждый день новые проблемы. Развелся с жинкой."</p><strong>— MaxTrade</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#0a0a0a;">
+  <div class="container">
+    <h2 style="text-align:center;font-size:2.8rem;margin-bottom:3rem;">Часто задаваемые вопросы</h2>
+    <div style="max-width:700px;margin:0 auto;">
+      <details style="margin:1.2rem 0;background:rgba(26,26,26,.6);padding:1.5rem;border-radius:16px;border:1px solid #333;"><summary style="font-weight:600;cursor:pointer;">Для новичков ли курс?</summary><p style="margin-top:1rem;opacity:.9;">Да. Начинаем с нуля: от установки кошелька до первых прибыльных сделок.</p></details>
+      <details style="margin:1.2rem 0;background:rgba(26,26,26,.6);padding:1.5rem;border-radius:16px;border:1px solid #333;"><summary style="font-weight:600;cursor:pointer;">Сколько времени нужно уделять?</summary><p style="margin-top:1rem;opacity:.9;">От 30 минут в день. Есть ускоренный и комфортный формат.</p></details>
+      <details style="margin:1.2rem 0;background:rgba(26,26,26,.6);padding:1.5rem;border-radius:16px;border:1px solid #333;"><summary style="font-weight:600;cursor:pointer;">Есть ли поддержка после покупки?</summary><p style="margin-top:1rem;opacity:.9;">Пожизненный доступ к обновлениям + чат с поддержкой.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="text-align:center;background:linear-gradient(135deg,#1a0033,#0a0a0a);">
+  <div class="container">
+    <h2 style="font-size:3rem;margin-bottom:1.5rem;">Готов изменить свою финансовую жизнь?</h2>
+    <a href="https://t.me/FredLegends" target="_blank" class="btn" style="font-size:1.4rem;padding:1.3em 3em;"><i class="fas fa-bolt"></i> Забрать курс со скидкой</a>
+    <p style="margin-top:2rem;opacity:.7;">Осталось мест: <strong>47 из 100</strong></p>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:3rem 20px;background:#000;font-size:.9rem;color:#666;">
+  © 2026 FredLegends • Все права пока что не защищены<br>
+  <a href="https://t.me/ArbitrationCriptobt" style="color:var(--primary);">Поддержка</a>
+</footer>
+
+<button class="ai-launcher" id="aiLauncher" type="button" aria-label="Открыть ИИ помощника">
+  <span class="ai-launcher__icon"><i class="fas fa-robot"></i></span>
+  <span class="ai-launcher__text"><span>ИИ помощник</span><small>Задать вопрос</small></span>
+</button>
+<div class="ai-launcher-note" id="aiLauncherNote">Открываю ассистента...</div>
+<div class="ai-chat-panel" id="aiChatPanel" aria-hidden="true">
+  <div class="ai-chat-panel__bar"><span>ИИ помощник</span><button class="ai-chat-panel__close" id="aiChatClose" type="button" aria-label="Закрыть чат">×</button></div>
+  <iframe title="Looma AI Assistant" src="https://widget.looma.chat/chat.html?token=92bf1bbb15cac08aff1513f5dc13a765" loading="lazy" allow="clipboard-write; microphone"></iframe>
+</div>
+
+<div class="modal" id="profileModal">
+  <h3 style="text-align:center;margin-bottom:2rem;">👤 Профиль</h3>
+  <div id="profileView"></div>
+  <div style="margin:2rem 0;">
+    <input type="text" id="promoCode" placeholder="Промокод" style="width:100%;padding:1em;background:#222;border:none;border-radius:12px;color:#fff;margin-bottom:1rem;" />
+    <button onclick="applyPromo()" style="width:100%;padding:1em;background:var(--primary);color:#000;font-weight:700;border:none;border-radius:12px;cursor:pointer;">Активировать</button>
+    <div id="promoMsg" style="margin-top:1rem;min-height:24px;text-align:center;"></div>
+  </div>
+  <button onclick="toggleProfile()" style="width:100%;padding:1em;background:#333;border:none;border-radius:12px;color:#fff;cursor:pointer;">Закрыть</button>
+</div>
+
+<script>
+function createFloatingCoins(){
+  const c=document.getElementById('floating');
+  for(let i=0;i<12;i++){
+    const e=document.createElement('div');e.className='coin';
+    e.textContent=['₿','⟠','♦','Ξ'][Math.floor(Math.random()*4)];
+    e.style.left=Math.random()*100+'vw';
+    e.style.animationDuration=(20+Math.random()*30)+'s';
+    e.style.animationDelay='-'+Math.random()*40+'s';
+    c.appendChild(e);
+  }
+}
+let user=null;
+try{user=JSON.parse(localStorage.getItem('user'))||null}catch(e){}
+function toggleProfile(){document.getElementById('profileModal').classList.toggle('open');renderProfile()}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderProfile(){
+  const view=document.getElementById('profileView');
+  const inp='width:100%;padding:1em;background:#222;border:none;border-radius:12px;color:#fff;';
+  if(user){
+    view.innerHTML=`<div style="text-align:center;">
+      <div onclick="changeAvatar()" style="width:90px;height:90px;margin:0 auto 1rem;border-radius:50%;background:url('${esc(user.avatar)}') center/cover;border:4px solid var(--primary);cursor:pointer;"></div>
+      <p><strong>${esc(user.nick)}</strong></p>
+      <input type="text" id="editNick" value="${esc(user.nick)}" style="${inp}margin:1rem 0;" />
+      <button onclick="saveNick()" style="width:100%;padding:.9em;background:var(--primary);color:#000;font-weight:700;border:none;border-radius:12px;margin-bottom:.8rem;">Сохранить ник</button>
+      <button onclick="logout()" style="width:100%;padding:.9em;background:#333;color:#fff;border:none;border-radius:12px;">Выйти</button></div>`;
+  }else{
+    view.innerHTML=`<input type="text" id="regNick" placeholder="Никнейм" style="${inp}margin-bottom:.8rem;" />
+      <input type="password" id="regPass" placeholder="Пароль" style="${inp}margin-bottom:.8rem;" />
+      <button onclick="register()" style="width:100%;padding:1em;background:var(--primary);color:#000;font-weight:700;border:none;border-radius:12px;margin-bottom:1.5rem;">Зарегистрироваться</button>
+      <div style="text-align:center;opacity:.6;margin:1rem 0;">или</div>
+      <input type="text" id="loginNick" placeholder="Никнейм" style="${inp}margin-bottom:.8rem;" />
+      <input type="password" id="loginPass" placeholder="Пароль" style="${inp}margin-bottom:1rem;" />
+      <button onclick="login()" style="width:100%;padding:1em;background:#444;color:#fff;font-weight:700;border:none;border-radius:12px;">Войти</button>`;
+  }
+}
+function saveNick(){
+  const n=document.getElementById('editNick').value.trim();
+  if(n){user.nick=n;localStorage.setItem('user',JSON.stringify(user));renderProfile()}
+}
+function logout(){if(confirm('Выйти?')){user=null;localStorage.removeItem('user');renderProfile()}}
+function changeAvatar(){
+  const input=document.createElement('input');input.type='file';input.accept='image/*';
+  input.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=()=>{user.avatar=r.result;localStorage.setItem('user',JSON.stringify(user));renderProfile()};
+    r.readAsDataURL(f);
+  };
+  input.click();
+}
+function applyPromo(){
+  const code=document.getElementById('promoCode').value.trim().toLowerCase();
+  const p=document.getElementById('price'),m=document.getElementById('promoMsg');
+  if(code==='courses'||code==='blyado'){
+    p.textContent='165 грн';
+    m.innerHTML='<span style="color:#0f0;">✅ Скидка 70% применена! 🔥</span>';
+    confetti();
+  }else m.innerHTML='<span style="color:#ff4444;">❌ Неверный промокод</span>';
+}
+function confetti(){
+  for(let i=0;i<80;i++)setTimeout(()=>{
+    const c=document.createElement('div');
+    c.style.cssText='position:fixed;left:'+Math.random()*100+'vw;top:-20px;font-size:20px;z-index:9999';
+    c.textContent=['💎','🚀','₿','📈'][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+    let y=-20;
+    const a=setInterval(()=>{
+      y+=12+Math.random()*8;c.style.top=y+'px';c.style.transform=`rotate(${y*3}deg)`;
+      if(y>window.innerHeight){clearInterval(a);c.remove()}
+    },20);
+  },i*12);
+}
+window.onload=()=>{createFloatingCoins();renderProfile()};
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var l=document.getElementById('aiLauncher'),n=document.getElementById('aiLauncherNote'),p=document.getElementById('aiChatPanel'),c=document.getElementById('aiChatClose');
+  if(!l||!n||!p||!c)return;
+  function shut(){p.classList.remove('open');p.setAttribute('aria-hidden','true')}
+  l.addEventListener('click',function(){
+    n.textContent='Открываю ассистента...';n.classList.add('show');p.classList.add('open');p.setAttribute('aria-hidden','false');
+    clearTimeout(window.aiLauncherNoteTimer);window.aiLauncherNoteTimer=setTimeout(function(){n.classList.remove('show')},2600);
+  });
+  c.addEventListener('click',shut);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')shut()});
+});
+</script>
+
+<style>
   html { scroll-behavior: smooth; }
   section[id] { scroll-margin-top: 70px; }
 
@@ -513,6 +364,7 @@
       if (el) { el.id = m[1]; html += '<a href="#' + m[1] + '">' + m[2] + '</a>'; }
     });
     if (faq) { faq.id = 'faq'; html += '<a href="#faq">FAQ</a>'; }
+    html += '<a href="#casino" data-casino>🎰 Казино</a>';
 
     var navContent = document.querySelector('.nav-content');
     var right = navContent.lastElementChild;
@@ -622,410 +474,550 @@
   };
 })();
 </script>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-content">
-      <div class="logo">БЛЯДО PRO</div>
-      <div style="display:flex; gap:20px; align-items:center;">
-        <div onclick="toggleProfile()" class="btn" style="padding:0.6em 1.4em; font-size:1rem; background:#222; color:#fff;">👤 Профиль</div>
-        <div onclick="toggleTheme()" style="cursor:pointer; font-size:1.6rem;">🌙</div>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="floating-elements" id="floating"></div>
-    
-    <div class="container" style="text-align:center; position:relative; z-index:2;">
-      <div style="margin-bottom:1rem; font-size:1.1rem; letter-spacing:3px; opacity:0.8;">🔥 КРИПТО КУРС 2026</div>
-      <h1 class="glow">ОСВОЙ ТРЕЙДИНГ<br>И ЗАПУСТИ СВОЙ<br>КРИПТО-ПОТОК</h1>
-      
-      <p class="subtitle">
-        Реальные стратегии • Живая поддержка • Результаты учеников
-      </p>
-      
-      <div style="margin:2.5rem 0;">
-        <div class="price">
-          <span id="price" style="font-size:3rem;">550 грн</span>
-          <span class="old-price" style="margin-left:15px;">990 грн</span>
-        </div>
-        <a href="https://t.me/FredLegends" target="_blank" class="btn" id="buyBtn">
-          <i class="fas fa-rocket"></i>
-          Купить курс сейчас
-        </a>
+
+
+<style>
+.casino-overlay{position:fixed;inset:0;z-index:3000;background:#0a0a0a;display:none}
+.casino-overlay.open{display:block;animation:cin .35s ease}
+.casino-overlay iframe{width:100%;height:100%;border:0;display:block}
+@keyframes cin{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+</style>
+<div class="casino-overlay" id="casinoOverlay" aria-hidden="true"><iframe id="casinoFrame" title="БЛЯДО CASINO"></iframe></div>
+<script type="text/plain" id="casinoSrc"><!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>БЛЯДО CASINO</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--p:#00f0ff;--a:#ff00aa;--g:#19e68c;--r:#ff4466;--ln:rgba(0,240,255,.15)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,Arial,sans-serif;color:#fff;background:linear-gradient(135deg,#0a0a0a,#1a0033) fixed;min-height:100vh;padding-bottom:50px}
+small{opacity:.65;font-size:.78rem}
+.g{color:var(--g)}.r{color:var(--r)}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--ln)}
+.back{font:700 1.05rem 'Space Grotesk',sans-serif;color:var(--p);text-decoration:none}
+.back span{color:var(--a);margin-left:6px}
+.nw{text-align:right;line-height:1.15;margin-left:auto}
+.nw b{display:block;font:700 1.3rem 'Space Grotesk',sans-serif}
+#rst{background:#222;border:0;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem}
+#news{max-width:720px;margin:10px auto 0;padding:8px 16px;font-size:.85rem;opacity:.85;min-height:34px}
+#news.flash{animation:nf 1.2s}
+@keyframes nf{0%{color:var(--p);transform:scale(1.04)}100%{color:#fff;transform:none}}
+.tabs{max-width:720px;margin:6px auto 0;display:flex;gap:8px;padding:0 16px}
+.tabs button{flex:1;padding:12px 6px;border:1px solid var(--ln);border-radius:14px;background:rgba(26,26,26,.7);color:#fff;font:600 .95rem Inter,sans-serif;cursor:pointer}
+.tabs button.on{background:linear-gradient(90deg,var(--p),#00aacc);color:#000;border-color:transparent}
+main{max-width:720px;margin:12px auto;padding:0 16px}
+.tab{display:none}.tab.on{display:block}
+.panel{background:rgba(26,26,26,.75);border:1px solid var(--ln);border-radius:20px;padding:16px;margin-bottom:14px}
+h3{font-size:.9rem;margin:12px 0 8px;opacity:.8}h3:first-child{margin-top:0}
+.bd{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;flex:none;font-style:normal;font-weight:700;font-size:1.1rem;color:#fff;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.45),var(--c) 55%);box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent)}
+.row{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:14px;cursor:pointer;border:1px solid transparent}
+.row:hover{background:rgba(255,255,255,.05)}.row.on{border-color:var(--p);background:rgba(0,240,255,.07)}
+.nm{flex:1;min-width:0}.nm b{display:block}
+.pr{text-align:right}.pr b{display:block;font-size:.95rem}
+.spark{width:60px;height:24px}
+.th{display:flex;align-items:center;gap:12px;margin-bottom:12px}.th>div{flex:1}.th b{display:block;font-size:1.1rem}
+.seg{display:flex;background:#111;border-radius:12px;padding:4px;margin-bottom:10px}
+.seg button{flex:1;padding:9px;border:0;border-radius:9px;background:none;color:#fff;font:600 .9rem Inter,sans-serif;cursor:pointer}
+.seg button.on{background:#333}.seg button.on.sell{background:var(--r)}.seg button.on.buy{background:var(--g);color:#000}
+.inp{display:flex;align-items:center;gap:8px;background:#111;border-radius:12px;padding:0 14px;margin-bottom:8px}
+.inp input{flex:1;background:none;border:0;color:#fff;font:600 1.2rem Inter,sans-serif;padding:12px 0;outline:none;min-width:0}
+.qs{display:flex;gap:8px;margin-bottom:10px}
+.qs button{flex:1;padding:8px;border:1px solid var(--ln);border-radius:10px;background:none;color:#fff;cursor:pointer}
+.go{width:100%;padding:15px;border:0;border-radius:9999px;background:linear-gradient(90deg,var(--p),#00aacc);color:#000;font:800 1.05rem Inter,sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,240,255,.3)}
+.go:hover{transform:translateY(-3px)}.go:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.go.sell{background:linear-gradient(90deg,var(--r),#cc2244);color:#fff}
+#est{margin-top:8px;text-align:center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.chip{display:flex;align-items:center;gap:8px;flex:none;padding:6px 12px 6px 6px;border:1px solid var(--ln);border-radius:9999px;background:#111;color:#fff;font:600 .85rem Inter,sans-serif;cursor:pointer}
+.chip .bd{width:26px;height:26px;font-size:.8rem}
+.chip.on{border-color:var(--p);box-shadow:0 0 14px rgba(0,240,255,.35)}
+input[type=range]{width:100%;margin:10px 0;accent-color:var(--p)}
+.dp{display:flex;flex-direction:column;align-items:center;gap:16px}
+.dial{position:relative;width:min(280px,80vw);aspect-ratio:1;border-radius:50%;transition:box-shadow .4s}
+.dial svg{width:100%;height:100%}.dial circle{fill:none;stroke-width:12}
+.trk{stroke:rgba(255,68,102,.35)}.arc{stroke:var(--g);transition:stroke-dasharray .3s}
+.needle{position:absolute;left:50%;top:6%;height:44%;width:4px;margin-left:-2px;transform-origin:50% 100%;border-radius:4px;background:linear-gradient(#fff,rgba(255,255,255,0) 85%);box-shadow:0 0 10px #fff}
+.ctr{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:700 2rem 'Space Grotesk',sans-serif;padding:20%}
+.ctr small{display:block;font:500 .8rem Inter,sans-serif}
+.dial.run{box-shadow:0 0 50px rgba(0,240,255,.45)}
+.dial.win{box-shadow:0 0 70px var(--g)}
+.dial.lose{box-shadow:0 0 70px var(--r);animation:shake .5s}
+@keyframes shake{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+.cf{position:fixed;top:-40px;z-index:999;font-size:24px;pointer-events:none;animation:fall 2.4s linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
+.inv{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+.ic{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;border:1px solid var(--ln);border-radius:14px;background:#111;color:#fff;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s}
+.ic:hover{transform:translateY(-3px)}
+.ic.on{border-color:var(--p);box-shadow:0 0 16px rgba(0,240,255,.4);background:rgba(0,240,255,.08)}
+.ic small{font-size:.72rem}.ic .iv{color:var(--g);opacity:1}
+.chip span{text-align:left;line-height:1.1}.chip small{font-weight:500}
+.qs button.on{border-color:var(--p);background:rgba(0,240,255,.12)}
+.fl{position:fixed;top:70px;right:18px;z-index:50;font:700 1.3rem 'Space Grotesk',sans-serif;pointer-events:none;animation:fl 1.5s forwards}
+@keyframes fl{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-34px)}}
+.foot{text-align:center;font-size:.75rem;opacity:.5;margin-top:20px}
+#snd{background:#222;border:0;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.05rem}
+.tabs{overflow-x:auto}.tabs button{flex:1 0 auto;padding:12px 14px;white-space:nowrap}
+.sw{position:relative;overflow:hidden;height:118px;border-radius:14px;background:#111;margin-bottom:12px}
+.mk{position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--p);box-shadow:0 0 12px var(--p);z-index:2}
+.strip{display:flex;gap:8px;padding:8px;position:absolute;left:0;top:0;will-change:transform}
+.ci{flex:none;width:90px;height:102px;border-radius:12px;background:#1a1a1a;border:2px solid var(--t);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .4s,box-shadow .4s}
+.ci b{color:var(--t);font-size:.8rem}.ci small{font-size:.7rem}
+.ci.hit{transform:scale(1.08);box-shadow:0 0 22px var(--t)}
+#copen2{margin-top:8px;background:linear-gradient(90deg,var(--a),#aa0077);color:#fff;box-shadow:0 8px 24px rgba(255,0,170,.3)}
+body{padding-bottom:100px}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-gradient(600px 420px at 88% 8%,rgba(255,0,170,.16),transparent),radial-gradient(520px 420px at 8% 92%,rgba(0,240,255,.13),transparent)}
+.fc{position:fixed;font-size:2rem;opacity:.07;z-index:-1;pointer-events:none;animation:fcf 32s linear infinite}
+@keyframes fcf{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-15vh) rotate(720deg)}}
+.back{text-shadow:0 0 16px var(--p)}
+.panel{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.tape{overflow:hidden;white-space:nowrap;background:rgba(0,0,0,.4);border-bottom:1px solid var(--ln)}
+.tt{display:inline-block;padding:7px 0;animation:tp 70s linear infinite}
+@keyframes tp{to{transform:translateX(-50%)}}
+.ti{margin:0 16px;font-size:.8rem}.ti em{font-style:normal;opacity:.85}.ti u{text-decoration:none;margin-left:3px}
+.fu{animation:fu .9s}.fd{animation:fd .9s}
+@keyframes fu{from{color:var(--g);text-shadow:0 0 10px var(--g)}to{color:#fff}}
+@keyframes fd{from{color:var(--r);text-shadow:0 0 10px var(--r)}to{color:#fff}}
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(10,10,10,.96);backdrop-filter:blur(18px);border-top:1px solid var(--ln);box-shadow:0 -10px 30px rgba(0,0,0,.5)}
+.bn button{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 0 6px;border:0;border-radius:14px;background:none;color:#fff;opacity:.55;font:600 .68rem Inter,sans-serif;cursor:pointer;transition:all .25s}
+.bn button i{font-style:normal;font-size:1.4rem;transition:transform .25s}
+.bn button.on{opacity:1;color:var(--p);background:rgba(0,240,255,.1)}
+.bn button.on i{transform:translateY(-2px) scale(1.18)}
+.bn button.dot::after{content:'';position:absolute;top:5px;right:26%;width:9px;height:9px;border-radius:50%;background:var(--a);box-shadow:0 0 10px var(--a);animation:pl 1.2s infinite}
+@keyframes pl{50%{transform:scale(1.5)}}
+.toast{position:fixed;top:78px;left:50%;z-index:70;padding:10px 18px;border-radius:9999px;background:linear-gradient(90deg,var(--a),var(--p));color:#000;font-weight:800;white-space:nowrap;box-shadow:0 10px 30px rgba(255,0,170,.4);animation:ta 3.2s forwards}
+@keyframes ta{0%{opacity:0;transform:translate(-50%,-20px)}10%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,0)}}
+.ach{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.am{padding:10px;border-radius:12px;background:#111;border:1px solid var(--ln);font-size:.78rem;opacity:.35;filter:grayscale(1)}
+.am.on{opacity:1;filter:none;border-color:var(--a);box-shadow:0 0 14px rgba(255,0,170,.25)}
+.am i{font-style:normal;font-size:1.3rem;display:block}
+.tip ol{margin:8px 0 0 18px;font-size:.88rem;line-height:1.7;opacity:.9}
+.tip{position:relative;border-color:rgba(255,0,170,.4)}
+.tip button{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.6}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="#" onclick="parent.closeCasino();return false">← БЛЯДО<span>CASINO</span></a>
+  <div class="nw"><small>Капитал</small><b id="nw"></b><small id="pnl"></small></div>
+  <button id="snd" title="Звук">🔊</button><button id="rst" title="Начать заново">↺</button>
+</header>
+<div class="tape"><div class="tt" id="tape"></div></div>
+<div id="news">📰 Рынок открыт. У тебя $500 и мечты.</div>
+
+<main>
+  <section id="m" class="tab on">
+    <div class="panel tip" id="tip"><button data-closetip>✕</button><b>Как играть за 10 секунд</b>
+      <ol><li>📈 <b>Рынок</b>: купи любую крипту за свои $500</li><li>🎰 <b>Апгрейд</b>: ставь монеты и умножай ×2 … ×100</li><li>🎁 <b>Кейсы</b>: бесплатный раз в 3 часа</li><li>🏆 <b>Топ</b>: ты против ботов, плюс достижения</li></ol></div>
+    <div class="panel">
+      <div class="th"><span id="tb"></span><div><b id="ts"></b><small id="tp"></small></div><small id="thd"></small></div>
+      <div class="seg"><button data-mode="buy" class="on buy">Купить</button><button data-mode="sell">Продать</button></div>
+      <div class="inp"><span>$</span><input id="amt" type="number" inputmode="decimal" min="0" placeholder="0.00" /></div>
+      <div class="qs"><button data-q=".25">25%</button><button data-q=".5">50%</button><button data-q="1">MAX</button></div>
+      <button class="go" id="do"></button>
+      <div id="est"><small></small></div>
+    </div>
+    <div class="panel" id="list"></div>
+  </section>
+  <section id="w" class="tab"><div class="panel" id="wal"></div>
+    <div class="panel" id="loan"><h3>🏦 Ментор Фред даёт в долг</h3><small id="loani"></small><button class="go" id="loanb" style="margin-top:10px"></button></div></section>
+  <section id="u" class="tab">
+    <div class="panel">
+      <h3>👛 Твой кошелёк — что кладём</h3><div class="inv" id="us"></div>
+      <input type="range" id="pct" min="5" max="100" step="5" value="50" />
+      <div class="qs" id="pq"><button data-pq="25">25%</button><button data-pq="50">50%</button><button data-pq="75">75%</button><button data-pq="100">ВСЁ</button></div>
+      <h3>Во что апаем</h3><div class="chips" id="ut"></div>
+      <h3>Множитель</h3><div class="chips" id="um"></div>
+      <div id="ui" style="margin-top:10px;text-align:center"><small></small></div>
+    </div>
+    <div class="panel dp">
+      <div class="dial" id="dial">
+        <svg viewBox="0 0 200 200"><circle class="trk" cx="100" cy="100" r="88"/><circle class="arc" id="arc" cx="100" cy="100" r="88" transform="rotate(-90 100 100)"/></svg>
+        <div class="needle" id="nd"></div><div class="ctr" id="ctr"></div>
       </div>
-      
-      <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin-top:3rem; font-size:1rem;">
-        <div><strong>300+</strong> учеников</div>
-        <div><strong>87%</strong> вышли в плюс</div>
-        <div><strong>24/7</strong> поддержка</div>
-      </div>
+      <button class="go" id="spin">АПГРЕЙД</button>
     </div>
   </section>
-
-  <!-- Benefits -->
-  <section class="chart-section">
-  <div class="container">
-
-    <h2 class="chart-title">
-      📈 Курс Bitcoin в реальном времени
-    </h2>
-
-    <div class="chart-box">
-      <div class="tv-chart">
-        <div class="tradingview-widget-container" style="height:100%;width:100%">
-          <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-
-          <script
-            type="text/javascript"
-            src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
-            async>
-          {
-            "allow_symbol_change": false,
-            "calendar": false,
-            "details": false,
-            "hide_side_toolbar": true,
-            "hide_top_toolbar": false,
-            "hide_legend": false,
-            "hide_volume": false,
-            "interval": "D",
-            "locale": "ru",
-            "save_image": false,
-            "style": "1",
-            "symbol": "BINANCE:BTCUSDT",
-            "theme": "dark",
-            "timezone": "Europe/Kiev",
-            "backgroundColor": "#1a1a1a",
-            "gridColor": "rgba(255,255,255,0.05)",
-            "autosize": true
-          }
-          </script>
-        </div>
-      </div>
+  <section id="c" class="tab">
+    <div class="panel">
+      <h3>🎁 Бесплатный кейс — раз в 3 часа</h3>
+      <div class="sw"><div class="mk"></div><div class="strip" id="strip"></div></div>
+      <button class="go" id="copen"></button>
+      <button class="go" id="copen2">💎 Платный кейс</button>
+      <div id="cres"></div>
     </div>
-
-  </div>
-</section>
-
-  <section class="section features">
-    <div class="container">
-      <h2 style="text-align:center; font-size:2.8rem; margin-bottom:3rem;">Что ты получишь</h2>
-      <div class="grid">
-        <div class="card">
-          <i class="fas fa-chart-line"></i>
-          <h3>Практические стратегии</h3>
-          <p>Арбитраж, скальпинг, 1Win, долгосрочные откаты, DeFi, NFT, Хамстер комбат. Всё, что работает в 2026.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-users"></i>
-          <h3>Закрытое сообщество</h3>
-          <p>Чат с учениками и ментором. Разборы демок в реальном времени.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-shield-alt"></i>
-          <h3>Гарантия результата</h3>
-          <p>Если за 30 дней не освоишь основы — никакого полного возврата.</p>
-        </div>
-      </div>
-    </div>
+    <div class="panel" id="clegend"></div>
   </section>
+  <section id="l" class="tab"><div class="panel" id="lb"></div></section>
+  <p class="foot">All money is virtual || Шанс в апгрейде = 95% / множитель (5% забирает казино).</p>
+</main>
+<nav class="bn">
+  <button data-t="m" class="on"><i>📈</i><span>Рынок</span></button>
+  <button data-t="w"><i>👛</i><span>Кошелёк</span></button>
+  <button data-t="u"><i>🎰</i><span>Апгрейд</span></button>
+  <button data-t="c"><i>🎁</i><span>Кейсы</span></button>
+  <button data-t="l"><i>🏆</i><span>Топ</span></button>
+</nav>
 
-  <!-- Testimonials -->
-  <section class="section testimonials">
-    <div class="container">
-      <h2 style="text-align:center; font-size:2.8rem; margin-bottom:3rem;">Отзывы учеников</h2>
-      <div class="grid">
-        <div class="testimonial">
-          <p>"За 3 недели слил 2400$ на арбитраже. Лучшее вложение в себя за последний год."</p>
-          <strong>— @CryptoVova</strong>
-        </div>
-        <div class="testimonial">
-          <p>"Простым языком объяснили, как сливать депозит. Вложила 5 тысяч долларов, вывела 15 тысяч гривен. Спасибо."</p>
-          <strong>— Анна К.</strong>
-        </div>
-        <div class="testimonial">
-          <p>"Сообщество — это космос. Каждый день новые проблемы. Развелся с жинкой."</p>
-          <strong>— MaxTrade</strong>
-        </div>
-      </div>
-    </div>
-  </section>
+<script>
+const COINS=[
+ ['BTC','Bitcoin',67000,.004,'#f7931a','₿'],['ETH','Ethereum',3400,.006,'#627eea','Ξ'],
+ ['USDT','Tether',1,.0003,'#26a17b','₮'],['TON','Toncoin',5.4,.012,'#0098ea','◈'],
+ ['SOL','Solana',160,.01,'#9945ff','◎'],['BNB','BNB',580,.006,'#f3ba2f','⬢'],
+ ['XRP','Ripple',.55,.009,'#23292f','✕'],['DOGE','Dogecoin',.15,.014,'#c2a633','Ð'],
+ ['PEPE','Pepe',.000012,.03,'#3b9b3b','🐸'],['SHIB','Shiba Inu',.000022,.025,'#e4442b','🐕'],
+ ['HMSTR','Hamster Kombat',.004,.04,'#e8a33d','🐹'],['NOT','Notcoin',.008,.035,'#444','🧱'],
+ ['БЛЯДО','БЛЯДО Coin',.69,.06,'#ff00aa','🔥']
+].map(a=>({s:a[0],n:a[1],p:a[2],b:a[2],v:a[3],c:a[4],g:a[5],h:Array(40).fill(a[2])}));
+const USD={s:'USD',n:'Доллары',p:1,c:'#2d8f4e',g:'$'};
+const MULTS=[1.5,2,3,5,10,25,100],$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const C=s=>COINS.find(c=>c.s===s),SRC=s=>s==='USD'?USD:C(s);
+let S={cash:500,hold:{}},sel='TON',mode='buy',busy=false,lock=null,res=null,wsig='',U={src:null,pct:50,tgt:'BTC',mult:2};
+try{const r=JSON.parse(localStorage.getItem('blyado_casino'));if(r&&typeof r.cash==='number')S=r}catch(e){}
+S.hold=S.hold||{};
+const save=()=>{try{localStorage.setItem('blyado_casino',JSON.stringify(S))}catch(e){}};
+const H=s=>S.hold[s]||0,getH=s=>s==='USD'?S.cash:H(s);
+const setH=(s,v)=>{if(s==='USD')S.cash=v;else S.hold[s]=v};
+if(S.pending){S.hold[S.pending.s]=H(S.pending.s)+S.pending.q;delete S.pending;save()} // выигрыш не пропадёт при обновлении страницы
+const usd=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const price=p=>p>=1?usd(p):p>=.01?'$'+p.toFixed(4):'$'+p.toFixed(8);
+const amt=q=>q>=1e6?(q/1e6).toFixed(2)+'M':q>=1e5?(q/1e3).toFixed(1)+'K':q>=1000?Math.round(q).toLocaleString('en-US'):q>=1?q.toFixed(2):q.toFixed(6);
+const worth=()=>S.cash+COINS.reduce((t,c)=>t+H(c.s)*c.p,0);
+const badge=c=>`<i class="bd" style="--c:${c.c}">${c.g}</i>`;
+const holdings=()=>COINS.filter(c=>H(c.s)*c.p>=.01);
+function news(m){const n=$('#news');n.textContent=m;n.classList.remove('flash');void n.offsetWidth;n.classList.add('flash')}
+function floatText(t,cls){const e=document.createElement('div');e.className='fl '+cls;e.textContent=t;document.body.appendChild(e);e.addEventListener('animationend',()=>e.remove())}
 
-  <!-- FAQ -->
-  <section class="section" style="background:#0a0a0a;">
-    <div class="container">
-      <h2 style="text-align:center; font-size:2.8rem; margin-bottom:3rem;">Часто задаваемые вопросы</h2>
-      <div style="max-width:700px; margin:0 auto;">
-        <details style="margin:1.2rem 0; background:rgba(26,26,26,0.6); padding:1.5rem; border-radius:16px; border:1px solid #333;">
-          <summary style="font-weight:600; cursor:pointer;">Для новичков ли курс?</summary>
-          <p style="margin-top:1rem; opacity:0.9;">Да. Начинаем с нуля: от установки кошелька до первых прибыльных сделок.</p>
-        </details>
-        <details style="margin:1.2rem 0; background:rgba(26,26,26,0.6); padding:1.5rem; border-radius:16px; border:1px solid #333;">
-          <summary style="font-weight:600; cursor:pointer;">Сколько времени нужно уделять?</summary>
-          <p style="margin-top:1rem; opacity:0.9;">От 30 минут в день. Есть ускоренный и комфортный формат.</p>
-        </details>
-        <details style="margin:1.2rem 0; background:rgba(26,26,26,0.6); padding:1.5rem; border-radius:16px; border:1px solid #333;">
-          <summary style="font-weight:600; cursor:pointer;">Есть ли поддержка после покупки?</summary>
-          <p style="margin-top:1rem; opacity:0.9;">Пожизненный доступ к обновлениям + чат с поддержкой.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="section" style="text-align:center; background:linear-gradient(135deg, #1a0033, #0a0a0a);">
-    <div class="container">
-      <h2 style="font-size:3rem; margin-bottom:1.5rem;">Готов изменить свою финансовую жизнь?</h2>
-      <a href="https://t.me/FredLegends" target="_blank" class="btn" style="font-size:1.4rem; padding:1.3em 3em;">
-        <i class="fas fa-bolt"></i> Забрать курс со скидкой
-      </a>
-      <p style="margin-top:2rem; opacity:0.7;">Осталось мест: <strong>47 из 100</strong></p>
-    </div>
-  </section>
-
-  <footer style="text-align:center; padding:3rem 20px; background:#000; font-size:0.9rem; color:#666;">
-    © 2026 FredLegends • Все права пока что не защищены<br>
-    <a href="https://t.me/ArbitrationCriptobt" style="color:var(--primary);">Поддержка</a>
-  </footer>
-  <button class="ai-launcher" id="aiLauncher" type="button" aria-label="Открыть ИИ помощника">
-    <span class="ai-launcher__icon"><i class="fas fa-robot"></i></span>
-    <span class="ai-launcher__text">
-      <span>ИИ помощник</span>
-      <small>Задать вопрос</small>
-    </span>
-  </button>
-  <div class="ai-launcher-note" id="aiLauncherNote">Открываю ассистента...</div>
-
-  <div class="ai-chat-panel" id="aiChatPanel" aria-hidden="true">
-    <div class="ai-chat-panel__bar">
-      <span>ИИ помощник</span>
-      <button class="ai-chat-panel__close" id="aiChatClose" type="button" aria-label="Закрыть чат">×</button>
-    </div>
-    <iframe
-      title="Looma AI Assistant"
-      src="https://widget.looma.chat/chat.html?token=92bf1bbb15cac08aff1513f5dc13a765"
-      loading="lazy"
-      allow="clipboard-write; microphone">
-    </iframe>
-  </div>
-
-
-  <!-- Profile Modal -->
-  <div class="modal" id="profileModal">
-    <h3 style="text-align:center; margin-bottom:2rem;">👤 Профиль</h3>
-    <div id="profileView"></div>
-    
-    <div style="margin:2rem 0;">
-      <input type="text" id="promoCode" placeholder="Промокод" style="width:100%; padding:1em; background:#222; border:none; border-radius:12px; color:#fff; margin-bottom:1rem;" />
-      <button onclick="applyPromo()" style="width:100%; padding:1em; background:var(--primary); color:#000; font-weight:700; border:none; border-radius:12px; cursor:pointer;">Активировать</button>
-      <div id="promoMsg" style="margin-top:1rem; min-height:24px; text-align:center;"></div>
-    </div>
-    
-    <button onclick="toggleProfile()" style="width:100%; padding:1em; background:#333; border:none; border-radius:12px; color:#fff; cursor:pointer;">Закрыть</button>
-  </div>
-
-  <script>
-    // Floating coins
-    function createFloatingCoins() {
-      const container = document.getElementById('floating');
-      for (let i = 0; i < 12; i++) {
-        const coin = document.createElement('div');
-        coin.className = 'coin';
-        coin.textContent = ['₿', '⟠', '♦', 'Ξ'][Math.floor(Math.random()*4)];
-        coin.style.left = Math.random() * 100 + 'vw';
-        coin.style.animationDuration = (20 + Math.random() * 30) + 's';
-        coin.style.animationDelay = '-' + Math.random() * 40 + 's';
-        container.appendChild(coin);
-      }
+/* ===== Рынок (обновляем элементы на месте, чтобы тапы не терялись) ===== */
+const pts=c=>{const mn=Math.min(...c.h),d=Math.max(...c.h)-mn||1;return c.h.map((v,i)=>`${(i/39*60).toFixed(1)},${(22-(v-mn)/d*20).toFixed(1)}`).join(' ')};
+function buildList(){
+  $('#list').innerHTML=COINS.map(c=>`<div class="row" data-s="${c.s}">${badge(c)}<div class="nm"><b>${c.s}</b><small>${c.n}</small></div><svg class="spark" viewBox="0 0 60 24"><polyline fill="none" stroke-width="1.6"/></svg><div class="pr"><b></b><small></small></div></div>`).join('');
+}
+function updList(){
+  const rows=$('#list').children;
+  COINS.forEach((c,i)=>{
+    const r=rows[i],ch=(c.p/c.h[0]-1)*100,up=ch>=0,pl=r.querySelector('polyline'),sm=r.querySelector('.pr small');
+    r.classList.toggle('on',sel===c.s);
+    pl.setAttribute('points',pts(c));pl.setAttribute('stroke',up?'#19e68c':'#ff4466');
+    const pb=r.querySelector('.pr b');pb.textContent=price(c.p);if(c.lp!==undefined&&c.lp!==c.p){pb.classList.remove('fu','fd');void pb.offsetWidth;pb.classList.add(c.p>c.lp?'fu':'fd')}c.lp=c.p;
+    sm.className=up?'g':'r';sm.textContent=`${up?'▲':'▼'} ${Math.abs(ch).toFixed(2)}%`;
+  });
+}
+function tick(){
+  COINS.forEach(c=>{c.p*=1+(Math.random()+Math.random()-1)*c.v;c.p+=(c.b-c.p)*.003;c.p=Math.max(c.p,c.b*.02)});
+  if(Math.random()<.05){
+    const c=COINS[Math.floor(Math.random()*COINS.length)];
+    if(c.s!=='USDT'){
+      const k=(Math.random()<.5?1:-1)*(.08+Math.random()*.15);c.p*=1+k;
+      news(k>0?`🚀 ${c.s} улетает на ${(k*100).toFixed(0)}%! Все кричат «я же говорил»`:`💀 ${c.s} падает на ${(-k*100).toFixed(0)}%. Это просто коррекция`);
     }
+  }
+  COINS.forEach(c=>{c.h.push(c.p);c.h.shift()});
+  if(!busy&&!cbusy&&worth()<1){ach('broke');if(!window.bw){window.bw=1;news('🏦 Ты банкрот. Вкладка «Кошелёк» → «Взять в долг»')}}else window.bw=0;
+  if(worth()>=1000)ach('rich');if(holdings().length>=6)ach('collector');
+  updList();updTrade();updHead();updInfo();updLB();updTape();
+  if($('#w').classList.contains('on'))renderW();
+}
+function updHead(){
+  const w=worth(),d=(w/500-1)*100;if(w>(S.best||0)+1){S.best=w;save()}
+  $('#nw').textContent=usd(w);
+  $('#pnl').innerHTML=`<span class="${d>=0?'g':'r'}">${d>=0?'+':''}${d.toFixed(1)}%</span> · нал ${usd(S.cash)}${lock?` · в игре ${usd(lock.st.val)}`:''}`;
+}
+function updTrade(){
+  const c=C(sel);
+  $('#tb').innerHTML=badge(c);$('#ts').textContent=c.s+' · '+c.n;$('#tp').textContent=price(c.p);
+  $('#thd').textContent='У тебя: '+amt(H(c.s))+' '+c.s;
+  const b=$('#do');b.textContent=(mode==='buy'?'Купить ':'Продать ')+c.s;b.className='go '+(mode==='sell'?'sell':'');
+  const v=Math.max(0,parseFloat($('#amt').value)||0);
+  $('#est small').textContent=v?`≈ ${amt(v/c.p)} ${c.s}`:'';
+}
+function trade(){
+  if(busy)return news('Подожди, апгрейд крутится 🎰');
+  const c=C(sel);let v=parseFloat($('#amt').value)||0;
+  if(mode==='buy'){
+    v=Math.min(v,S.cash);if(v<.01)return news('Нечего покупать, друг 🫠');
+    S.cash=v>=S.cash-.01?0:S.cash-v;S.hold[c.s]=H(c.s)+v/c.p;sBuy();ach('first');news(`🛒 Куплено ${amt(v/c.p)} ${c.s} за ${usd(v)}`);
+  }else{
+    const have=H(c.s)*c.p;v=Math.min(v,have);if(v<.01)return news('Продавать нечего 🫠');
+    S.hold[c.s]=v>=have-.01?0:H(c.s)-v/c.p;S.cash+=v;sSell();news(`💸 Продано ${c.s} на ${usd(v)}`);
+  }
+  $('#amt').value='';save();updTrade();updHead();renderU();
+}
+function renderW(){updLoan();
+  const hs=holdings(),sig=hs.map(c=>c.s).join();
+  if(sig!==wsig){
+    wsig=sig;
+    $('#wal').innerHTML=`<div class="row"><i class="bd" style="--c:#2d8f4e">$</i><div class="nm"><b>USD</b><small>наличные</small></div><div class="pr"><b id="wc"></b></div></div>`+
+      hs.map(c=>`<div class="row" data-up="${c.s}">${badge(c)}<div class="nm"><b>${c.s}</b><small class="wa"></small></div><div class="pr"><b class="wv"></b><small>тап → в апгрейд</small></div></div>`).join('')+
+      (hs.length?'':'<p style="padding:14px;opacity:.6">Крипты пока нет. Иди на рынок.</p>');
+  }
+  $('#wc').textContent=usd(S.cash);
+  $$('#wal [data-up]').forEach(r=>{const c=C(r.dataset.up);r.querySelector('.wa').textContent=amt(H(c.s));r.querySelector('.wv').textContent=usd(H(c.s)*c.p)});
+}
 
-    // Theme toggle
-    function toggleTheme() {
-      document.documentElement.style.setProperty('--primary', 
-        document.documentElement.style.getPropertyValue('--primary') === '#00f0ff' ? '#ff00aa' : '#00f0ff');
+/* ===== Апгрейд ===== */
+function renderU(){
+  const ss=(S.cash>=.01?[USD]:[]).concat(holdings());
+  if(!ss.find(c=>c.s===U.src))U.src=ss[0]?ss[0].s:null;
+  $('#us').innerHTML=ss.length?ss.map(c=>`<button class="ic ${U.src===c.s?'on':''}" data-src="${c.s}">${badge(c)}<b>${c.s}</b><small class="ia"></small><small class="iv"></small></button>`).join(''):'<small>Кошелёк пуст — иди на рынок</small>';
+  $('#ut').innerHTML=COINS.map(c=>`<button class="chip ${U.tgt===c.s?'on':''}" data-tgt="${c.s}">${badge(c)}<span>${c.s}<br><small class="ip"></small></span></button>`).join('');
+  $('#um').innerHTML=MULTS.map(m=>`<button class="chip ${U.mult===m?'on':''}" data-mult="${m}" style="padding:10px 16px">x${m}</button>`).join('');
+  markPq();updInfo();setCtr();
+}
+function markPq(){$$('#pq button').forEach(b=>b.classList.toggle('on',+b.dataset.pq===U.pct))}
+function stake(){
+  if(!U.src)return null;
+  const c=SRC(U.src),q=getH(U.src)*U.pct/100;return{c,q,val:q*c.p};
+}
+function updInfo(){
+  const ch=.95/U.mult,t=C(U.tgt),st=busy?lock.st:stake();
+  $('#arc').style.strokeDasharray=`${ch*552.9} 552.9`;
+  $('#ui small').innerHTML=st?`${busy?'🔒 В игре':'Ставка'}: <b>${amt(st.q)} ${st.c.s}</b> ≈ ${usd(st.val)}<br>Выигрыш: <b>${amt(st.val*U.mult/t.p)} ${t.s}</b> ≈ ${usd(st.val*U.mult)}`:'';
+  $$('#us .ic').forEach(b=>{const c=SRC(b.dataset.src);b.querySelector('.ia').textContent=amt(getH(c.s));b.querySelector('.iv').textContent=usd(getH(c.s)*c.p)});
+  $$('#ut .chip').forEach(b=>{b.querySelector('.ip').textContent=price(C(b.dataset.tgt).p)});
+  $('#spin').disabled=busy||!st||st.val<.01;
+}
+function setCtr(){
+  const ch=.95/U.mult*100;
+  $('#ctr').innerHTML=res?res.h:`<div>${ch.toFixed(ch<10?2:1)}%<small>шанс</small></div>`;
+  $('#dial').className='dial '+(busy?'run':res?res.cls:'');
+}
+function clearRes(){
+  if(!res)return;res=null;const nd=$('#nd');nd.style.transition='transform .5s';nd.style.transform='rotate(0deg)';
+}
+const pick=f=>{if(busy)return;clearRes();f();renderU()};
+function boom(g){
+  for(let i=0;i<60;i++){
+    const e=document.createElement('div');e.className='cf';e.textContent=g;
+    e.style.left=Math.random()*100+'vw';e.style.animationDuration=1.6+Math.random()*1.8+'s';e.style.animationDelay=Math.random()*.5+'s';
+    document.body.appendChild(e);e.addEventListener('animationend',()=>e.remove());
+  }
+}
+const fs=a=>a.length>10?'1.05rem':a.length>7?'1.4rem':'2rem';
+function spin(){
+  const st=stake();if(busy||!st||st.val<.01)return;
+  const t=C(U.tgt),ch=.95/U.mult,r=Math.random(),win=r<ch,prize=st.val*U.mult/t.p;
+  if(U.pct>=100)ach('allin');clearRes();busy=true;lock={st};
+  setH(st.c.s,U.pct>=100?0:getH(st.c.s)-st.q);       // ставка уходит сразу
+  S.pending=win?{s:t.s,q:prize}:null;save();
+  floatText('−'+usd(st.val),'r');updHead();renderU();
+  const nd=$('#nd');
+  nd.style.transition='none';nd.style.transform='rotate(0deg)';void nd.offsetWidth;
+  nd.style.transition='transform 4.4s cubic-bezier(.12,.7,.08,1)';
+  nd.style.transform=`rotate(${1800+r*360}deg)`;
+  $('#dial').scrollIntoView({behavior:'smooth',block:'center'});ac();ticker(()=>ang(nd),9,4600,true);
+  setTimeout(()=>{
+    busy=false;lock=null;delete S.pending;
+    if(win){
+      S.hold[t.s]=H(t.s)+prize;const a=amt(prize);
+      res={cls:'win',h:`<div class="g" style="font-size:${fs(a)}">+${a}<small>${t.s}</small></div>`};
+      boom(t.g);sWin();if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
+      news(`🎉 АПГРЕЙД! ${amt(st.q)} ${st.c.s} → ${a} ${t.s}`);
+    }else{
+      sLose();S.ls=(S.ls||0)+1;if(S.ls>=3)ach('loser');res={cls:'lose',h:`<div class="r" style="font-size:1.6rem">ПРОЛЁТ<small>−${usd(st.val)}</small></div>`};
+      news(`💀 ${amt(st.q)} ${st.c.s} сгорели. Казино благодарит.`);
     }
+    save();updHead();renderU();
+  },4600);
+}
 
-    // Profile system
-    let user = JSON.parse(localStorage.getItem('user')) || null;
+/* ===== События ===== */
+document.addEventListener('click',e=>{
+  ac();const q=s=>e.target.closest(s);let x;
+  if(x=q('[data-t]')){
+    $$('.bn button').forEach(b=>b.classList.toggle('on',b===x));
+    $$('.tab').forEach(t=>t.classList.toggle('on',t.id===x.dataset.t));
+    window.scrollTo(0,0);if(x.dataset.t==='w')renderW();if(x.dataset.t==='u')renderU();if(x.dataset.t==='c')updCases();if(x.dataset.t==='l')updLB();
+  }else if(x=q('.row[data-s]')){sel=x.dataset.s;updList();updTrade();window.scrollTo({top:0,behavior:'smooth'})}
+  else if(x=q('[data-up]')){if(!busy){clearRes();U.src=x.dataset.up}$('[data-t=u]').click()}
+  else if(x=q('[data-mode]')){mode=x.dataset.mode;$$('.seg button').forEach(b=>{b.className=b===x?'on '+mode:''});updTrade()}
+  else if(x=q('[data-q]')){
+    const f=+x.dataset.q,base=mode==='buy'?S.cash:H(sel)*C(sel).p;
+    $('#amt').value=f===1?base.toFixed(2):(Math.floor(base*f*100)/100).toString();updTrade();
+  }else if(q('#do'))trade();
+  else if(x=q('[data-src]'))pick(()=>U.src=x.dataset.src);
+  else if(x=q('[data-tgt]'))pick(()=>U.tgt=x.dataset.tgt);
+  else if(x=q('[data-mult]'))pick(()=>U.mult=+x.dataset.mult);
+  else if(x=q('[data-pq]'))pick(()=>{U.pct=+x.dataset.pq;$('#pct').value=U.pct});
+  else if(q('#spin'))spin();
+  else if(q('#rst')){
+    if(busy)return;
+    if(confirm('Всё обнулить и начать с $500?')){S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip};U.src=null;res=null;save();updHead();updTrade();renderW();renderU();news('♻️ Новая жизнь. Опять $500.')}
+  }
+});
+$('#amt').addEventListener('input',updTrade);
+$('#pct').addEventListener('input',e=>{if(busy)return;clearRes();U.pct=+e.target.value;markPq();updInfo();setCtr()});
+$('#pct').value=U.pct;
 
-    function toggleProfile() {
-      const modal = document.getElementById('profileModal');
-      modal.classList.toggle('open');
-      renderProfile();
+
+/* ===== Звук (синтез, без файлов) ===== */
+let AC=null,muted=false;try{muted=localStorage.getItem('blyado_mute')==='1'}catch(e){}
+function ac(){
+  if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}
+  if(AC&&AC.state==='suspended')AC.resume();return AC;
+}
+function tone(f,d,type,v,at,f2){
+  if(muted)return;const a=ac();if(!a)return;
+  const t=a.currentTime+(at||0),o=a.createOscillator(),g=a.createGain();
+  o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
+  g.gain.setValueAtTime(v||.15,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02);
+}
+const sTick=()=>tone(950,.035,'square',.05);
+const sBuy=()=>{tone(660,.08,'sine',.12);tone(990,.1,'sine',.12,.07)};
+const sSell=()=>{tone(990,.08,'sine',.12);tone(660,.1,'sine',.12,.07)};
+const sWin=()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.3,'triangle',.18,i*.09));
+const sLose=()=>{tone(320,.8,'sawtooth',.1,0,60);tone(160,.8,'square',.07,.1,45)};
+$('#snd').textContent=muted?'🔇':'🔊';
+$('#snd').addEventListener('click',()=>{
+  muted=!muted;try{localStorage.setItem('blyado_mute',muted?'1':'0')}catch(e){}
+  $('#snd').textContent=muted?'🔇':'🔊';if(!muted)sBuy();
+});
+const ang=el=>{const m=new DOMMatrix(getComputedStyle(el).transform);return Math.atan2(m.b,m.a)*180/Math.PI};
+const px=el=>-new DOMMatrix(getComputedStyle(el).transform).m41;
+function ticker(read,step,ms,wrap){      // щелчок каждый раз, когда стрелка/лента проходит очередную отметку
+  let prev=read(),acc=0,li=0,lt=0;const t0=performance.now();
+  (function f(){
+    const v=read();let d=v-prev;prev=v;if(wrap)d=((d+540)%360)-180;
+    acc+=d;const i=Math.floor(acc/step),n=performance.now();
+    if(i!==li&&n-lt>24){sTick();lt=n}li=i;
+    if(n-t0<ms)requestAnimationFrame(f);
+  })();
+}
+
+/* ===== Кейсы ===== */
+const CD=3*3600*1000;
+const TIERS=[['Обычный','#9aa4b2'],['Необычный','#4fc3ff'],['Редкий','#8a5bff'],['Эпик','#ff00aa'],['Легенда','#ffcc00']];
+const CASES={
+  free:{w:[55,28,12,4,1],r:[[5,15],[15,40],[40,120],[120,400],[400,1500]]},
+  paid:{price:150,w:[56,27,12,4.5,.5],r:[[15,75],[75,165],[165,330],[330,900],[1500,6000]]}
+};
+let cbusy=false;
+function roll(cs){
+  let x=Math.random()*cs.w.reduce((a,b)=>a+b),t=0;while(t<4&&(x-=cs.w[t])>=0)t++;
+  const a=cs.r[t][0],b=cs.r[t][1];
+  return{t:t,usd:Math.round((a+Math.random()*(b-a))*100)/100,c:COINS[Math.floor(Math.random()*COINS.length)]};
+}
+const citem=p=>`<div class="ci" style="--t:${TIERS[p.t][1]}">${badge(p.c)}<b>${usd(p.usd)}</b><small>${p.c.s}</small></div>`;
+const fmtT=ms=>{const s=Math.ceil(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h+':'+String(m).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+function updCases(){
+  const left=CD-(Date.now()-(S.caseAt||0)),ready=left<=0,b=$('#copen');
+  b.disabled=cbusy||!ready;b.textContent=ready?'🎁 ОТКРЫТЬ БЕСПЛАТНО':'⏳ Следующий через '+fmtT(left);
+  $('#copen2').disabled=cbusy||S.cash<CASES.paid.price;
+  $('[data-t=c]').classList.toggle('dot',ready&&!cbusy);$('#copen2').textContent='💎 Платный кейс · '+usd(CASES.paid.price);
+}
+function openCase(kind){
+  if(cbusy)return;const cs=CASES[kind];
+  if(kind==='free'){if(Date.now()-(S.caseAt||0)<CD)return;S.caseAt=Date.now()}
+  else{if(S.cash<cs.price)return news('Не хватает на кейс 🫠');S.cash-=cs.price;floatText('−'+usd(cs.price),'r')}
+  const p=roll(cs),q=p.usd/p.c.p;S.pendingC={s:p.c.s,q:q};save();cbusy=true;ac();
+  const items=Array.from({length:52},(_,i)=>i===44?p:roll(cs)),st=$('#strip'),sw=$('.sw');
+  $('#cres').innerHTML='';
+  st.style.transition='none';st.style.transform='translateX(0)';
+  st.innerHTML=items.map(citem).join('');void st.offsetWidth;
+  const x=8+44*98+45-sw.clientWidth/2+(Math.random()*60-30);
+  st.style.transition='transform 5s cubic-bezier(.08,.6,.12,1)';st.style.transform=`translateX(${-x}px)`;
+  ticker(()=>px(st),98,5200,false);updHead();updCases();
+  setTimeout(()=>{
+    delete S.pendingC;S.hold[p.c.s]=H(p.c.s)+q;cbusy=false;save();
+    st.children[44].classList.add('hit');if(p.t>=4)ach('king');
+    $('#cres').innerHTML=`<div style="text-align:center;margin-top:12px;font-weight:700;color:${TIERS[p.t][1]}">${TIERS[p.t][0]}: ${amt(q)} ${p.c.s} ≈ ${usd(p.usd)}</div>`;
+    if(p.t>=2)sWin();else sBuy();
+    if(p.t>=3){boom(p.c.g);setTimeout(sWin,500)}
+    news(p.t>=4?`👑 ЛЕГЕНДА!!! Кейс выдал ${usd(p.usd)} в ${p.c.s}`:`🎁 Из кейса: ${amt(q)} ${p.c.s} (${usd(p.usd)})`);
+    updHead();updCases();renderU();
+  },5300);
+}
+$('#copen').addEventListener('click',()=>openCase('free'));
+$('#copen2').addEventListener('click',()=>openCase('paid'));
+$('#clegend').innerHTML=['free','paid'].map(k=>{
+  const cs=CASES[k],tot=cs.w.reduce((a,b)=>a+b);
+  return `<h3>${k==='free'?'🎁 Бесплатный кейс':'💎 Платный кейс ('+usd(cs.price)+')'} — что выпадает</h3>`+cs.w.map((w,i)=>`<div class="row" style="cursor:default"><b style="color:${TIERS[i][1]};flex:1">${TIERS[i][0]}</b><small>$${cs.r[i][0]}–$${cs.r[i][1]}</small><small style="width:52px;text-align:right">${(w/tot*100).toFixed(1)}%</small></div>`).join('');
+}).join('');
+$('#strip').innerHTML=Array.from({length:12},()=>citem(roll(CASES.free))).join('');
+if(S.pendingC){S.hold[S.pendingC.s]=H(S.pendingC.s)+S.pendingC.q;delete S.pendingC;save()}
+
+/* ===== Топ ===== */
+const BOTS=[['Fred',12800],['xX_Hamster_Xx',5400],['CryptoVova',3100],['Анна К.',1450],['MaxTrade',820],['Жинка Макса',640],['Дима из Харькова',430],['Вася на плечах',260],['Satoshi (не он)',170],['Лёха all-in PEPE',95]].map(a=>({n:a[0],w:a[1]}));
+function updLB(){
+  BOTS.forEach(b=>b.w*=1+(Math.random()-.48)*.012);
+  if(!$('#l').classList.contains('on'))return;
+  const all=BOTS.concat([{n:'ТЫ',w:worth(),me:1}]).sort((a,b)=>b.w-a.w),medal=['🥇','🥈','🥉'];
+  $('#lb').innerHTML=`<h3>🏆 Топ дегенератов</h3><small>Твой рекорд капитала: ${usd(S.best||0)}</small><div style="margin-top:8px">`+
+    all.map((r,i)=>`<div class="row ${r.me?'on':''}" style="cursor:default"><b style="width:34px">${medal[i]||i+1}</b><div class="nm"><b>${r.n}</b></div><div class="pr"><b>${usd(r.w)}</b></div></div>`).join('')+'</div><h3 style="margin-top:18px">🏅 Достижения</h3><div class="ach">'+ACH.map(a=>`<div class="am ${S.ach&&S.ach[a[0]]?'on':''}"><i>${a[1]}</i>${a[2]}</div>`).join('')+'</div>';
+}
+updCases();setInterval(updCases,1000);
+
+/* ===== Долг, достижения, тикер, фон ===== */
+const LOAN=25,LMAX=3;
+function loanState(){const d=new Date().toDateString();if(!S.loan||S.loan.d!==d)S.loan={d:d,n:0};return S.loan}
+function updLoan(){
+  const l=loanState(),left=LMAX-l.n,ok=left>0&&S.cash<LOAN&&!busy;
+  $('#loanb').disabled=!ok;$('#loanb').textContent='🤝 Взять '+usd(LOAN)+' в долг';
+  $('#loani').textContent=`Сегодня осталось: ${left} из ${LMAX}. Доступно, когда налички меньше ${usd(LOAN)}.`;
+}
+$('#loanb').addEventListener('click',()=>{
+  const l=loanState();if(l.n>=LMAX||S.cash>=LOAN||busy)return;
+  l.n++;S.cash+=LOAN;save();sBuy();ach('loan');floatText('+'+usd(LOAN),'g');news(`🤝 Фред дал ${usd(LOAN)}. «Отдашь когда-нибудь»`);updHead();updLoan();
+});
+const ACH=[['first','🛒','Первая покупка'],['collector','🧺','6 разных монет'],['allin','🎯','Ва-банк: ставка 100%'],['x10','🚀','Выиграл апгрейд x10+'],['loser','🪦','3 слива подряд'],['rich','💰','Капитал $1000'],['broke','🏦','Стал банкротом'],['loan','🤝','Взял в долг'],['king','👑','Легенда из кейса']];
+function ach(id){
+  S.ach=S.ach||{};if(S.ach[id])return;S.ach[id]=1;save();
+  const a=ACH.find(x=>x[0]===id),e=document.createElement('div');
+  e.className='toast';e.textContent=a[1]+' Достижение: '+a[2];document.body.appendChild(e);
+  e.addEventListener('animationend',()=>e.remove());sWin();
+}
+const tapeHTML=COINS.map(c=>`<span class="ti">${c.g} <b>${c.s}</b> <em></em><u></u></span>`).join('');
+$('#tape').innerHTML=tapeHTML+tapeHTML;
+const tapeEls=$$('#tape .ti');
+function updTape(){
+  tapeEls.forEach((el,i)=>{
+    const c=COINS[i%COINS.length],ch=(c.p/c.h[0]-1)*100,u=el.querySelector('u');
+    el.querySelector('em').textContent=price(c.p);u.textContent=' '+(ch>=0?'▲':'▼')+Math.abs(ch).toFixed(1)+'%';u.className=ch>=0?'g':'r';
+  });
+}
+['₿','Ξ','◈','🐸','🔥','🐹','💎','🚀','🐕','◎'].forEach((g,i)=>{
+  const e=document.createElement('div');e.className='fc';e.textContent=g;
+  e.style.left=(i*10+Math.random()*6)+'vw';e.style.animationDelay='-'+Math.random()*32+'s';e.style.animationDuration=(26+Math.random()*20)+'s';
+  document.body.appendChild(e);
+});
+document.addEventListener('click',e=>{if(e.target.closest('[data-closetip]')){$('#tip').remove();S.tip=1;save()}});
+if(S.tip)$('#tip').remove();
+updTape();updLoan();
+
+buildList();updList();updTrade();updHead();renderU();
+setInterval(tick,1500);
+<\/script>
+</body>
+</html>
+</script>
+<script>
+(function(){
+  var ov=document.getElementById('casinoOverlay'),fr=document.getElementById('casinoFrame'),loaded=false;
+  window.openCasino=function(){
+    if(!loaded){
+      fr.srcdoc=document.getElementById('casinoSrc').textContent.replace(/<\\\/script/g,'</script');
+      loaded=true;
     }
-
-    function renderProfile() {
-      const view = document.getElementById('profileView');
-      if (user) {
-        view.innerHTML = `
-          <div style="text-align:center;">
-            <div onclick="changeAvatar()" style="width:90px;height:90px;margin:0 auto 1rem; border-radius:50%; background:url(${user.avatar}) center/cover; border:4px solid var(--primary); cursor:pointer;"></div>
-            <p><strong>${user.nick}</strong></p>
-            <input type="text" id="editNick" value="${user.nick}" style="width:100%; padding:0.8em; background:#222; border:none; border-radius:12px; margin:1rem 0; color:#fff;" />
-            <button onclick="saveNick()" style="width:100%; padding:0.9em; background:var(--primary); color:#000; font-weight:700; border:none; border-radius:12px; margin-bottom:0.8rem;">Сохранить ник</button>
-            <button onclick="logout()" style="width:100%; padding:0.9em; background:#333; border:none; border-radius:12px;">Выйти</button>
-          </div>
-        `;
-      } else {
-        view.innerHTML = `
-          <input type="text" id="regNick" placeholder="Никнейм" style="width:100%; padding:1em; background:#222; border:none; border-radius:12px; margin-bottom:0.8rem; color:#fff;" />
-          <input type="password" id="regPass" placeholder="Пароль" style="width:100%; padding:1em; background:#222; border:none; border-radius:12px; margin-bottom:0.8rem; color:#fff;" />
-          <button onclick="register()" style="width:100%; padding:1em; background:var(--primary); color:#000; font-weight:700; border:none; border-radius:12px; margin-bottom:1.5rem;">Зарегистрироваться</button>
-          
-          <div style="text-align:center; opacity:0.6; margin:1rem 0;">или</div>
-          
-          <input type="text" id="loginNick" placeholder="Никнейм" style="width:100%; padding:1em; background:#222; border:none; border-radius:12px; margin-bottom:0.8rem; color:#fff;" />
-          <input type="password" id="loginPass" placeholder="Пароль" style="width:100%; padding:1em; background:#222; border:none; border-radius:12px; margin-bottom:1rem; color:#fff;" />
-          <button onclick="login()" style="width:100%; padding:1em; background:#444; color:#fff; font-weight:700; border:none; border-radius:12px;">Войти</button>
-        `;
-      }
-    }
-
-    function register() {
-      const nick = document.getElementById('regNick').value.trim();
-      const pass = document.getElementById('regPass').value;
-      if (!nick || !pass) return alert('Заполните поля');
-      user = { nick, pass, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
-      localStorage.setItem('user', JSON.stringify(user));
-      alert('Регистрация успешна!');
-      renderProfile();
-    }
-
-    function login() {
-      const nick = document.getElementById('loginNick').value.trim();
-      const pass = document.getElementById('loginPass').value;
-      if (user && user.nick === nick && user.pass === pass) {
-        alert('Успешный вход!');
-        renderProfile();
-      } else {
-        alert('Неверные данные');
-      }
-    }
-
-    function saveNick() {
-      const newNick = document.getElementById('editNick').value.trim();
-      if (newNick) {
-        user.nick = newNick;
-        localStorage.setItem('user', JSON.stringify(user));
-        renderProfile();
-      }
-    }
-
-    function logout() {
-      if (confirm('Выйти?')) {
-        user = null;
-        localStorage.removeItem('user');
-        renderProfile();
-      }
-    }
-
-    function changeAvatar() {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-          user.avatar = reader.result;
-          localStorage.setItem('user', JSON.stringify(user));
-          renderProfile();
-        };
-        reader.readAsDataURL(file);
-      };
-      input.click();
-    }
-
-    function applyPromo() {
-      const code = document.getElementById('promoCode').value.trim().toLowerCase();
-      const priceEl = document.getElementById('price');
-      const msg = document.getElementById('promoMsg');
-      
-      if (code === 'courses' || code === 'blyado') {
-        priceEl.textContent = '165 грн';
-        msg.innerHTML = '<span style="color:#0f0;">✅ Скидка 70% применена! 🔥</span>';
-        confetti();
-      } else {
-        msg.innerHTML = '<span style="color:#ff4444;">❌ Неверный промокод</span>';
-      }
-    }
-
-    function confetti() {
-      // Simple confetti using canvas or DOM (using previous logic)
-      for (let i = 0; i < 80; i++) {
-        setTimeout(() => {
-          const c = document.createElement('div');
-          c.style.position = 'fixed';
-          c.style.left = Math.random() * 100 + 'vw';
-          c.style.top = '-20px';
-          c.style.fontSize = '20px';
-          c.style.zIndex = '9999';
-          c.textContent = ['💎','🚀','₿','📈'][Math.floor(Math.random()*4)];
-          document.body.appendChild(c);
-          
-          let y = -20;
-          const anim = setInterval(() => {
-            y += 12 + Math.random() * 8;
-            c.style.top = y + 'px';
-            c.style.transform = `rotate(${y*3}deg)`;
-            if (y > window.innerHeight) {
-              clearInterval(anim);
-              c.remove();
-            }
-          }, 20);
-        }, i * 12);
-      }
-    }
-
-    // Init
-    window.onload = () => {
-      createFloatingCoins();
-      renderProfile();
-      
-      // Fake urgency
-      setInterval(() => {
-        const count = document.querySelector('strong');
-        if (count) {
-          let num = parseInt(count.textContent);
-          if (num > 30) count.textContent = (num - 1) + ' из 100';
-        }
-      }, 45000);
-    };
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var launcher = document.getElementById('aiLauncher');
-      var note = document.getElementById('aiLauncherNote');
-      var panel = document.getElementById('aiChatPanel');
-      var close = document.getElementById('aiChatClose');
-      if (!launcher || !note || !panel || !close) return;
-
-      launcher.addEventListener('click', function() {
-        note.textContent = 'Открываю ассистента...';
-        note.classList.add('show');
-        panel.classList.add('open');
-        panel.setAttribute('aria-hidden', 'false');
-
-        clearTimeout(window.aiLauncherNoteTimer);
-        window.aiLauncherNoteTimer = setTimeout(function() {
-          note.classList.remove('show');
-        }, 2600);
-      });
-
-      close.addEventListener('click', function() {
-        panel.classList.remove('open');
-        panel.setAttribute('aria-hidden', 'true');
-      });
-
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-          panel.classList.remove('open');
-          panel.setAttribute('aria-hidden', 'true');
-        }
-      });
-    });
-  </script>
-
+    ov.classList.add('open');ov.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    if(location.hash!=='#casino')history.pushState(null,'','#casino');
+  };
+  window.closeCasino=function(){
+    ov.classList.remove('open');ov.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    if(location.hash==='#casino')history.pushState(null,'',location.pathname+location.search);
+  };
+  document.addEventListener('click',function(e){
+    if(e.target.closest('[data-casino]')){e.preventDefault();openCasino()}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.classList.contains('open'))closeCasino()});
+  window.addEventListener('popstate',function(){if(location.hash==='#casino')openCasino();else if(ov.classList.contains('open'))closeCasino()});
+  if(location.hash==='#casino')openCasino();
+})();
+</script>
 </body>
 </html>
