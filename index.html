@@ -420,6 +420,208 @@
   <!-- End Looma Widget Code -->
 </head>
 <body>
+  <style>
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 70px; }
+
+  /* ---------- светлая тема ---------- */
+  html[data-theme="light"] { --primary: #0077aa; --accent: #d6008f; }
+  html[data-theme="light"] body { background: linear-gradient(135deg, #f5f8fc, #efe6ff); color: #12121a; }
+  html[data-theme="light"] h1 { background: linear-gradient(90deg, #12121a, var(--primary)); -webkit-background-clip: text; }
+  html[data-theme="light"] .glow { text-shadow: none; }
+  html[data-theme="light"] .old-price { color: #8a93a3; }
+  html[data-theme="light"] .nav { background: rgba(255,255,255,0.92); border-bottom-color: rgba(0,119,170,0.2); }
+  html[data-theme="light"] .features { background: rgba(255,255,255,0.65); border-top-color: rgba(0,119,170,0.15); }
+  html[data-theme="light"] .testimonials { background: linear-gradient(135deg, #e9ddff, #f5f8fc); }
+  html[data-theme="light"] .card,
+  html[data-theme="light"] .chart-box { background: rgba(255,255,255,0.88); border-color: rgba(0,119,170,0.2); box-shadow: 0 10px 30px rgba(0,60,120,0.08); }
+  html[data-theme="light"] .testimonial { background: rgba(255,255,255,0.85); }
+  html[data-theme="light"] section details { background: rgba(255,255,255,0.9) !important; border-color: #d5dbe5 !important; }
+  html[data-theme="light"] section.section[style] { background: #eef2f8 !important; }
+  html[data-theme="light"] section.section[style*="1a0033"] { background: linear-gradient(135deg, #e9ddff, #f5f8fc) !important; }
+  html[data-theme="light"] footer { background: #e4e9f2 !important; color: #556 !important; }
+  html[data-theme="light"] .modal { background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,0.15); }
+  html[data-theme="light"] .modal input { background: #eef2f8 !important; color: #12121a !important; }
+
+  /* ---------- меню и якоря ---------- */
+  .nav-links { display: flex; gap: 26px; }
+  .nav-links a { color: inherit; text-decoration: none; font-weight: 600; opacity: 0.8; transition: opacity .2s, color .2s; }
+  .nav-links a:hover { opacity: 1; color: var(--primary); }
+  .burger { display: none; background: none; border: 0; color: inherit; font-size: 1.7rem; cursor: pointer; line-height: 1; }
+
+  @media (max-width: 760px) {
+    .logo { font-size: 1.2rem; }
+    .nav-content > div:last-child { gap: 12px !important; }
+    .nav .btn { padding: 0.5em 1em !important; font-size: 0.9rem !important; }
+    .burger { display: block; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 0;
+      background: rgba(10,10,10,0.97);
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease;
+    }
+    .nav-links.open { max-height: 320px; border-bottom: 1px solid rgba(0,240,255,0.15); }
+    .nav-links a { padding: 16px 24px; }
+    html[data-theme="light"] .nav-links { background: rgba(255,255,255,0.97); }
+  }
+
+  /* ---------- появление при скролле ---------- */
+  .reveal { opacity: 0; }
+  .reveal.in { animation: revealUp .7s ease both; animation-delay: var(--d, 0s); }
+  @keyframes revealUp {
+    from { opacity: 0; translate: 0 30px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+</style>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* ===== 9. Тема ===== */
+  var saved = 'dark';
+  try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+  root.setAttribute('data-theme', saved);
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    var b = document.querySelector('[onclick="toggleTheme()"]');
+    if (b) b.textContent = (t === 'light') ? '☀️' : '🌙';
+  }
+
+  window.toggleTheme = function () {
+    var t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem('theme', t); } catch (e) {}
+    applyTheme(t);
+  };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.getAttribute('data-theme'));
+
+    /* ===== 12. Якоря + мобильное меню ===== */
+    var faq = document.querySelector('details');
+    faq = faq && faq.closest('section');
+    var map = [
+      ['.chart-section', 'chart', 'График'],
+      ['.features', 'features', 'Что внутри'],
+      ['.testimonials', 'reviews', 'Отзывы']
+    ];
+    var html = '';
+    map.forEach(function (m) {
+      var el = document.querySelector(m[0]);
+      if (el) { el.id = m[1]; html += '<a href="#' + m[1] + '">' + m[2] + '</a>'; }
+    });
+    if (faq) { faq.id = 'faq'; html += '<a href="#faq">FAQ</a>'; }
+
+    var navContent = document.querySelector('.nav-content');
+    var right = navContent.lastElementChild;
+    var links = document.createElement('div');
+    links.className = 'nav-links';
+    links.innerHTML = html;
+    navContent.insertBefore(links, right);
+
+    var burger = document.createElement('button');
+    burger.className = 'burger';
+    burger.type = 'button';
+    burger.setAttribute('aria-label', 'Меню');
+    burger.textContent = '☰';
+    right.appendChild(burger);
+
+    function closeMenu() { links.classList.remove('open'); burger.textContent = '☰'; }
+    burger.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      burger.textContent = open ? '✕' : '☰';
+    });
+    links.addEventListener('click', function (e) { if (e.target.tagName === 'A') closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+    /* ===== 10. Счётчик мест (теперь именно «47 из 100») ===== */
+    var seats = Array.prototype.filter.call(document.querySelectorAll('strong'), function (s) {
+      return /из 100/.test(s.textContent);
+    })[0];
+    if (seats) {
+      var n = 47;
+      setInterval(function () {
+        if (n > 30) { n--; seats.textContent = n + ' из 100'; }
+      }, 45000);
+    }
+
+    /* ===== 11. Анимация при скролле ===== */
+    var items = document.querySelectorAll('.card, .testimonial, .chart-box, details, .section h2, .chart-title');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if ('IntersectionObserver' in window && !reduce) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(function (el, i) {
+        el.classList.add('reveal');
+        el.style.setProperty('--d', (i % 3) * 0.12 + 's');
+        io.observe(el);
+      });
+    }
+  });
+
+  /* ===== 14. Пароли: соль + PBKDF2 вместо открытого текста ===== */
+  function hex(a) {
+    return Array.prototype.map.call(a, function (x) { return x.toString(16).padStart(2, '0'); }).join('');
+  }
+
+  function hashPass(pass, salt) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits'])
+      .then(function (key) {
+        return crypto.subtle.deriveBits(
+          { name: 'PBKDF2', salt: enc.encode(salt), iterations: 100000, hash: 'SHA-256' }, key, 256);
+      })
+      .then(function (bits) { return hex(new Uint8Array(bits)); });
+  }
+
+  function hasCrypto() { return window.crypto && crypto.subtle; }
+
+  window.register = function () {
+    var nick = document.getElementById('regNick').value.trim();
+    var pass = document.getElementById('regPass').value;
+    if (!nick || !pass) return alert('Заполните поля');
+    if (!hasCrypto()) return alert('Для регистрации нужен HTTPS');
+    var salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+    hashPass(pass, salt).then(function (h) {
+      user = { nick: nick, salt: salt, hash: h, avatar: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' };
+      localStorage.setItem('user', JSON.stringify(user));
+      alert('Регистрация успешна!');
+      renderProfile();
+    });
+  };
+
+  window.login = function () {
+    var nick = document.getElementById('loginNick').value.trim();
+    var pass = document.getElementById('loginPass').value;
+    if (!user || user.nick !== nick) return alert('Неверные данные');
+    if (!hasCrypto()) return alert('Для входа нужен HTTPS');
+
+    function ok() { alert('Успешный вход!'); renderProfile(); }
+
+    // старый формат (пароль открытым текстом): проверяем и сразу переводим на хеш
+    if (user.pass !== undefined) {
+      if (user.pass !== pass) return alert('Неверные данные');
+      var salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+      return hashPass(pass, salt).then(function (h) {
+        delete user.pass;
+        user.salt = salt;
+        user.hash = h;
+        localStorage.setItem('user', JSON.stringify(user));
+        ok();
+      });
+    }
+
+    hashPass(pass, user.salt).then(function (h) {
+      if (h === user.hash) ok(); else alert('Неверные данные');
+    });
+  };
+})();
+</script>
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-content">
