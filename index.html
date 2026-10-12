@@ -483,8 +483,12 @@ document.addEventListener('DOMContentLoaded',function(){
 .casino-overlay.open{display:block;animation:cin .35s ease}
 .casino-overlay iframe{width:100%;height:100%;border:0;display:block}
 @keyframes cin{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+.casino-note{position:absolute;left:12px;right:12px;bottom:86px;max-width:520px;margin:0 auto;padding:12px 14px;border-radius:16px;background:rgba(20,20,20,.96);border:1px solid rgba(0,240,255,.3);color:#fff;font:500 .82rem/1.4 Inter,Arial,sans-serif;display:flex;gap:12px;align-items:center;box-shadow:0 16px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .3s,transform .3s}
+.casino-note.show{opacity:1;pointer-events:auto;transform:none}
+.casino-note button{flex:none;padding:8px 14px;border:0;border-radius:9999px;background:var(--primary);color:#000;font-weight:700;cursor:pointer}
 </style>
-<div class="casino-overlay" id="casinoOverlay" aria-hidden="true"><iframe id="casinoFrame" title="БЛЯДО CASINO"></iframe></div>
+<div class="casino-overlay" id="casinoOverlay" aria-hidden="true"><iframe id="casinoFrame" title="БЛЯДО CASINO"></iframe>
+<div class="casino-note" id="casinoNote"><span>ℹ️ Это обычная игра. Все деньги в ней виртуальные и никак не связаны с реальными: ничего нельзя ввести, вывести или выиграть по-настоящему. 18+</span><button id="casinoNoteOk" type="button">Понятно</button></div></div>
 <script type="text/plain" id="casinoSrc"><!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -600,7 +604,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
 .tip button{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.6}
 .tab.on{animation:tabin .3s ease}@keyframes tabin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .bn button{font-size:.62rem}.bn button i{font-size:1.3rem}
-.god .arc{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00)}
 .god .back::after{content:' 👑'}
 .god .nw b{color:#ffd54a;text-shadow:0 0 14px rgba(255,204,0,.6)}
 body.god::before{background:radial-gradient(600px 420px at 88% 8%,rgba(255,204,0,.2),transparent),radial-gradient(520px 420px at 8% 92%,rgba(255,0,170,.12),transparent)}
@@ -806,7 +809,7 @@ function stake(){
   const c=SRC(U.src),q=getH(U.src)*U.pct/100;return{c,q,val:q*c.p};
 }
 function updInfo(){
-  const ch=S.god?1:.95/U.mult,t=C(U.tgt),st=busy?lock.st:stake();
+  const ch=.95/U.mult,t=C(U.tgt),st=busy?lock.st:stake();
   $('#arc').style.strokeDasharray=`${ch*552.9} 552.9`;
   $('#ui small').innerHTML=st?`${busy?'🔒 В игре':'Ставка'}: <b>${amt(st.q)} ${st.c.s}</b> ≈ ${usd(st.val)}<br>Выигрыш: <b>${amt(st.val*U.mult/t.p)} ${t.s}</b> ≈ ${usd(st.val*U.mult)}`:'';
   $$('#us .ic').forEach(b=>{const c=SRC(b.dataset.src);b.querySelector('.ia').textContent=amt(getH(c.s));b.querySelector('.iv').textContent=usd(getH(c.s)*c.p)});
@@ -814,8 +817,8 @@ function updInfo(){
   $('#spin').disabled=busy||!st||st.val<.01;
 }
 function setCtr(){
-  const ch=(S.god?1:.95/U.mult)*100;
-  $('#ctr').innerHTML=res?res.h:`<div>${ch.toFixed(ch<10?2:1)}%<small>${S.god?'👑 god mode':'шанс'}</small></div>`;
+  const ch=.95/U.mult*100;
+  $('#ctr').innerHTML=res?res.h:`<div>${ch.toFixed(ch<10?2:1)}%<small>шанс</small></div>`;
   $('#dial').className='dial '+(busy?'run':res?res.cls:'');
 }
 function clearRes(){
@@ -832,7 +835,7 @@ function boom(g){
 const fs=a=>a.length>10?'1.05rem':a.length>7?'1.4rem':'2rem';
 function spin(){
   const st=stake();if(busy||!st||st.val<.01)return;
-  const t=C(U.tgt),ch=S.god?1:.95/U.mult,r=Math.random(),win=r<ch,prize=st.val*U.mult/t.p;
+  const t=C(U.tgt),ch=.95/U.mult,r=S.god?Math.random()*ch:Math.random(),win=S.god||r<ch,prize=st.val*U.mult/t.p;
   if(U.pct>=100)ach('allin');clearRes();busy=true;lock={st};
   setH(st.c.s,U.pct>=100?0:getH(st.c.s)-st.q);       // ставка уходит сразу
   S.pending=win?{s:t.s,q:prize}:null;save();
@@ -1123,17 +1126,21 @@ applyGod();updDaily();updCr();
 <script>
 (function(){
   var ov=document.getElementById('casinoOverlay'),fr=document.getElementById('casinoFrame'),loaded=false;
+  var note=document.getElementById('casinoNote'),nt;
+  function hideNote(){note.classList.remove('show')}
+  function showNote(){note.classList.add('show');clearTimeout(nt);nt=setTimeout(hideNote,9000)}
+  document.getElementById('casinoNoteOk').addEventListener('click',hideNote);
   window.openCasino=function(){
     if(!loaded){
       fr.srcdoc=document.getElementById('casinoSrc').textContent.replace(/<\\\/script/g,'</script');
       loaded=true;
     }
-    ov.classList.add('open');ov.setAttribute('aria-hidden','false');
+    ov.classList.add('open');ov.setAttribute('aria-hidden','false');showNote();
     document.body.style.overflow='hidden';
     if(location.hash!=='#casino')history.pushState(null,'','#casino');
   };
   window.closeCasino=function(){
-    ov.classList.remove('open');ov.setAttribute('aria-hidden','true');
+    ov.classList.remove('open');ov.setAttribute('aria-hidden','true');hideNote();
     document.body.style.overflow='';
     if(location.hash==='#casino')history.pushState(null,'',location.pathname+location.search);
   };
