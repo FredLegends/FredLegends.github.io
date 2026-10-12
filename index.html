@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Курс «Блядо» PRO v2.5</title>
+<title>Курс «Блядо» PRO v2.6</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 <style>
@@ -25,7 +25,8 @@ h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,8vw,5.5rem);font-
 .btn:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 20px 40px rgba(0,240,255,.5)}
 .btn::after{content:'';position:absolute;top:-50%;left:-50%;width:40%;height:200%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-25deg);animation:shine 4s infinite}
 @keyframes shine{0%{transform:translateX(-150%) skewX(-25deg)}20%{transform:translateX(300%) skewX(-25deg)}}
-.btn-casino{background:linear-gradient(90deg,#ff00aa,#00f0ff);box-shadow:0 10px 30px rgba(255,0,170,.35)}
+.btn-casino{background:linear-gradient(90deg,#ff00aa,#00f0ff);box-shadow:0 10px 30px rgba(255,0,170,.35);animation:pc 2.6s ease-in-out infinite}
+@keyframes pc{50%{box-shadow:0 10px 46px rgba(255,0,170,.75)}}
 .section{padding:100px 20px}
 .features{background:rgba(10,10,10,.8);border-top:1px solid rgba(0,240,255,.1)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
@@ -156,7 +157,7 @@ h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,8vw,5.5rem);font-
   </div>
 </section>
 
-<footer style="text-align:center;padding:3rem 20px;background:#000;font-size:.9rem;color:#666;">
+<footer style="text-align:center;padding:3rem 20px;background:#000;font-size:.9rem;color:#8a93a3;">
   © 2026 Fred • Все права пока что не защищены | все находящееся на сайте fake<br>
   <a href="https://t.me/ArbitrationCriptobt" style="color:var(--primary);">Поддержка</a>
 </footer>
@@ -597,6 +598,24 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
 .tip ol{margin:8px 0 0 18px;font-size:.88rem;line-height:1.7;opacity:.9}
 .tip{position:relative;border-color:rgba(255,0,170,.4)}
 .tip button{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.2rem;cursor:pointer;opacity:.6}
+.tab.on{animation:tabin .3s ease}@keyframes tabin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bn button{font-size:.62rem}.bn button i{font-size:1.3rem}
+.god .arc{stroke:#ffcc00;filter:drop-shadow(0 0 6px #ffcc00)}
+.god .back::after{content:' 👑'}
+.god .nw b{color:#ffd54a;text-shadow:0 0 14px rgba(255,204,0,.6)}
+body.god::before{background:radial-gradient(600px 420px at 88% 8%,rgba(255,204,0,.2),transparent),radial-gradient(520px 420px at 8% 92%,rgba(255,0,170,.12),transparent)}
+.mdl{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);display:none;place-items:center;padding:20px}
+.mdl.open{display:grid}
+.mbox{background:#141414;border:1px solid var(--ln);border-radius:20px;padding:22px;width:min(320px,100%);text-align:center}
+.mbox input{width:100%;margin:14px 0;padding:14px;border:0;border-radius:12px;background:#222;color:#fff;font:700 1.4rem Inter,sans-serif;text-align:center;letter-spacing:.4em;outline:none}
+.mbtn{display:flex;gap:8px}.mbtn button{flex:1;padding:12px;border:0;border-radius:12px;font:700 1rem Inter,sans-serif;cursor:pointer;background:#333;color:#fff}
+#mok{background:linear-gradient(90deg,var(--p),#00aacc);color:#000}
+.cr{position:relative;height:150px;border-radius:14px;background:#111;margin-bottom:12px;overflow:hidden}
+.cr svg{position:absolute;inset:0;width:100%;height:100%}
+#crm{position:absolute;inset:0;display:grid;place-items:center;font:700 2.6rem 'Space Grotesk',sans-serif;text-shadow:0 0 20px currentColor}
+.cr.run #crm{color:var(--g)}.cr.cash #crm{color:var(--p)}.cr.boom #crm{color:var(--r);animation:shake .5s}
+.cr.run{box-shadow:inset 0 0 40px rgba(25,230,140,.18)}.cr.boom{box-shadow:inset 0 0 40px rgba(255,68,102,.3)}
+.chp{padding:3px 9px;border-radius:9999px;background:#111;font-size:.75rem;font-weight:700}.chp.hi{color:var(--g)}.chp.lo{color:var(--r)}
 </style>
 </head>
 <body>
@@ -623,6 +642,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
     <div class="panel" id="list"></div>
   </section>
   <section id="w" class="tab"><div class="panel" id="wal"></div>
+    <div class="panel" id="daily"><h3>🔥 Ежедневный бонус</h3><small id="dtxt"></small><button class="go" id="dbtn" style="margin-top:10px"></button></div>
     <div class="panel" id="loan"><h3>🏦 Фред даёт в долг</h3><small id="loani"></small><button class="go" id="loanb" style="margin-top:10px"></button></div></section>
   <section id="u" class="tab">
     <div class="panel">
@@ -639,6 +659,17 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
         <div class="needle" id="nd"></div><div class="ctr" id="ctr"></div>
       </div>
       <button class="go" id="spin">АПГРЕЙД</button>
+    </div>
+  </section>
+  <section id="x" class="tab">
+    <div class="panel">
+      <h3>🚀 Краш — забери выигрыш до взрыва</h3>
+      <div class="cr" id="cr"><svg viewBox="0 0 300 140" preserveAspectRatio="none"><polyline id="crl" fill="none" stroke="#00f0ff" stroke-width="3" stroke-linejoin="round"/></svg><div id="crm">1.00x</div></div>
+      <div class="inp"><span>$</span><input id="cbet" type="number" inputmode="decimal" min="0" placeholder="Ставка" value="10" /></div>
+      <div class="qs" id="cq"><button data-cb="5">$5</button><button data-cb="25">$25</button><button data-cb="100">$100</button><button data-cb="max">MAX</button></div>
+      <button class="go" id="cgo"></button>
+      <div id="chist" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center"></div>
+      <p style="text-align:center;margin-top:10px"><small>Множитель растёт, пока не рванёт. Успей нажать «Забрать».</small></p>
     </div>
   </section>
   <section id="c" class="tab">
@@ -658,9 +689,11 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
   <button data-t="m" class="on"><i>📈</i><span>Рынок</span></button>
   <button data-t="w"><i>👛</i><span>Кошелёк</span></button>
   <button data-t="u"><i>🎰</i><span>Апгрейд</span></button>
+  <button data-t="x"><i>🚀</i><span>Краш</span></button>
   <button data-t="c"><i>🎁</i><span>Кейсы</span></button>
   <button data-t="l"><i>🏆</i><span>Топ</span></button>
 </nav>
+<div class="mdl" id="mdl"><div class="mbox"><b>🔐 Введи код</b><input id="mcode" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="••••" /><div class="mbtn"><button id="mno">Отмена</button><button id="mok">ОК</button></div></div></div>
 
 <script>
 const COINS=[
@@ -716,7 +749,7 @@ function tick(){
     }
   }
   COINS.forEach(c=>{c.h.push(c.p);c.h.shift()});
-  if(!busy&&!cbusy&&worth()<1){ach('broke');if(!window.bw){window.bw=1;news('🏦 Ты банкрот. Вкладка «Кошелёк» → «Взять в долг»')}}else window.bw=0;
+  if(!busy&&!cbusy&&!K.on&&worth()<1){ach('broke');if(!window.bw){window.bw=1;news('🏦 Ты банкрот. Вкладка «Кошелёк» → «Взять в долг»')}}else window.bw=0;
   if(worth()>=1000)ach('rich');if(holdings().length>=6)ach('collector');
   updList();updTrade();updHead();updInfo();updLB();updTape();
   if($('#w').classList.contains('on'))renderW();
@@ -746,7 +779,7 @@ function trade(){
   }
   $('#amt').value='';save();updTrade();updHead();renderU();
 }
-function renderW(){updLoan();
+function renderW(){updLoan();updDaily();
   const hs=holdings(),sig=hs.map(c=>c.s).join();
   if(sig!==wsig){
     wsig=sig;
@@ -773,7 +806,7 @@ function stake(){
   const c=SRC(U.src),q=getH(U.src)*U.pct/100;return{c,q,val:q*c.p};
 }
 function updInfo(){
-  const ch=.95/U.mult,t=C(U.tgt),st=busy?lock.st:stake();
+  const ch=S.god?1:.95/U.mult,t=C(U.tgt),st=busy?lock.st:stake();
   $('#arc').style.strokeDasharray=`${ch*552.9} 552.9`;
   $('#ui small').innerHTML=st?`${busy?'🔒 В игре':'Ставка'}: <b>${amt(st.q)} ${st.c.s}</b> ≈ ${usd(st.val)}<br>Выигрыш: <b>${amt(st.val*U.mult/t.p)} ${t.s}</b> ≈ ${usd(st.val*U.mult)}`:'';
   $$('#us .ic').forEach(b=>{const c=SRC(b.dataset.src);b.querySelector('.ia').textContent=amt(getH(c.s));b.querySelector('.iv').textContent=usd(getH(c.s)*c.p)});
@@ -781,8 +814,8 @@ function updInfo(){
   $('#spin').disabled=busy||!st||st.val<.01;
 }
 function setCtr(){
-  const ch=.95/U.mult*100;
-  $('#ctr').innerHTML=res?res.h:`<div>${ch.toFixed(ch<10?2:1)}%<small>шанс</small></div>`;
+  const ch=(S.god?1:.95/U.mult)*100;
+  $('#ctr').innerHTML=res?res.h:`<div>${ch.toFixed(ch<10?2:1)}%<small>${S.god?'👑 god mode':'шанс'}</small></div>`;
   $('#dial').className='dial '+(busy?'run':res?res.cls:'');
 }
 function clearRes(){
@@ -799,7 +832,7 @@ function boom(g){
 const fs=a=>a.length>10?'1.05rem':a.length>7?'1.4rem':'2rem';
 function spin(){
   const st=stake();if(busy||!st||st.val<.01)return;
-  const t=C(U.tgt),ch=.95/U.mult,r=Math.random(),win=r<ch,prize=st.val*U.mult/t.p;
+  const t=C(U.tgt),ch=S.god?1:.95/U.mult,r=Math.random(),win=r<ch,prize=st.val*U.mult/t.p;
   if(U.pct>=100)ach('allin');clearRes();busy=true;lock={st};
   setH(st.c.s,U.pct>=100?0:getH(st.c.s)-st.q);       // ставка уходит сразу
   S.pending=win?{s:t.s,q:prize}:null;save();
@@ -814,10 +847,10 @@ function spin(){
     if(win){
       S.hold[t.s]=H(t.s)+prize;const a=amt(prize);
       res={cls:'win',h:`<div class="g" style="font-size:${fs(a)}">+${a}<small>${t.s}</small></div>`};
-      boom(t.g);sWin();if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
+      boom(t.g);sWin();vib([60,40,60]);if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
       news(`🎉 АПГРЕЙД! ${amt(st.q)} ${st.c.s} → ${a} ${t.s}`);
     }else{
-      sLose();S.ls=(S.ls||0)+1;if(S.ls>=3)ach('loser');res={cls:'lose',h:`<div class="r" style="font-size:1.6rem">ПРОЛЁТ<small>−${usd(st.val)}</small></div>`};
+      sLose();vib(250);S.ls=(S.ls||0)+1;if(S.ls>=3)ach('loser');res={cls:'lose',h:`<div class="r" style="font-size:1.6rem">ПРОЛЁТ<small>−${usd(st.val)}</small></div>`};
       news(`💀 ${amt(st.q)} ${st.c.s} сгорели. Казино благодарит.`);
     }
     save();updHead();renderU();
@@ -845,7 +878,7 @@ document.addEventListener('click',e=>{
   else if(q('#spin'))spin();
   else if(q('#rst')){
     if(busy)return;
-    if(confirm('Всё обнулить и начать с $500?')){S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip};U.src=null;res=null;save();updHead();updTrade();renderW();renderU();news('♻️ Новая жизнь. Опять $500.')}
+    if(confirm('Всё обнулить и начать с $500?')){S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip,god:S.god,daily:S.daily,crh:S.crh};U.src=null;res=null;save();updHead();updTrade();renderW();renderU();news('♻️ Новая жизнь. Опять $500.')}
   }
 });
 $('#amt').addEventListener('input',updTrade);
@@ -898,6 +931,7 @@ const CASES={
 let cbusy=false;
 function roll(cs){
   let x=Math.random()*cs.w.reduce((a,b)=>a+b),t=0;while(t<4&&(x-=cs.w[t])>=0)t++;
+  if(S.god&&t<2)t=2;
   const a=cs.r[t][0],b=cs.r[t][1];
   return{t:t,usd:Math.round((a+Math.random()*(b-a))*100)/100,c:COINS[Math.floor(Math.random()*COINS.length)]};
 }
@@ -963,7 +997,7 @@ $('#loanb').addEventListener('click',()=>{
   const l=loanState();if(l.n>=LMAX||S.cash>=LOAN||busy)return;
   l.n++;S.cash+=LOAN;save();sBuy();ach('loan');floatText('+'+usd(LOAN),'g');news(`🤝 Фред дал ${usd(LOAN)}. «Отдашь когда-нибудь»`);updHead();updLoan();
 });
-const ACH=[['first','🛒','Первая покупка'],['collector','🧺','6 разных монет'],['allin','🎯','Ва-банк: ставка 100%'],['x10','🚀','Выиграл апгрейд x10+'],['loser','🪦','3 слива подряд'],['rich','💰','Капитал $1000'],['broke','🏦','Стал банкротом'],['loan','🤝','Взял в долг'],['king','👑','Легенда из кейса']];
+const ACH=[['first','🛒','Первая покупка'],['collector','🧺','6 разных монет'],['allin','🎯','Ва-банк: ставка 100%'],['x10','🚀','Выиграл апгрейд x10+'],['loser','🪦','3 слива подряд'],['rich','💰','Капитал $1000'],['broke','🏦','Стал банкротом'],['loan','🤝','Взял в долг'],['king','👑','Легенда из кейса'],['secret','🕵️','Нашёл секретку'],['crash5','🚀','Забрал x5 в краше'],['streak3','🔥','3 дня подряд']];
 function ach(id){
   S.ach=S.ach||{};if(S.ach[id])return;S.ach[id]=1;save();
   const a=ACH.find(x=>x[0]===id),e=document.createElement('div');
@@ -988,8 +1022,100 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-closetip]')){$(
 if(S.tip)$('#tip').remove();
 updTape();updLoan();
 
+
+/* ===== Вибро, секретка, бонус, краш ===== */
+const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
+let taps=[];
+$('.foot').addEventListener('click',()=>{
+  const n=Date.now();taps=taps.filter(t=>n-t<900);taps.push(n);
+  if(taps.length>=3){taps=[];if(S.god){S.god=0;save();applyGod();news('🔓 God mode выключен')}else openMdl()}
+});
+function openMdl(){$('#mdl').classList.add('open');$('#mcode').value='';setTimeout(()=>$('#mcode').focus(),60)}
+function closeMdl(){$('#mdl').classList.remove('open')}
+function tryCode(){
+  if($('#mcode').value.trim()==='1111'){
+    closeMdl();S.god=1;save();applyGod();ach('secret');boom('👑');sWin();vib([80,40,80,40,160]);
+    news('👑 GOD MODE: в апгрейде проиграть невозможно, из кейсов падает от «Редкого»');
+  }else{
+    const b=$('.mbox');b.style.animation='none';void b.offsetWidth;b.style.animation='shake .5s';$('#mcode').value='';sLose();
+  }
+}
+$('#mok').addEventListener('click',tryCode);$('#mno').addEventListener('click',closeMdl);
+$('#mcode').addEventListener('keydown',e=>{if(e.key==='Enter')tryCode()});
+$('#mdl').addEventListener('click',e=>{if(e.target.id==='mdl')closeMdl()});
+function applyGod(){document.body.classList.toggle('god',!!S.god);renderU()}
+
+const dayKey=d=>d.toDateString();
+function dailyInfo(){
+  const D=S.daily||{d:'',n:0},can=D.d!==dayKey(new Date()),y=dayKey(new Date(Date.now()-864e5));
+  const n=can?(D.d===y?D.n+1:1):D.n;return{can:can,n:n,bonus:Math.min(10*n,100)};
+}
+function updDaily(){
+  const i=dailyInfo();$('#dbtn').disabled=!i.can;
+  $('#dbtn').textContent=i.can?'🎁 Забрать '+usd(i.bonus):'✅ Забрано. Завтра '+usd(Math.min(10*(i.n+1),100));
+  $('#dtxt').textContent='Серия: '+i.n+' дн. подряд. Каждый день на $10 больше, максимум $100.';
+  $('[data-t=w]').classList.toggle('dot',i.can);
+}
+$('#dbtn').addEventListener('click',()=>{
+  const i=dailyInfo();if(!i.can)return;
+  S.daily={d:dayKey(new Date()),n:i.n};S.cash+=i.bonus;save();sWin();vib([40,30,40]);
+  floatText('+'+usd(i.bonus),'g');news(`🔥 Серия ${i.n} дн. Бонус ${usd(i.bonus)}`);
+  if(i.n>=3)ach('streak3');updHead();updDaily();renderU();
+});
+
+let K={on:false,cashed:false,bet:0,cp:1,m:1};
+function crashPoint(){
+  let cp=Math.min(1000,Math.max(1,Math.floor(95/(1-Math.random()))/100));
+  return S.god?Math.max(cp,5):cp;
+}
+function updCr(){
+  const b=$('#cgo');
+  if(!K.on){b.disabled=false;b.textContent='🚀 ЗАПУСК'}
+  else if(K.cashed){b.disabled=true;b.textContent='✅ Забрал, ждём краш…'}
+  else{b.disabled=false;b.textContent='💰 ЗАБРАТЬ '+usd(K.bet*K.m)}
+  $('#chist').innerHTML=(S.crh||[]).slice(-12).reverse().map(x=>`<span class="chp ${x>=2?'hi':'lo'}">${x.toFixed(2)}x</span>`).join('');
+}
+function crStart(){
+  if(K.on)return;
+  const bet=Math.min(parseFloat($('#cbet').value)||0,S.cash);
+  if(bet<1)return news('Минимальная ставка $1 🫠');
+  S.cash=bet>=S.cash-.01?0:S.cash-bet;save();updHead();ac();
+  K={on:true,cashed:false,bet:bet,cp:crashPoint(),m:1,t0:performance.now(),lt:0,pts:[]};
+  $('#cr').className='cr run';floatText('−'+usd(bet),'r');crLoop();
+}
+function crLoop(){
+  if(!K.on)return;
+  const t=(performance.now()-K.t0)/1000,m=Math.min(Math.exp(.18*t),K.cp);
+  K.m=m;K.pts.push([t,m]);
+  const tm=Math.max(5,t*1.05),ym=Math.log(Math.max(2,m*1.15));
+  $('#crl').setAttribute('points',K.pts.map(p=>`${(p[0]/tm*300).toFixed(1)},${(135-Math.log(p[1])/ym*125).toFixed(1)}`).join(' '));
+  $('#crm').textContent=m.toFixed(2)+'x';
+  if(t-K.lt>.22){tone(220+Math.log(m)*260,.05,'square',.035);K.lt=t}
+  updCr();
+  if(m>=K.cp)return crEnd();
+  requestAnimationFrame(crLoop);
+}
+function crCash(){
+  if(!K.on||K.cashed)return;
+  K.cashed=true;const pay=K.bet*K.m;S.cash+=pay;save();sWin();vib([50,30,50]);
+  floatText('+'+usd(pay),'g');news(`💰 Забрал ${usd(pay)} на x${K.m.toFixed(2)}`);
+  if(K.m>=5)ach('crash5');$('#cr').className='cr cash';updHead();updCr();
+}
+function crEnd(){
+  K.on=false;(S.crh=S.crh||[]).push(K.cp);S.crh=S.crh.slice(-30);
+  if(!K.cashed){$('#cr').className='cr boom';sLose();vib(250);news(`💥 Краш на x${K.cp.toFixed(2)}. Ставка ${usd(K.bet)} сгорела`)}
+  else news(`📉 Краш случился на x${K.cp.toFixed(2)}. Ты успел!`);
+  save();updCr();updHead();
+}
+$('#cgo').addEventListener('click',()=>K.on?crCash():crStart());
+$('#cq').addEventListener('click',e=>{
+  const b=e.target.closest('[data-cb]');if(!b)return;
+  $('#cbet').value=b.dataset.cb==='max'?Math.floor(S.cash*100)/100:b.dataset.cb;
+});
+
 buildList();updList();updTrade();updHead();renderU();
 setInterval(tick,1500);
+applyGod();updDaily();updCr();
 <\/script>
 </body>
 </html>
