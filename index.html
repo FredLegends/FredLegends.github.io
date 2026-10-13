@@ -605,6 +605,24 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
 .lv{max-width:720px;margin:8px auto 0;padding:0 16px;display:flex;align-items:center;gap:10px;font-size:.8rem}
 .lv b{white-space:nowrap}.xb{flex:1;height:8px;border-radius:9px;background:#222;overflow:hidden}
 .xb i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p),var(--a));transition:width .5s}
+.wc{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;animation:wcin .45s ease}
+.wc button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 8px;border-radius:16px;border:1px solid var(--ln);background:rgba(255,255,255,.04);color:#fff;font:700 .86rem Inter,sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.wc button small{font-weight:500;opacity:.7;font-size:.72rem}
+.wc button:hover{transform:translateY(-2px)}
+.wc .s{border-color:rgba(25,230,140,.55);box-shadow:inset 0 0 20px rgba(25,230,140,.14)}
+.wc .a{border-color:rgba(0,240,255,.55);box-shadow:inset 0 0 20px rgba(0,240,255,.14)}
+@keyframes wcin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#mk{margin-bottom:12px}#mk button.on{background:linear-gradient(90deg,var(--p),#00aacc);color:#000}
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.itm{position:relative;padding:14px 10px 10px;border-radius:18px;background:#111;border:1px solid var(--t);box-shadow:inset 0 0 26px color-mix(in srgb,var(--t) 16%,transparent);display:flex;flex-direction:column;gap:4px;text-align:center}
+.itm .em{font-size:2.3rem;filter:drop-shadow(0 0 10px var(--t))}
+.itm b{font-size:.86rem}.itm .pf{font-size:.7rem;opacity:.75;min-height:2.3em}.itm .pp{font-weight:700;font-size:.9rem}
+.itm .rt{font-size:.66rem;font-weight:700;color:var(--t);letter-spacing:.05em;text-transform:uppercase}
+.itm button{padding:9px;border-radius:12px;border:0;font:700 .8rem Inter,sans-serif;cursor:pointer;background:var(--t);color:#000;margin-top:4px}
+.itm button.sl{background:#222;color:#fff;border:1px solid var(--ln)}
+.itm button:disabled{opacity:.4;cursor:not-allowed}
+.itm.own{box-shadow:0 0 22px color-mix(in srgb,var(--t) 40%,transparent),inset 0 0 26px color-mix(in srgb,var(--t) 16%,transparent)}
+.itm .tag{position:absolute;top:7px;font-size:.66rem;font-weight:700}.itm .tag.l{left:9px;color:#ff8a00}.itm .tag.r2{right:9px;color:var(--g)}
 .ra{display:flex;flex-direction:column;gap:4px}
 .ra button{padding:5px 9px;border:1px solid var(--ln);border-radius:9999px;background:#111;color:#fff;font:600 .68rem Inter,sans-serif;cursor:pointer;white-space:nowrap}
 .ra button:first-child{border-color:rgba(25,230,140,.5)}
@@ -640,6 +658,8 @@ body.god::before{background:radial-gradient(600px 420px at 88% 8%,rgba(255,204,0
 
 <main>
   <section id="m" class="tab on">
+    <div class="seg" id="mk"><button data-mk="c" class="on">📈 Крипта</button><button data-mk="i">🎒 Предметы</button></div>
+    <div id="cm">
     <div class="panel tip" id="tip"><button data-closetip>✕</button><b>Как играть за 10 секунд</b>
       <ol><li>📈 <b>Рынок</b>: купи любую крипту за свои $500</li><li>🎰 <b>Апгрейд</b>: ставь монеты и умножай ×2 … ×100</li><li>🎁 <b>Кейсы</b>: бесплатный раз в 3 часа</li><li>💎 <b>Кошелёк</b>: стейкинг, бонус и задания каждый день</li><li>🏆 <b>Топ</b>: боты, достижения и перерождение</li></ol></div>
     <div class="panel">
@@ -652,6 +672,11 @@ body.god::before{background:radial-gradient(600px 420px at 88% 8%,rgba(255,204,0
       <button class="ghost" id="toup">⚡ Апгрейд этой монеты →</button>
     </div>
     <div class="panel" id="list"></div>
+    </div>
+    <div id="im" style="display:none">
+      <div class="panel"><h3>🛍 Лавка предметов</h3><small>Это черновик, ассортимент и фишки будем расширять. Каждый предмет даёт постоянный бонус, пока лежит у тебя.</small><div id="ihot" style="margin-top:10px"></div><div id="ibon" style="margin-top:6px"></div></div>
+      <div class="panel"><div class="ig" id="igrid"></div><small style="display:block;text-align:center;margin-top:10px">Продажа обратно в лавку: 80% от цены.</small></div>
+    </div>
   </section>
   <section id="w" class="tab"><div class="panel" id="wal"></div>
     <div class="panel" id="stkp"><h3>💎 Стейкинг</h3><small id="stkt"></small><button class="go" id="stkb" style="margin-top:10px"></button></div>
@@ -737,7 +762,7 @@ const amt=q=>q>=1e6?(q/1e6).toFixed(2)+'M':q>=1e5?(q/1e3).toFixed(1)+'K':q>=1000
 const worth=()=>S.cash+COINS.reduce((t,c)=>t+H(c.s)*c.p,0);
 const badge=c=>`<i class="bd" style="--c:${c.c}">${c.g}</i>`;
 const holdings=()=>COINS.filter(c=>H(c.s)*c.p>=.01);
-const PM=()=>1+.1*(S.pr||0);
+const PM=()=>1+.1*(S.pr||0)+perk('prize');
 function news(m){const n=$('#news');n.textContent=m;n.classList.remove('flash');void n.offsetWidth;n.classList.add('flash')}
 function floatText(t,cls){const e=document.createElement('div');e.className='fl '+cls;e.textContent=t;document.body.appendChild(e);e.addEventListener('animationend',()=>e.remove())}
 
@@ -768,7 +793,7 @@ function tick(){
   COINS.forEach(c=>{c.h.push(c.p);c.h.shift()});
   if(!busy&&!cbusy&&!K.on&&worth()<1){ach('broke');if(!window.bw){window.bw=1;news('🏦 Ты банкрот. Вкладка «Кошелёк» → «Взять в долг»')}}else window.bw=0;
   if(worth()>=1000)ach('rich');if(holdings().length>=6)ach('collector');
-  updList();updTrade();updHead();updInfo();updLB();updTape();
+  updList();updTrade();updHead();updInfo();updLB();updTape();updItems();
   if(stakeInfo().base<1)S.stk=Date.now();updWDot();
   if($('#w').classList.contains('on'))renderW();
 }
@@ -865,7 +890,7 @@ function spin(){
     if(win){
       S.hold[t.s]=H(t.s)+prize;const a=amt(prize);
       res={cls:'win',h:`<div class="g" style="font-size:${fs(a)}">+${a}<small>${t.s}</small></div>`};
-      boom(t.g);sWin();vib([60,40,60]);xp(15);$('#uact').innerHTML=`<button class="go" data-sell="${t.s}" style="flex:1;background:var(--g)">💸 Продать за ${usd(prize*t.p)}</button><button class="go" data-again="${t.s}" style="flex:1">🔁 Апнуть дальше</button>`;if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
+      boom(t.g);sWin();vib([60,40,60]);xp(15);$('#uact').innerHTML=`<div class="wc"><button class="s" data-sell="${t.s}"><span>💸 Продать</span><small>≈ ${usd(prize*t.p)}</small></button><button class="a" data-again="${t.s}"><span>🔁 Апнуть дальше</span><small>вся сумма</small></button></div>`;if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
       news(`🎉 АПГРЕЙД! ${amt(st.q)} ${st.c.s} → ${a} ${t.s}`);
     }else{
       sLose();vib(250);S.ls=(S.ls||0)+1;if(S.ls>=3)ach('loser');res={cls:'lose',h:`<div class="r" style="font-size:1.6rem">ПРОЛЁТ<small>−${usd(st.val)}</small></div>`};
@@ -883,6 +908,9 @@ document.addEventListener('click',e=>{
     $$('.tab').forEach(t=>t.classList.toggle('on',t.id===x.dataset.t));
     window.scrollTo(0,0);if(x.dataset.t==='w')renderW();if(x.dataset.t==='u')renderU();if(x.dataset.t==='c')updCases();if(x.dataset.t==='l')updLB();
   }else if(x=q('.row[data-s]')){sel=x.dataset.s;updList();updTrade();window.scrollTo({top:0,behavior:'smooth'})}
+  else if(x=q('[data-mk]')){$$('#mk button').forEach(b=>b.classList.toggle('on',b===x));$('#cm').style.display=x.dataset.mk==='c'?'':'none';$('#im').style.display=x.dataset.mk==='i'?'':'none';if(x.dataset.mk==='i')renderItems()}
+  else if(x=q('[data-ibuy]'))itemBuy(x.dataset.ibuy);
+  else if(x=q('[data-isell]'))itemSell(x.dataset.isell);
   else if(x=q('[data-sell]'))sellAll(x.dataset.sell);
   else if(x=q('[data-again]')){if(!busy){clearRes();U.src=x.dataset.again;U.pct=100;renderU()}}
   else if(x=q('[data-up]')){if(!busy){clearRes();U.src=x.dataset.up}$('[data-t=u]').click()}
@@ -1013,7 +1041,7 @@ $('#loanb').addEventListener('click',()=>{
   const l=loanState();if(l.n>=LMAX||S.cash>=LOAN||busy)return;
   l.n++;S.cash+=LOAN;save();sBuy();ach('loan');floatText('+'+usd(LOAN),'g');news(`🤝 Фред дал ${usd(LOAN)}. «Отдашь когда-нибудь»`);updHead();updLoan();
 });
-const ACH=[['first','🛒','Первая покупка'],['collector','🧺','6 разных монет'],['allin','🎯','Ва-банк: ставка 100%'],['x10','🚀','Выиграл апгрейд x10+'],['loser','🪦','3 слива подряд'],['rich','💰','Капитал $1000'],['broke','🏦','Стал банкротом'],['loan','🤝','Взял в долг'],['king','👑','Легенда из кейса'],['secret','🕵️','Нашёл секретку'],['crash5','🚀','Забрал x5 в краше'],['streak3','🔥','3 дня подряд'],['pres','⭐','Перерождение'],['lv5','🏅','Уровень 5']];
+const ACH=[['first','🛒','Первая покупка'],['collector','🧺','6 разных монет'],['allin','🎯','Ва-банк: ставка 100%'],['x10','🚀','Выиграл апгрейд x10+'],['loser','🪦','3 слива подряд'],['rich','💰','Капитал $1000'],['broke','🏦','Стал банкротом'],['loan','🤝','Взял в долг'],['king','👑','Легенда из кейса'],['secret','🕵️','Нашёл секретку'],['crash5','🚀','Забрал x5 в краше'],['streak3','🔥','3 дня подряд'],['pres','⭐','Перерождение'],['lv5','🏅','Уровень 5'],['coll','🎒','3 предмета в коллекции']];
 function ach(id){
   S.ach=S.ach||{};if(S.ach[id])return;S.ach[id]=1;save();
   const a=ACH.find(x=>x[0]===id),e=document.createElement('div');
@@ -1140,7 +1168,7 @@ function updLv(){
   $('#xbf').style.width=((x-a)/(b-a)*100)+'%';$('#lvx').textContent=`${Math.floor(x-a)}/${b-a} XP`;
 }
 function xp(n){
-  const l0=lvOf(S.xp);S.xp=(S.xp||0)+n;const l1=lvOf(S.xp);
+  n=Math.round(n*(1+perk('xp')));const l0=lvOf(S.xp);S.xp=(S.xp||0)+n;const l1=lvOf(S.xp);
   if(l1>l0){const r=Math.round(20*l1*PM());S.cash+=r;toast(`⬆️ Уровень ${l1}: ${TITLES[Math.min(l1-1,8)]}! +${usd(r)}`);sWin();boom('⭐');vib([60,40,60]);if(l1>=5)ach('lv5')}
   save();updLv();updHead();
 }
@@ -1158,7 +1186,7 @@ function updQ(){
 if(!S.stk)S.stk=Date.now();
 function stakeInfo(){
   const hrs=Math.min(12,Math.max(0,(Date.now()-S.stk)/36e5)),base=COINS.reduce((t,c)=>t+H(c.s)*c.p,0);
-  return{hrs:hrs,base:base,val:base*.004*hrs*PM()};
+  return{hrs:hrs,base:base,val:base*.004*hrs*PM()*(1+perk('stake'))};
 }
 function updStake(){
   const i=stakeInfo();
@@ -1189,12 +1217,68 @@ function updPr(){
 $('#prb').addEventListener('click',()=>{
   if(worth()<PRN||busy||K.on||cbusy)return;
   if(!confirm('Сбросить капитал до $500 и получить +10% ко всем призам навсегда?'))return;
-  S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip,god:S.god,daily:S.daily,crh:S.crh,xp:S.xp,pr:(S.pr||0)+1,q:S.q,stk:Date.now()};
+  S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip,god:S.god,daily:S.daily,crh:S.crh,xp:S.xp,pr:(S.pr||0)+1,q:S.q,items:S.items,stk:Date.now()};
   U.src=null;res=null;save();ach('pres');boom('⭐');sWin();vib([80,40,80]);toast('⭐ Перерождение! +10% ко всем призам навсегда');
   updHead();updTrade();updLv();renderW();renderU();updPr();
 });
 function welcome(){
   setTimeout(()=>{const i=stakeInfo();if(i.val>=1)toast('💎 Пока тебя не было, стейкинг накопил '+usd(i.val));else if(dailyInfo().can)toast('🔥 Ежедневный бонус ждёт в кошельке')},1200);
+}
+
+/* ===== Лавка предметов (черновик) ===== */
+var ITEMS=[
+ {id:'cap',n:'Счастливая кепка',e:'🧢',t:0,b:60,perk:'prize',v:.05,d:'+5% ко всем призам'},
+ {id:'glasses',n:'Очки трейдера',e:'🕶️',t:1,b:150,perk:'xp',v:.10,d:'+10% XP'},
+ {id:'clover',n:'Клевер удачи',e:'🍀',t:1,b:220,perk:'prize',v:.08,d:'+8% ко всем призам'},
+ {id:'rolex',n:'Часы Rolex',e:'⌚',t:2,b:600,perk:'stake',v:.25,d:'+25% к стейкингу'},
+ {id:'laptop',n:'Ноут с графиками',e:'💻',t:2,b:800,perk:'xp',v:.20,d:'+20% XP'},
+ {id:'lambo',n:'Ламба «на вырост»',e:'🏎️',t:3,b:2500,perk:'prize',v:.15,d:'+15% ко всем призам'},
+ {id:'yacht',n:'Яхта Fred',e:'🛥️',t:3,b:4000,perk:'stake',v:.50,d:'+50% к стейкингу'},
+ {id:'crown',n:'Корона Сатоши',e:'👑',t:4,b:12000,perk:'prize',v:.30,d:'+30% ко всем призам'}
+];
+ITEMS.forEach(i=>{i.p=i.b});
+function perk(t){
+  if(!ITEMS||!S.items)return 0;
+  return ITEMS.reduce((a,i)=>a+(S.items[i.id]&&i.perk===t?i.v:0),0);
+}
+function hotItem(){let h=0;for(const ch of new Date().toDateString())h=(h*31+ch.charCodeAt(0))>>>0;return ITEMS[h%ITEMS.length].id}
+const buyP=i=>i.p*(i.id===hotItem()?.8:1),sellP=i=>i.p*.8;
+function tickItems(){ITEMS.forEach(i=>{i.p=Math.max(i.b*.6,i.p*(1+(Math.random()-.5)*.02)+(i.b-i.p)*.02)})}
+function updBon(){
+  const f=t=>Math.round(perk(t)*100);
+  $('#ibon').innerHTML=`<small>Твои бонусы: <b class="g">+${f('prize')}% призы</b> · <b class="g">+${f('stake')}% стейкинг</b> · <b class="g">+${f('xp')}% XP</b></small>`;
+  const h=ITEMS.find(i=>i.id===hotItem());
+  $('#ihot').innerHTML=`<small style="color:#ff8a00">🔥 Горячий лот дня: <b>${h.e} ${h.n}</b>, скидка 20%</small>`;
+}
+function renderItems(){
+  S.items=S.items||{};
+  $('#igrid').innerHTML=ITEMS.map(i=>{
+    const own=!!S.items[i.id],hot=i.id===hotItem();
+    return `<div class="itm ${own?'own':''}" data-id="${i.id}" style="--t:${TIERS[i.t][1]}">${hot&&!own?'<span class="tag l">🔥 −20%</span>':''}${own?'<span class="tag r2">✅ у тебя</span>':''}<div class="em">${i.e}</div><span class="rt">${TIERS[i.t][0]}</span><b>${i.n}</b><span class="pf">${i.d}</span><span class="pp"></span>${own?`<button class="sl" data-isell="${i.id}">Продать</button>`:`<button data-ibuy="${i.id}">Купить</button>`}</div>`;
+  }).join('');
+  updBon();updItems();
+}
+function updItems(){
+  tickItems();
+  if(!$('#im')||$('#im').style.display==='none')return;
+  $$('#igrid .itm').forEach(c=>{
+    const i=ITEMS.find(x=>x.id===c.dataset.id),own=!!(S.items||{})[i.id];
+    c.querySelector('.pp').textContent=own?'Лавка даст '+usd(sellP(i)):usd(buyP(i));
+    const b=c.querySelector('button');if(!own)b.disabled=S.cash<buyP(i);
+  });
+}
+function itemBuy(id){
+  S.items=S.items||{};const i=ITEMS.find(x=>x.id===id);if(!i||S.items[id])return;
+  const c=buyP(i);if(S.cash<c)return news('Не хватает на '+i.n+' 🫠');
+  S.cash=S.cash-c<.01?0:S.cash-c;S.items[id]=1;save();sBuy();vib(40);
+  floatText('−'+usd(c),'r');toast(`${i.e} ${i.n}: ${i.d}`);
+  if(Object.keys(S.items).length>=3)ach('coll');
+  xp(10);updHead();renderItems();
+}
+function itemSell(id){
+  S.items=S.items||{};const i=ITEMS.find(x=>x.id===id);if(!i||!S.items[id])return;
+  const v=sellP(i);delete S.items[id];S.cash+=v;save();sSell();
+  floatText('+'+usd(v),'g');news(`💸 ${i.n} продан за ${usd(v)}`);updHead();renderItems();
 }
 
 buildList();updList();updTrade();updHead();renderU();
