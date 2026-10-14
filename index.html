@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded',function(){
 .casino-note.show{opacity:1;pointer-events:auto;transform:none}
 .casino-note button{flex:none;padding:8px 14px;border:0;border-radius:9999px;background:var(--primary);color:#000;font-weight:700;cursor:pointer}
 </style>
-<div class="casino-overlay" id="casinoOverlay" aria-hidden="true"><iframe id="casinoFrame" title="БЛЯДО CASINO"></iframe>
+<div class="casino-overlay" id="casinoOverlay" aria-hidden="true"><iframe id="casinoFrame" title="БЛЯДО CASINO" allow="clipboard-write"></iframe>
 <div class="casino-note" id="casinoNote"><span>ℹ️ Это обычная игра. Все деньги в ней виртуальные и никак не связаны с реальными: ничего нельзя ввести, вывести или выиграть по-настоящему. 18+</span><button id="casinoNoteOk" type="button">Понятно</button></div></div>
 <script type="text/plain" id="casinoSrc"><!DOCTYPE html>
 <html lang="ru">
@@ -605,6 +605,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-grad
 .lv{max-width:720px;margin:8px auto 0;padding:0 16px;display:flex;align-items:center;gap:10px;font-size:.8rem}
 .lv b{white-space:nowrap}.xb{flex:1;height:8px;border-radius:9px;background:#222;overflow:hidden}
 .xb i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p),var(--a));transition:width .5s}
+.stg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.stg b{display:block;font:700 1.15rem 'Space Grotesk',sans-serif}
 .wc{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;animation:wcin .45s ease}
 .wc button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 8px;border-radius:16px;border:1px solid var(--ln);background:rgba(255,255,255,.04);color:#fff;font:700 .86rem Inter,sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .wc button small{font-weight:500;opacity:.7;font-size:.72rem}
@@ -723,6 +724,8 @@ body.god::before{background:radial-gradient(600px 420px at 88% 8%,rgba(255,204,0
     <div class="panel" id="clegend"></div>
   </section>
   <section id="l" class="tab"><div class="panel" id="lb"></div>
+    <div class="panel" id="stp"></div>
+    <div class="panel"><h3>📦 Сохранение</h3><small>Прогресс хранится в этом браузере. Скопируй код, чтобы перенести его на другое устройство.</small><div class="qs" style="margin-top:10px"><button id="exp">📤 Копировать код</button><button id="imp">📥 Загрузить код</button></div></div>
     <div class="panel" id="prp"><h3>⭐ Перерождение</h3><small id="prt"></small><button class="go" id="prb" style="margin-top:10px"></button></div></section>
   <p class="foot">All money is virtual || Шанс в апгрейде = 95% / множитель (5% забирает казино).</p>
 </main>
@@ -781,7 +784,9 @@ function updList(){
     sm.className=up?'g':'r';sm.textContent=`${up?'▲':'▼'} ${Math.abs(ch).toFixed(2)}%`;
   });
 }
+function isLive(){try{return !document.hidden&&parent.document.getElementById('casinoOverlay').classList.contains('open')}catch(e){return true}}
 function tick(){
+  if(!isLive())return;
   COINS.forEach(c=>{c.p*=1+(Math.random()+Math.random()-1)*c.v;c.p+=(c.b-c.p)*.003;c.p=Math.max(c.p,c.b*.02)});
   if(Math.random()<.05){
     const c=COINS[Math.floor(Math.random()*COINS.length)];
@@ -793,12 +798,12 @@ function tick(){
   COINS.forEach(c=>{c.h.push(c.p);c.h.shift()});
   if(!busy&&!cbusy&&!K.on&&worth()<1){ach('broke');if(!window.bw){window.bw=1;news('🏦 Ты банкрот. Вкладка «Кошелёк» → «Взять в долг»')}}else window.bw=0;
   if(worth()>=1000)ach('rich');if(holdings().length>=6)ach('collector');
-  updList();updTrade();updHead();updInfo();updLB();updTape();updItems();
-  if(stakeInfo().base<1)S.stk=Date.now();updWDot();
+  updList();updTrade();updHead();updInfo();tickItems();updLB();updTape();updItems();
+  stakeTick();updWDot();
   if($('#w').classList.contains('on'))renderW();
 }
 function updHead(){
-  const w=worth(),d=(w/500-1)*100;if(w>(S.best||0)+1){S.best=w;save()}
+  const w=worth(),d=(w/500-1)*100;if(w>(S.best||0)+1){S.best=w;const n=Date.now();if(n-(window.lbs||0)>15000){window.lbs=n;save()}}
   $('#nw').textContent=usd(w);
   $('#pnl').innerHTML=`<span class="${d>=0?'g':'r'}">${d>=0?'+':''}${d.toFixed(1)}%</span> · нал ${usd(S.cash)}${lock?` · в игре ${usd(lock.st.val)}`:''}`;
 }
@@ -843,7 +848,7 @@ function renderU(){
   $('#um').innerHTML=MULTS.map(m=>`<button class="chip ${U.mult===m?'on':''}" data-mult="${m}" style="padding:10px 16px">x${m}</button>`).join('');
   markPq();updInfo();setCtr();
 }
-function markPq(){$$('#pq button').forEach(b=>b.classList.toggle('on',+b.dataset.pq===U.pct))}
+function markPq(){$('#pct').value=U.pct;$$('#pq button').forEach(b=>b.classList.toggle('on',+b.dataset.pq===U.pct))}
 function stake(){
   if(!U.src)return null;
   const c=SRC(U.src),q=getH(U.src)*U.pct/100;return{c,q,val:q*c.p};
@@ -888,7 +893,7 @@ function spin(){
   setTimeout(()=>{
     busy=false;lock=null;delete S.pending;
     if(win){
-      S.hold[t.s]=H(t.s)+prize;const a=amt(prize);
+      S.hold[t.s]=H(t.s)+prize;const a=amt(prize);S.stat=S.stat||{};S.stat.wins=(S.stat.wins||0)+1;
       res={cls:'win',h:`<div class="g" style="font-size:${fs(a)}">+${a}<small>${t.s}</small></div>`};
       boom(t.g);sWin();vib([60,40,60]);xp(15);$('#uact').innerHTML=`<div class="wc"><button class="s" data-sell="${t.s}"><span>💸 Продать</span><small>≈ ${usd(prize*t.p)}</small></button><button class="a" data-again="${t.s}"><span>🔁 Апнуть дальше</span><small>вся сумма</small></button></div>`;if(U.mult>=10)ach('x10');S.ls=0;floatText('+'+usd(prize*t.p),'g');
       news(`🎉 АПГРЕЙД! ${amt(st.q)} ${st.c.s} → ${a} ${t.s}`);
@@ -914,7 +919,7 @@ document.addEventListener('click',e=>{
   else if(x=q('[data-sell]'))sellAll(x.dataset.sell);
   else if(x=q('[data-again]')){if(!busy){clearRes();U.src=x.dataset.again;U.pct=100;renderU()}}
   else if(x=q('[data-up]')){if(!busy){clearRes();U.src=x.dataset.up}$('[data-t=u]').click()}
-  else if(x=q('[data-mode]')){mode=x.dataset.mode;$$('.seg button').forEach(b=>{b.className=b===x?'on '+mode:''});updTrade()}
+  else if(x=q('[data-mode]')){mode=x.dataset.mode;$$('[data-mode]').forEach(b=>{b.className=b===x?'on '+mode:''});updTrade()}
   else if(x=q('[data-q]')){
     const f=+x.dataset.q,base=mode==='buy'?S.cash:H(sel)*C(sel).p;
     $('#amt').value=f===1?base.toFixed(2):(Math.floor(base*f*100)/100).toString();updTrade();
@@ -1022,7 +1027,7 @@ if(S.pendingC){S.hold[S.pendingC.s]=H(S.pendingC.s)+S.pendingC.q;delete S.pendin
 const BOTS=[['Fred',12800],['xX_Hamster_Xx',5400],['CryptoVova',3100],['Анна К.',1450],['MaxTrade',820],['Жинка Макса',640],['Дима из Харькова',430],['Вася на плечах',260],['Satoshi (не он)',170],['Лёха all-in PEPE',95]].map(a=>({n:a[0],w:a[1]}));
 function updLB(){
   BOTS.forEach(b=>b.w*=1+(Math.random()-.48)*.012);
-  if(!$('#l').classList.contains('on'))return;updPr();
+  if(!$('#l').classList.contains('on'))return;updPr();updStat();
   const all=BOTS.concat([{n:'ТЫ',w:worth(),me:1}]).sort((a,b)=>b.w-a.w),medal=['🥇','🥈','🥉'];
   $('#lb').innerHTML=`<h3>🏆 Топ дегенератов</h3><small>Твой рекорд капитала: ${usd(S.best||0)}</small><div style="margin-top:8px">`+
     all.map((r,i)=>`<div class="row ${r.me?'on':''}" style="cursor:default"><b style="width:34px">${medal[i]||i+1}</b><div class="nm"><b>${r.n}</b></div><div class="pr"><b>${usd(r.w)}</b></div></div>`).join('')+'</div><h3 style="margin-top:18px">🏅 Достижения</h3><div class="ach">'+ACH.map(a=>`<div class="am ${S.ach&&S.ach[a[0]]?'on':''}"><i>${a[1]}</i>${a[2]}</div>`).join('')+'</div>';
@@ -1124,13 +1129,14 @@ function crStart(){
   const bet=Math.min(parseFloat($('#cbet').value)||0,S.cash);
   if(bet<1)return news('Минимальная ставка $1 🫠');
   S.cash=bet>=S.cash-.01?0:S.cash-bet;save();updHead();ac();
-  K={on:true,cashed:false,bet:bet,cp:crashPoint(),m:1,t0:performance.now(),lt:0,pts:[]};
+  K={on:true,cashed:false,bet:bet,cp:crashPoint(),m:1,t:0,last:performance.now(),lt:0,lp:-1,pts:[]};
   $('#cr').className='cr run';floatText('−'+usd(bet),'r');crLoop();qc('crash');xp(8);
 }
 function crLoop(){
   if(!K.on)return;
-  const t=(performance.now()-K.t0)/1000,m=Math.min(Math.exp(.18*t),K.cp);
-  K.m=m;K.pts.push([t,m]);
+  const now=performance.now();K.t+=Math.min((now-K.last)/1000,.1);K.last=now;
+  const t=K.t,m=Math.min(Math.exp(.18*t),K.cp);
+  K.m=m;if(t-K.lp>.05||m>=K.cp){K.pts.push([t,m]);K.lp=t}
   const tm=Math.max(5,t*1.05),ym=Math.log(Math.max(2,m*1.15));
   $('#crl').setAttribute('points',K.pts.map(p=>`${(p[0]/tm*300).toFixed(1)},${(135-Math.log(p[1])/ym*125).toFixed(1)}`).join(' '));
   $('#crm').textContent=m.toFixed(2)+'x';
@@ -1143,7 +1149,7 @@ function crCash(){
   if(!K.on||K.cashed)return;
   K.cashed=true;const pay=K.bet*K.m;S.cash+=pay;save();sWin();vib([50,30,50]);
   floatText('+'+usd(pay),'g');news(`💰 Забрал ${usd(pay)} на x${K.m.toFixed(2)}`);
-  if(K.m>=5)ach('crash5');xp(10);$('#cr').className='cr cash';updHead();updCr();
+  S.stat=S.stat||{};S.stat.bestX=Math.max(S.stat.bestX||0,K.m);if(K.m>=5)ach('crash5');xp(10);$('#cr').className='cr cash';updHead();updCr();
 }
 function crEnd(){
   K.on=false;(S.crh=S.crh||[]).push(K.cp);S.crh=S.crh.slice(-30);
@@ -1175,7 +1181,7 @@ function xp(n){
 const QS=[['spins',3,'Сделай 3 апгрейда',30,50],['cases',1,'Открой кейс',20,40],['crash',2,'Сыграй 2 раунда краша',25,40],['trades',5,'Сделай 5 сделок на рынке',15,30]];
 function qstate(){const d=new Date().toDateString();if(!S.q||S.q.d!==d)S.q={d:d,c:{},done:{}};return S.q}
 function qc(k){
-  const st=qstate();st.c[k]=(st.c[k]||0)+1;
+  const st=qstate();st.c[k]=(st.c[k]||0)+1;const ss=S.stat=S.stat||{};ss[k]=(ss[k]||0)+1;
   QS.forEach(q=>{if(q[0]===k&&st.c[k]>=q[1]&&!st.done[k]){st.done[k]=1;const r=Math.round(q[3]*PM());S.cash+=r;save();toast(`🎯 ${q[2]}: +${usd(r)}`);xp(q[4])}});
   save();updQ();
 }
@@ -1183,10 +1189,16 @@ function updQ(){
   const st=qstate();
   $('#ql').innerHTML=QS.map(q=>{const c=Math.min(st.c[q[0]]||0,q[1]);return `<div class="row" style="cursor:default"><span style="font-size:1.2rem">${st.done[q[0]]?'✅':'🎯'}</span><div class="nm"><b>${q[2]}</b><small>${c}/${q[1]} · ${usd(q[3]*PM())} + ${q[4]} XP</small></div></div>`}).join('');
 }
-if(!S.stk)S.stk=Date.now();
+if(!S.last)S.last=Date.now();
 function stakeInfo(){
-  const hrs=Math.min(12,Math.max(0,(Date.now()-S.stk)/36e5)),base=COINS.reduce((t,c)=>t+H(c.s)*c.p,0);
-  return{hrs:hrs,base:base,val:base*.004*hrs*PM()*(1+perk('stake'))};
+  return{hrs:S.accH||0,base:COINS.reduce((t,c)=>t+H(c.s)*c.p,0),val:S.acc||0};
+}
+function stakeTick(){            // начисляем по факту: доход зависит от того, что реально лежало в кошельке
+  const now=Date.now(),dt=Math.max(0,now-(S.last||now));S.last=now;
+  const base=COINS.reduce((t,c)=>t+H(c.s)*c.p,0),h=S.accH||0;
+  if(base<1||h>=12)return;
+  const dh=Math.min(dt/36e5,12-h);
+  S.acc=(S.acc||0)+base*.004*dh*PM()*(1+perk('stake'));S.accH=h+dh;
 }
 function updStake(){
   const i=stakeInfo();
@@ -1195,7 +1207,7 @@ function updStake(){
 }
 $('#stkb').addEventListener('click',()=>{
   const i=stakeInfo();if(i.val<.01)return;
-  S.cash+=i.val;S.stk=Date.now();save();sBuy();vib(40);floatText('+'+usd(i.val),'g');news(`💎 Стейкинг принёс ${usd(i.val)}`);xp(5);updHead();updStake();updWDot();
+  S.cash+=i.val;S.acc=0;S.accH=0;save();sBuy();vib(40);floatText('+'+usd(i.val),'g');news(`💎 Стейкинг принёс ${usd(i.val)}`);xp(5);updHead();updStake();updWDot();
 });
 function updWDot(){$('[data-t=w]').classList.toggle('dot',dailyInfo().can||stakeInfo().val>=1)}
 function sellAll(s){
@@ -1217,11 +1229,12 @@ function updPr(){
 $('#prb').addEventListener('click',()=>{
   if(worth()<PRN||busy||K.on||cbusy)return;
   if(!confirm('Сбросить капитал до $500 и получить +10% ко всем призам навсегда?'))return;
-  S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip,god:S.god,daily:S.daily,crh:S.crh,xp:S.xp,pr:(S.pr||0)+1,q:S.q,items:S.items,stk:Date.now()};
+  S={cash:500,hold:{},caseAt:S.caseAt,best:S.best,loan:S.loan,ach:S.ach,tip:S.tip,god:S.god,daily:S.daily,crh:S.crh,xp:S.xp,pr:(S.pr||0)+1,q:S.q,items:S.items,stat:S.stat,last:Date.now()};
   U.src=null;res=null;save();ach('pres');boom('⭐');sWin();vib([80,40,80]);toast('⭐ Перерождение! +10% ко всем призам навсегда');
   updHead();updTrade();updLv();renderW();renderU();updPr();
 });
 function welcome(){
+  stakeTick();
   setTimeout(()=>{const i=stakeInfo();if(i.val>=1)toast('💎 Пока тебя не было, стейкинг накопил '+usd(i.val));else if(dailyInfo().can)toast('🔥 Ежедневный бонус ждёт в кошельке')},1200);
 }
 
@@ -1259,7 +1272,6 @@ function renderItems(){
   updBon();updItems();
 }
 function updItems(){
-  tickItems();
   if(!$('#im')||$('#im').style.display==='none')return;
   $$('#igrid .itm').forEach(c=>{
     const i=ITEMS.find(x=>x.id===c.dataset.id),own=!!(S.items||{})[i.id];
@@ -1280,6 +1292,28 @@ function itemSell(id){
   const v=sellP(i);delete S.items[id];S.cash+=v;save();sSell();
   floatText('+'+usd(v),'g');news(`💸 ${i.n} продан за ${usd(v)}`);updHead();renderItems();
 }
+
+/* ===== Статистика, сохранение, автосейв ===== */
+function updStat(){
+  const t=S.stat||{},sp=t.spins||0,w=t.wins||0;
+  $('#stp').innerHTML=`<h3>📊 Твоя статистика</h3><div class="stg"><div><b>${sp}</b><small>апгрейдов</small></div><div><b>${sp?Math.round(w/sp*100):0}%</b><small>побед</small></div><div><b>${t.crash||0}</b><small>раундов краша</small></div><div><b>x${(t.bestX||0).toFixed(1)}</b><small>лучший краш</small></div><div><b>${t.trades||0}</b><small>сделок</small></div><div><b>${t.cases||0}</b><small>кейсов</small></div></div>`;
+}
+const b64e=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))),b64d=t=>JSON.parse(decodeURIComponent(escape(atob(t.trim()))));
+$('#exp').addEventListener('click',()=>{
+  S.last=Date.now();save();const code='BLYADO1:'+b64e(S);
+  (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(code):Promise.reject()).then(()=>toast('📤 Код скопирован'),()=>prompt('Скопируй код сохранения:',code));
+});
+$('#imp').addEventListener('click',()=>{
+  if(busy||K.on||cbusy)return news('Дождись конца раунда ⏳');
+  const t=prompt('Вставь код сохранения. Текущий прогресс будет заменён:');if(!t)return;
+  try{
+    const o=b64d(t.replace(/^BLYADO1:/,''));
+    if(!o||!Number.isFinite(o.cash)||o.cash<0||typeof o.hold!=='object')throw 0;
+    S=o;save();toast('📥 Загружено, перезапускаю…');setTimeout(()=>location.reload(),600);
+  }catch(e){news('❌ Неверный код сохранения')}
+});
+window.addEventListener('pagehide',()=>{S.last=Date.now();save()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){S.last=Date.now();save()}});
 
 buildList();updList();updTrade();updHead();renderU();
 setInterval(tick,1500);
